@@ -1,13 +1,13 @@
 <template>
   <UPageSection
     id="process"
-    :headline="headline"
-    :title="title"
-    :description="description"
+    :headline="props.headline"
+    :title="props.title"
+    :description="props.description"
   >
-    <ol class="relative grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+    <ol class="relative grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       <li
-        v-for="(step, i) in steps"
+        v-for="(step, i) in props.steps"
         :key="step.title"
         class="relative"
       >
@@ -16,14 +16,15 @@
             {{ i + 1 }}
           </span>
           <span
-            v-if="i < steps.length - 1"
+            v-if="i < props.steps.length - 1"
+            aria-hidden="true"
             class="hidden h-px flex-1 bg-neutral-200 lg:block lg:absolute lg:left-12 lg:top-6 lg:right-0 lg:-z-10"
           />
         </div>
         <div class="mt-4">
           <UIcon :name="step.icon" class="size-6 text-primary" />
-          <h3 class="mt-3 font-display font-bold text-lg text-neutral-900">{{ step.title }}</h3>
-          <p class="mt-1.5 text-neutral-600">{{ step.description }}</p>
+          <h4 class="mt-3">{{ step.title }}</h4>
+          <p class="mt-1.5 text-toned">{{ step.description }}</p>
         </div>
       </li>
     </ol>
@@ -31,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   headline?: string
   title?: string
   description?: string

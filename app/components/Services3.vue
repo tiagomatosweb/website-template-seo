@@ -1,71 +1,72 @@
 <template>
   <UPageSection
     id="services"
-    :headline="headline"
-    :title="title"
-    :ui="{ container: 'lg:py-24' }"
+    :headline="props.headline"
+    :title="props.title"
   >
     <UPageGrid class="lg:grid-cols-4">
-      <UPageCard
-        v-for="service in services"
+      <UCard
+        v-for="service in props.services"
         :key="service.title"
         :ui="{
-          root: 'h-full bg-white shadow-sm overflow-hidden',
-          container: 'h-full p-0 sm:p-0 gap-0',
-          body: 'flex flex-col flex-1 p-0',
+          root: 'lift h-full flex flex-col overflow-hidden',
+          // Local override: image header bleeds edge-to-edge (no padding, beats the
+          // global p-5 sm:p-6 card padding). Image is clipped by root overflow-hidden.
+          header: 'p-0 sm:p-0',
+          body: 'flex flex-1 flex-col',
         }"
       >
-        <div class="relative aspect-[4/3] w-full overflow-hidden bg-neutral-100">
-          <img
-            v-if="service.image"
-            :src="service.image"
-            :alt="service.title"
-            loading="lazy"
-            class="size-full object-cover"
-          >
-          <div v-else class="flex size-full items-center justify-center">
-            <UIcon name="i-fa6-solid-image" class="size-10 text-neutral-300" />
+        <template #header>
+          <div class="relative aspect-4/3 w-full overflow-hidden bg-neutral-100">
+            <img
+              v-if="service.image"
+              :src="service.image"
+              :alt="service.title"
+              loading="lazy"
+              class="size-full object-cover"
+            >
+            <div v-else class="flex size-full items-center justify-center">
+              <UIcon name="i-fa6-solid-image" class="size-10 text-dimmed" />
+            </div>
+            <span
+              v-if="service.badge"
+              class="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-neutral-900/80 px-3 py-1 font-display text-xs font-bold text-white backdrop-blur"
+            >
+              {{ service.badge }}
+            </span>
           </div>
-          <span
-            v-if="service.badge"
-            class="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-neutral-900/80 px-3 py-1 font-display text-xs font-bold text-white backdrop-blur"
-          >
-            {{ service.badge }}
-          </span>
+        </template>
+
+        <h4 class="uppercase tracking-wide">
+          {{ service.title }}
+        </h4>
+        <p
+          v-if="service.subtitle"
+          class="mt-2 text-sm italic"
+          :class="service.accent === 'cta' ? 'text-cta-600' : 'text-primary'"
+        >
+          {{ service.subtitle }}
+        </p>
+
+        <ul class="mt-4 space-y-2.5">
+          <li v-for="feature in service.features" :key="feature" class="flex items-center gap-2.5 text-sm text-toned">
+            <UIcon name="i-fa6-solid-check" class="size-3.5 shrink-0 text-primary" />
+            {{ feature }}
+          </li>
+        </ul>
+
+        <div class="mt-auto pt-6">
+          <UButton
+            :label="service.cta.label"
+            :color="service.accent === 'cta' ? 'cta' : 'primary'"
+            variant="outline"
+            block
+            trailing-icon="i-fa6-solid-arrow-right"
+            :to="service.cta.to"
+            class="justify-center"
+          />
         </div>
-
-        <div class="flex flex-1 flex-col p-4">
-          <h3 class="font-display font-extrabold uppercase tracking-wide text-neutral-900">
-            {{ service.title }}
-          </h3>
-          <p
-            v-if="service.subtitle"
-            class="mt-2 text-sm italic"
-            :class="service.accent === 'cta' ? 'text-cta-600' : 'text-primary'"
-          >
-            {{ service.subtitle }}
-          </p>
-
-          <ul class="mt-4 space-y-2.5">
-            <li v-for="feature in service.features" :key="feature" class="flex items-center gap-2.5 text-sm text-neutral-600">
-              <UIcon name="i-fa6-solid-check" class="size-3.5 shrink-0 text-primary" />
-              {{ feature }}
-            </li>
-          </ul>
-
-          <div class="mt-auto pt-6">
-            <UButton
-              :label="service.cta.label"
-              :color="service.accent === 'cta' ? 'cta' : 'primary'"
-              variant="outline"
-              block
-              trailing-icon="i-fa6-solid-arrow-right"
-              :to="service.cta.to"
-              class="justify-center"
-            />
-          </div>
-        </div>
-      </UPageCard>
+      </UCard>
     </UPageGrid>
   </UPageSection>
 </template>
@@ -81,7 +82,7 @@ interface ServiceItems {
   cta: { label: string, to: string }
 }
 
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   headline?: string
   title?: string
   services?: ServiceItems[]

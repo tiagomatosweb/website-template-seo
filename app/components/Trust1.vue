@@ -1,32 +1,35 @@
 <template>
-  <section class="border-y border-neutral-200 bg-neutral-50">
-    <UContainer>
-      <div class="flex flex-col items-center gap-6 py-8 lg:flex-row lg:justify-between lg:gap-8 lg:py-6">
-        <div class="inline-flex items-center gap-2">
-          <UIcon name="i-logos-google-icon" class="size-4 shrink-0" />
-          <span class="inline-flex items-center gap-1.5 leading-none">
-            <span class="inline-flex items-center text-cta-400" aria-hidden="true">
-              <UIcon v-for="i in 5" :key="i" name="i-fa6-solid-star" class="size-4 shrink-0" />
-            </span>
-            <span class="translate-y-px text-sm font-semibold tabular-nums text-neutral-700">{{ rating }}</span>
+  <UPageSection
+    :ui="{
+      root: 'border-y border-default bg-neutral-50',
+      container: 'py-8 lg:py-6',
+    }"
+  >
+    <div class="flex flex-col items-center gap-6 lg:flex-row lg:justify-between lg:gap-8">
+      <div class="inline-flex items-center gap-2">
+        <UIcon name="i-logos-google-icon" class="size-4 shrink-0" />
+        <span class="inline-flex items-center gap-1.5 leading-none">
+          <span class="inline-flex items-center text-cta-400" aria-hidden="true">
+            <UIcon v-for="i in 5" :key="i" name="i-fa6-solid-star" class="size-4 shrink-0" />
           </span>
-        </div>
-
-        <div class="h-px w-16 bg-neutral-200 lg:h-8 lg:w-px" />
-
-        <ul class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
-          <li v-for="item in items" :key="item.label" class="flex items-center gap-2.5">
-            <UIcon :name="item.icon" class="size-5 text-primary shrink-0" />
-            <span class="text-sm font-semibold text-neutral-700">{{ item.label }}</span>
-          </li>
-        </ul>
+          <span class="translate-y-px text-sm font-semibold tabular-nums text-default">{{ props.rating }}</span>
+        </span>
       </div>
-    </UContainer>
-  </section>
+
+      <div class="h-px w-16 bg-neutral-200 lg:h-8 lg:w-px" />
+
+      <ul class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+        <li v-for="item in props.items" :key="item.label" class="flex items-center gap-2.5">
+          <UIcon :name="item.icon" class="size-5 text-primary shrink-0" />
+          <span class="text-sm font-semibold text-default">{{ item.label }}</span>
+        </li>
+      </ul>
+    </div>
+  </UPageSection>
 </template>
 
 <script setup lang="ts">
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   rating?: string
   items?: { icon: string, label: string }[]
 }>(), {

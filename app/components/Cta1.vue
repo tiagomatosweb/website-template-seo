@@ -1,21 +1,21 @@
 <template>
   <UPageCTA
     variant="naked"
-    :title="title"
-    :description="description"
+    :title="props.title"
+    :description="props.description"
     :links="mergedLinks"
     :ui="{
       root: 'rounded-none isolate',
-      title: 'text-white text-3xl sm:text-4xl lg:text-5xl font-black',
+      title: 'text-white',
       description: 'text-white/80 max-w-2xl mx-auto',
     }"
   >
     <template #top>
       <div class="absolute inset-0 -z-10">
         <div
-          v-if="bgImage"
+          v-if="props.bgImage"
           class="absolute inset-0 bg-cover bg-center"
-          :style="{ backgroundImage: `url(${bgImage})` }"
+          :style="{ backgroundImage: `url(${props.bgImage})` }"
         />
         <div
           v-else
@@ -46,8 +46,10 @@ const props = withDefaults(defineProps<{
   secondaryCta: () => ({}),
 })
 
+const { site } = useAppConfig()
+
 const defaultPrimaryCta: ButtonProps = { label: 'Get a Free Quote', color: 'cta', size: 'xl', trailingIcon: 'i-fa6-solid-arrow-right', to: '#contact', class: 'w-full sm:w-auto justify-center' }
-const defaultSecondaryCta: ButtonProps = { label: 'Call Now', color: 'neutral', variant: 'outline', size: 'xl', icon: 'i-fa6-solid-phone', to: 'tel:0000000000', class: 'text-white ring-white/25 w-full sm:w-auto justify-center' }
+const defaultSecondaryCta: ButtonProps = { label: 'Call Now', color: 'neutral', variant: 'outline', size: 'xl', icon: 'i-fa6-solid-phone', to: site.phone.href, class: 'text-white ring-white/25 w-full sm:w-auto justify-center' }
 
 const mergedLinks = computed<ButtonProps[]>(() => [
   { ...defaultPrimaryCta, ...props.primaryCta },

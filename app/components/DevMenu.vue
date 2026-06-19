@@ -9,8 +9,12 @@ const items: DropdownMenuItem[][] = [
     { label: 'Hero components', icon: 'i-fa6-solid-star', to: '/dev/hero' },
     { label: 'Trust components', icon: 'i-fa6-solid-shield-halved', to: '/dev/trust' },
     { label: 'Services components', icon: 'i-fa6-solid-screwdriver-wrench', to: '/dev/services' },
+    { label: 'About components', icon: 'i-fa6-solid-circle-info', to: '/dev/about' },
     { label: 'Why components', icon: 'i-fa6-solid-circle-question', to: '/dev/why' },
     { label: 'Process components', icon: 'i-fa6-solid-list-ol', to: '/dev/process' },
+    { label: 'Areas components', icon: 'i-fa6-solid-map-location-dot', to: '/dev/areas' },
+    { label: 'Reviews components', icon: 'i-fa6-solid-star', to: '/dev/reviews' },
+    { label: 'FAQ components', icon: 'i-fa6-solid-comments', to: '/dev/faq' },
     { label: 'CTA components', icon: 'i-fa6-solid-bullhorn', to: '/dev/cta' },
   ],
   [

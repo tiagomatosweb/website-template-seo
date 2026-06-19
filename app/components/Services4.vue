@@ -1,81 +1,76 @@
 <template>
-  <section id="services" class="relative overflow-hidden py-16 lg:py-24">
-    <div aria-hidden="true" class="absolute inset-0">
+  <UPageSection
+    id="services"
+    class="relative overflow-hidden bg-neutral-50"
+  >
+    <div aria-hidden="true" class="absolute inset-0 -z-10">
       <div
         class="absolute inset-0 scale-105 bg-cover bg-center"
         :style="{ backgroundImage: `url(${resolvedBg})` }"
       />
-      <div class="absolute inset-0 bg-white/70" />
-      <div class="absolute inset-0 bg-linear-to-br from-white/85 via-white/55 to-primary-50/30" />
-      <div class="absolute inset-0 opacity-[0.35] mix-blend-multiply [background-image:url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E')]" />
+      <div class="absolute inset-0 bg-neutral-50/85" />
+      <div class="absolute inset-0 bg-linear-to-b from-neutral-50 via-neutral-50/70 to-primary-50/40" />
+      <div class="absolute inset-0 opacity-[0.04] mix-blend-multiply [background-image:url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E')]" />
     </div>
 
-    <UContainer class="relative">
-      <div class="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:grid-rows-2 lg:gap-5">
-        <div class="reveal flex flex-col justify-center py-4 sm:col-span-2 lg:col-span-1 lg:row-span-1 lg:py-0 lg:pr-6">
-          <p class="font-display text-xs font-bold uppercase tracking-[0.3em] text-primary">
-            {{ headline }}
-          </p>
-          <h2 class="mt-4 max-w-sm font-display text-4xl font-bold leading-[1.05] tracking-tight text-neutral-900 text-balance sm:text-[2.65rem]">
-            {{ title }}
-          </h2>
-          <div class="mt-8">
-            <UButton
-              :label="cta.label"
-              :to="cta.to"
-              color="primary"
-              size="lg"
-              class="uppercase tracking-[0.18em]"
-            />
-          </div>
+    <UPageGrid class="lg:grid-cols-3">
+      <!-- Intro block — no card, sits on the section background -->
+      <div class="flex flex-col justify-center p-2 sm:col-span-2 sm:p-0 lg:col-span-1 lg:pr-6">
+        <div :class="headlineClass">
+          {{ props.headline }}
         </div>
-
-        <NuxtLink
-          v-for="(service, i) in services"
-          :key="service.title"
-          :to="service.to ?? '#contact'"
-          class="reveal group/card block h-full"
-          :style="{ animationDelay: `${(i + 1) * 75}ms` }"
-        >
-          <UCard
-            :ui="{
-              root: 'h-full flex flex-col bg-white shadow-md ring-1 ring-neutral-900/5 transition-all duration-300 group-hover/card:-translate-y-0.5 group-hover/card:shadow-lg',
-              body: 'flex flex-1 flex-col p-7 sm:p-8',
-              footer: 'px-7 pb-7 pt-6 sm:px-8 sm:pb-8',
-            }"
-          >
-            <UIcon :name="service.icon" class="size-9 text-primary transition-transform duration-300 group-hover/card:scale-105" />
-            <h3 class="mt-6 font-display text-xl font-bold tracking-tight text-neutral-900">
-              {{ service.title }}
-            </h3>
-            <p class="mt-3 flex-1 text-[15px] leading-relaxed text-neutral-500">
-              {{ service.description }}
-            </p>
-
-            <template #footer>
-              <span class="group/link inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-[0.2em] text-neutral-800 transition-colors group-hover/card:text-primary">
-                <span class="relative pb-1">
-                  Learn more
-                  <span
-                    aria-hidden="true"
-                    class="absolute inset-x-0 bottom-0 h-px origin-left scale-x-[0.42] bg-neutral-300 transition-all duration-300 group-hover/card:scale-x-100 group-hover/card:bg-primary"
-                  />
-                </span>
-                <UIcon
-                  name="i-fa6-solid-arrow-right-long"
-                  class="size-3.5 shrink-0 text-neutral-400 transition-all duration-300 group-hover/card:translate-x-1 group-hover/card:text-primary"
-                />
-              </span>
-            </template>
-          </UCard>
-        </NuxtLink>
+        <h2 :class="titleClass">
+          {{ props.title }}
+        </h2>
+        <p v-if="props.description" class="mt-3">
+          {{ props.description }}
+        </p>
+        <UButton
+          :label="props.cta.label"
+          :to="props.cta.to"
+          color="cta"
+          size="lg"
+          trailing-icon="i-fa6-solid-arrow-right"
+          class="mt-5 self-start"
+        />
       </div>
-    </UContainer>
-  </section>
+
+      <!-- Service cards -->
+      <UCard
+        v-for="service in props.services"
+        :key="service.title"
+        :ui="{
+          root: 'lift group h-full hover:ring-primary',
+          body: 'flex h-full flex-col gap-3',
+        }"
+      >
+        <NuxtLink :to="service.to ?? '#contact'" class="flex h-full flex-col">
+          <span class="icon-tile border border-primary/20 bg-linear-to-br from-primary/10 to-primary/5 text-primary">
+            <UIcon :name="service.icon" class="size-5.5" />
+          </span>
+          <h4 class="mt-5">
+            {{ service.title }}
+          </h4>
+          <p class="mt-3 text-sm text-muted">
+            {{ service.description }}
+          </p>
+        </NuxtLink>
+      </UCard>
+    </UPageGrid>
+  </UPageSection>
 </template>
 
 <script setup lang="ts">
+import { twMerge } from 'tailwind-merge'
 import defaultBgImage from '~/assets/img/pexels-reneterp-13821194.jpg'
+
+// The intro sits inside the grid (not the UPageSection header slot), so reuse the
+// header slot classes from app.config (identical to a real section header), merged
+// with local classes via tailwind-merge so any conflicts resolve last-wins.
+const sectionUi = useAppConfig().ui.pageSection.slots
+const headlineClass = twMerge(sectionUi.headline, 'mb-2')
+// Narrower intro column → step the section title down one size (font-black kept).
+const titleClass = twMerge(sectionUi.title, 'text-2xl sm:text-3xl lg:text-4xl')
 
 interface ServiceItem {
   icon: string
@@ -88,12 +83,14 @@ const props = withDefaults(defineProps<{
   bgImage?: string
   headline?: string
   title?: string
+  description?: string
   cta?: { label: string, to: string }
   services?: ServiceItem[]
 }>(), {
   bgImage: '',
   headline: 'Featured services',
   title: 'Residential building for everyday living',
+  description: 'Considered, well-built work across new homes, renovations, and high-performance construction — tailored to how you live.',
   cta: () => ({ label: 'Enquire now', to: '#contact' }),
   services: () => [
     {

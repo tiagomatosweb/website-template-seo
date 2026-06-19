@@ -1,15 +1,11 @@
 <script setup lang="ts">
 useSeoMeta({
-  title: 'Services — variants',
+  title: 'Areas — variants',
   robots: 'noindex, nofollow',
 })
 
 const variants = [
-  { label: 'Services1', component: resolveComponent('Services1') },
-  { label: 'Services2', component: resolveComponent('Services2') },
-  { label: 'Services3', component: resolveComponent('Services3') },
-  { label: 'Services4', component: resolveComponent('Services4') },
-  { label: 'Services5', component: resolveComponent('Services5') },
+  { label: 'Areas1', component: resolveComponent('Areas1') },
 ]
 </script>
 

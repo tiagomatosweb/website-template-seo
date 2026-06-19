@@ -1,21 +1,19 @@
 <template>
   <UPageSection
     id="services"
-    :headline="headline"
-    :title="title"
-    :description="description"
+    :headline="props.headline"
+    :title="props.title"
+    :description="props.description"
   >
     <UPageGrid>
       <UPageCard
-        v-for="service in services"
+        v-for="service in props.services"
         :key="service.title"
         :icon="service.icon"
         :title="service.title"
         :description="service.description"
         to="#contact"
-        spotlight
-        class="group"
-        :ui="{ leadingIcon: 'size-7 text-primary' }"
+        class="lift group"
       >
         <template #footer>
           <span class="inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
@@ -29,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   headline?: string
   title?: string
   description?: string

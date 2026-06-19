@@ -1,52 +1,51 @@
 <template>
-  <div :class="overlayHeader ? 'relative' : ''">
-    <SiteHeader v-if="overlayHeader" overlay />
+  <div :class="props.overlayHeader ? 'relative' : ''">
+    <SiteHeader v-if="props.overlayHeader" overlay />
 
     <UPageHero
       orientation="horizontal"
       :links="links"
-      :ui="bgImage ? {
+      :ui="props.bgImage ? {
         root: 'relative isolate',
-        container: overlayHeader ? 'pt-32 lg:pt-40' : '',
+        container: props.overlayHeader ? 'pt-32 lg:pt-40' : '',
         headline: 'text-primary-300',
         title: 'text-white',
         description: 'text-white/80',
       } : undefined"
     >
-      <template v-if="bgImage" #top>
+      <template v-if="props.bgImage" #top>
         <div class="absolute inset-0 -z-10">
-          <div class="absolute inset-0 bg-cover bg-center" :style="{ backgroundImage: `url(${bgImage})` }" />
+          <div class="absolute inset-0 bg-cover bg-center" :style="{ backgroundImage: `url(${props.bgImage})` }" />
           <div class="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--color-primary-950)_92%,transparent)_0%,color-mix(in_srgb,var(--color-primary-950)_72%,transparent)_100%)]" />
         </div>
       </template>
 
     <template #headline>
-      <slot name="headline">{{ eyebrow }}</slot>
+      <slot name="headline">{{ props.headline }}</slot>
     </template>
 
     <template #title>
-      <slot name="title">{{ title }}</slot>
+      <slot name="title">{{ props.title }}</slot>
     </template>
 
     <template #description>
-      <slot name="description">{{ description }}</slot>
+      <slot name="description">{{ props.description }}</slot>
     </template>
 
     <template #body>
-      <ProofList :inverted="!!bgImage" />
+      <ProofList :inverted="!!props.bgImage" />
     </template>
 
     <UCard
       id="contact"
       as="aside"
       :ui="{
-        root: 'w-full max-w-[min(440px,100%)] mx-auto lg:ml-auto lg:mr-0 bg-white shadow-md ring-1 ring-neutral-900/5',
-        body: 'p-6 sm:p-8',
+        root: 'w-full max-w-[min(440px,100%)] mx-auto lg:ml-auto lg:mr-0 bg-white shadow-sm',
       }"
     >
       <div class="mb-6 text-center">
-        <h2 class="font-display font-black text-2xl leading-none text-neutral-900">{{ formTitle }}</h2>
-        <p class="mt-2.5 text-sm leading-snug text-neutral-500">{{ formSubtitle }}</p>
+        <h4 class="text-xl">{{ props.formTitle }}</h4>
+        <p class="mt-2.5 text-sm leading-snug text-muted">{{ props.formSubtitle }}</p>
       </div>
 
       <QuoteForm />
@@ -58,34 +57,32 @@
 <script setup lang="ts">
 import type { ButtonProps } from '@nuxt/ui'
 
+const { site } = useAppConfig()
+
 const props = withDefaults(defineProps<{
-  eyebrow?: string
+  headline?: string
   title?: string
   description?: string
   bgImage?: string
   overlayHeader?: boolean
-  primaryCta?: ButtonProps
-  secondaryCta?: ButtonProps
+  cta?: ButtonProps
   formTitle?: string
   formSubtitle?: string
 }>(), {
-  eyebrow: 'Local · Trusted · Reliable',
+  headline: 'Local · Trusted · Reliable',
   bgImage: '',
   overlayHeader: false,
   title: 'A headline that says exactly what you do',
   description: 'One or two sentences that explain the service, the area you cover, and why customers should choose you over the competition.',
-  primaryCta: () => ({}),
-  secondaryCta: () => ({}),
+  cta: () => ({}),
   formTitle: 'Get Your Free Quote',
   formSubtitle: 'Tell us what you need and one of our specialists will get in touch.',
 })
 
-const defaultPrimaryCta: ButtonProps = { label: 'Get a Free Quote', color: 'cta', size: 'xl', to: '#contact' }
-
-const defaultSecondaryCta = computed<ButtonProps>(() => ({
-  label: 'View Services',
-  size: 'xl',
-  to: '/services',
+const defaultCta = computed<ButtonProps>(() => ({
+  label: 'Call Now',
+  icon: 'i-fa6-solid-phone',
+  to: site.phone.href,
   variant: 'outline',
   ...(props.bgImage
     ? { color: 'neutral', class: 'text-white ring-white/25 hover:bg-white/10' }
@@ -93,7 +90,6 @@ const defaultSecondaryCta = computed<ButtonProps>(() => ({
 }))
 
 const links = computed<ButtonProps[]>(() => [
-  { ...defaultPrimaryCta, ...props.primaryCta },
-  { ...defaultSecondaryCta.value, ...props.secondaryCta },
+  { ...defaultCta.value, ...props.cta },
 ])
 </script>

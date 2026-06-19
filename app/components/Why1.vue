@@ -1,40 +1,47 @@
 <template>
-  <section id="why" class="bg-primary-950">
-    <UContainer>
-      <div class="grid gap-12 py-20 lg:grid-cols-2 lg:items-center lg:gap-16 lg:py-28">
-        <div>
-          <p class="font-display font-semibold text-primary-300">{{ headline }}</p>
-          <h2 class="mt-3 font-display font-black text-3xl text-white sm:text-4xl lg:text-5xl text-balance">
-            {{ title }}
-          </h2>
-          <p class="mt-5 text-lg text-white/70 max-w-lg">{{ description }}</p>
-
-          <div class="mt-8 flex flex-wrap items-center gap-x-10 gap-y-6">
-            <div v-for="stat in stats" :key="stat.label">
-              <p class="font-display font-black text-4xl text-white tabular-nums">{{ stat.value }}</p>
-              <p class="mt-1 text-sm text-white/60">{{ stat.label }}</p>
-            </div>
-          </div>
+  <UPageSection
+    id="why"
+    orientation="horizontal"
+    :headline="props.headline"
+    :title="props.title"
+    :ui="{
+      root: 'bg-primary-950',
+      container: 'lg:items-center',
+      headline: 'text-primary-300',
+      title: 'text-white',
+    }"
+  >
+    <template #description>
+      <p class="text-white/65 max-w-lg">{{ props.description }}</p>
+      <div class="mt-8 flex flex-wrap items-center gap-x-10 gap-y-6">
+        <div v-for="stat in props.stats" :key="stat.label">
+          <div class="font-display font-black text-4xl text-white tabular-nums">{{ stat.value }}</div>
+          <div class="mt-1 text-sm text-white/65">{{ stat.label }}</div>
         </div>
-
-        <ul class="grid gap-4 sm:grid-cols-2">
-          <li
-            v-for="reason in reasons"
-            :key="reason.title"
-            class="rounded-lg bg-white/5 p-5 ring-1 ring-white/10 transition-colors hover:bg-white/10"
-          >
-            <UIcon :name="reason.icon" class="size-7 text-primary-300" />
-            <h3 class="mt-3 font-display font-bold text-white">{{ reason.title }}</h3>
-            <p class="mt-1.5 text-sm text-white/60">{{ reason.description }}</p>
-          </li>
-        </ul>
       </div>
-    </UContainer>
-  </section>
+    </template>
+
+    <UPageGrid class="sm:grid-cols-2 lg:grid-cols-2">
+      <UPageCard
+        v-for="reason in props.reasons"
+        :key="reason.title"
+        variant="soft"
+        :icon="reason.icon"
+        :title="reason.title"
+        :description="reason.description"
+        :ui="{
+          root: 'bg-white/5 ring-1 ring-white/10 transition-colors hover:bg-white/10',
+          leadingIcon: 'text-primary-300',
+          title: 'text-white',
+          description: 'text-white/65',
+        }"
+      />
+    </UPageGrid>
+  </UPageSection>
 </template>
 
 <script setup lang="ts">
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   headline?: string
   title?: string
   description?: string

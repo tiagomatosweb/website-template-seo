@@ -1,4 +1,23 @@
 export default defineAppConfig({
+  // ──────────────────────────────────────────────────────────────────────────
+  // SITE — per-client business data. This is the FIRST file to edit when
+  // cloning the template for a new website. See REBRAND.md.
+  // Read anywhere with: const { site } = useAppConfig()
+  // ──────────────────────────────────────────────────────────────────────────
+  site: {
+    name: 'BusinessName',
+    tagline: 'Your trusted local specialists',
+    blurb: 'A short sentence about the business, the area it serves and what makes it the trusted local choice.',
+    // Phone: `display` is what the user sees, `href` is the tel: link (digits only).
+    phone: { display: '00 0000 0000', href: 'tel:0000000000' },
+    email: 'hello@example.com',
+    serviceArea: 'Serving your local area',
+    social: {
+      facebook: '#',
+      instagram: '#',
+    },
+  },
+
   ui: {
     colors: {
       primary: 'primary',
@@ -62,19 +81,39 @@ export default defineAppConfig({
     },
     card: {
       slots: {
-        body: 'p-4',
-        header: 'p-4',
-        footer: 'p-4',
+        // Card role (rounded-xl). Standalone/highlighted → override `root: 'rounded-2xl'`.
+        // Borders use Nuxt UI's stock variants — `outline`/`subtle` already apply
+        // `ring-default`, whose color is set once via `--ui-border` in main.css.
+        // We only customise `solid` (dark brand panel).
+        root: 'rounded-xl',
+        // Unified card padding (CLAUDE.md): p-5 sm:p-6 — same on UCard & UPageCard.
+        body: 'p-5 sm:p-6',
+        header: 'p-5 sm:p-6',
+        footer: 'p-5 sm:p-6',
+      },
+      variants: {
+        variant: {
+          solid: { root: 'bg-primary-950 text-white' },
+        },
       },
     },
     pageCard: {
       slots: {
-        container: 'p-4 sm:p-4',
+        // See `card` above — borders use stock variants + `--ui-border`.
+        root: 'rounded-xl',
+        // Unified card padding (CLAUDE.md): p-5 sm:p-6 — matches UCard's body/header/footer.
+        container: 'p-5 sm:p-6',
+        leadingIcon: 'size-7 text-primary',
+      },
+      variants: {
+        variant: {
+          solid: { root: 'bg-primary-950 text-white' },
+        },
       },
     },
     accordion: {
       slots: {
-        item: 'border-b border-neutral-200 last:border-b-0',
+        item: 'border-b border-default last:border-b-0',
         trigger: 'py-5 gap-4 font-display font-bold text-base text-neutral-900 hover:text-primary transition-colors',
         trailingIcon: 'text-primary',
         body: 'text-base leading-relaxed text-neutral-600 pb-5',
@@ -103,9 +142,9 @@ export default defineAppConfig({
     pageHero: {
       slots: {
         container: 'py-16 lg:py-24 gap-12 lg:gap-16',
-        headline: 'mb-4 font-display font-bold text-primary',
+        headline: 'mb-4 font-display text-sm font-semibold uppercase tracking-widest text-primary',
         title: 'font-display font-black text-4xl sm:text-5xl lg:text-6xl leading-[1.05] text-neutral-900 text-balance',
-        description: 'text-lg leading-relaxed text-neutral-600 text-pretty',
+        description: 'text-lg leading-relaxed text-pretty',
         body: 'mt-8',
         footer: 'mt-8',
       },
@@ -118,6 +157,16 @@ export default defineAppConfig({
       },
     },
     pageSection: {
+      slots: {
+        // Spacing spec (CLAUDE.md): Section padding = py-16 lg:py-24.
+        container: 'py-16 lg:py-24',
+        // Heading spec (CLAUDE.md): section title = h2 scale. Set here so all
+        // UPageSection titles match the base <h2>; components don't re-declare size.
+        title: 'text-3xl sm:text-4xl lg:text-5xl font-black',
+        // Headline/kicker above the title — the single source for the headline look.
+        // Custom headers outside the UPageSection slot read this via useAppConfig().
+        headline: 'font-display text-sm font-semibold uppercase tracking-widest text-primary',
+      },
       variants: {
         orientation: {
           vertical: {
@@ -127,7 +176,23 @@ export default defineAppConfig({
             description: 'text-left text-balance',
             links: 'justify-start',
           },
+          // Major 2-col split: Column gap = gap-8 lg:gap-16.
+          horizontal: {
+            container: 'lg:grid-cols-2 lg:items-center gap-8 lg:gap-16',
+          },
         },
+      },
+    },
+    pageGrid: {
+      // Spacing spec (CLAUDE.md): Card gutter = gap-6.
+      base: 'gap-6 sm:gap-6 lg:gap-6',
+    },
+    user: {
+      slots: {
+        // Brand display font for the name; muted location/description.
+        // mb-0 + leading-normal override the global `p` base styles.
+        name: 'font-display mb-0 !leading-tight',
+        description: 'text-neutral-500 mb-0 !leading-tight',
       },
     },
     badge: {
