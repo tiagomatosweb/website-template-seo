@@ -2,5 +2,43 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxt/ui']
+  hooks: {
+    // Co-located page partials live in pages/<page>/_partials/. They are
+    // imported explicitly by their page and must never become routes.
+    'pages:extend'(pages) {
+      const stripPartials = (list: typeof pages) => {
+        for (let i = list.length - 1; i >= 0; i--) {
+          const page = list[i]
+          if (page.file?.includes('/_partials/')) {
+            list.splice(i, 1)
+            continue
+          }
+          if (page.children?.length) stripPartials(page.children)
+        }
+      }
+      stripPartials(pages)
+    },
+  },
+  css: ['~/assets/css/main.css'],
+  modules: ['@nuxt/ui'],
+  ui: {
+    colorMode: false,
+    theme: {
+      colors: [
+        'primary',
+        'secondary',
+        'cta',
+        'info',
+        'success',
+        'warning',
+        'error',
+      ],
+    },
+  },
+  fonts: {
+    families: [
+      { name: 'Poppins', weights: [400, 500, 600, 700, 800, 900] },
+      { name: 'Nunito Sans', weights: [400, 600, 700, 800] },
+    ],
+  },
 })

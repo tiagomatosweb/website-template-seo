@@ -1,0 +1,36 @@
+<script setup lang="ts">
+import type { DropdownMenuItem } from '@nuxt/ui'
+
+const items: DropdownMenuItem[][] = [
+  [
+    { label: 'Design System', icon: 'i-fa6-solid-swatchbook', to: '/dev/design-system' },
+  ],
+  [
+    { label: 'Hero components', icon: 'i-fa6-solid-star', to: '/dev/hero' },
+    { label: 'Trust components', icon: 'i-fa6-solid-shield-halved', to: '/dev/trust' },
+    { label: 'Services components', icon: 'i-fa6-solid-screwdriver-wrench', to: '/dev/services' },
+    { label: 'Why components', icon: 'i-fa6-solid-circle-question', to: '/dev/why' },
+    { label: 'Process components', icon: 'i-fa6-solid-list-ol', to: '/dev/process' },
+    { label: 'CTA components', icon: 'i-fa6-solid-bullhorn', to: '/dev/cta' },
+  ],
+  [
+    { label: 'Back to website', icon: 'i-fa6-solid-arrow-left', to: '/' },
+  ],
+]
+</script>
+
+<template>
+  <UDropdownMenu
+    :items="items"
+    :content="{ side: 'top', align: 'end' }"
+    :ui="{ content: 'w-56' }"
+  >
+    <UButton
+      icon="i-fa6-solid-shapes"
+      color="neutral"
+      size="xl"
+      class="fixed bottom-6 right-6 z-100 rounded-full shadow-lg ring-1 ring-white/10"
+      aria-label="Component showcase menu"
+    />
+  </UDropdownMenu>
+</template>

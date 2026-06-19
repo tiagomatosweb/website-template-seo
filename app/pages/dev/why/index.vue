@@ -1,0 +1,22 @@
+<script setup lang="ts">
+useSeoMeta({
+  title: 'Why — variants',
+  robots: 'noindex, nofollow',
+})
+
+const variants = [
+  { label: 'Why1', component: resolveComponent('Why1') },
+  { label: 'Why2', component: resolveComponent('Why2') },
+]
+</script>
+
+<template>
+  <div>
+    <template v-for="v in variants" :key="v.label">
+      <div class="sticky top-0 z-50 bg-neutral-900 px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-white">
+        {{ v.label }}
+      </div>
+      <component :is="v.component" />
+    </template>
+  </div>
+</template>
