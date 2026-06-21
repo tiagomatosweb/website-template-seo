@@ -1,9 +1,8 @@
 <template>
   <UPageSection>
-    <div class="relative overflow-hidden rounded-2xl bg-primary-950 shadow-[0_30px_80px_-20px] shadow-primary-950/50 ring-1 ring-soft-inverted">
+    <div class="relative overflow-hidden rounded-2xl bg-neutral-950 shadow-[0_30px_80px_-20px] shadow-neutral-950/50 ring-1 ring-soft-inverted">
         <div aria-hidden="true" class="pointer-events-none absolute inset-0 opacity-6 bg-[radial-gradient(var(--color-white)_1px,transparent_1px)] bg-size-[1.25rem_1.25rem]" />
-        <div aria-hidden="true" class="pointer-events-none absolute -top-1/2 left-1/2 size-160 -translate-x-1/2 rounded-full bg-primary/25 blur-[130px]" />
-        <div aria-hidden="true" class="pointer-events-none absolute -bottom-32 right-0 size-72 rounded-full bg-cta-500/10 blur-[100px]" />
+        <div aria-hidden="true" class="pointer-events-none absolute -top-1/2 left-1/2 size-160 -translate-x-1/2 rounded-full bg-white/8 blur-[130px]" />
 
         <div class="relative grid sm:grid-cols-3">
           <div class="relative flex flex-col items-center px-6 py-12 text-center">
@@ -12,7 +11,7 @@
             </div>
             <div class="mt-2 inline-flex items-center gap-2 rounded-full bg-surface-faint-inverted px-3 py-1 ring-1 ring-soft-inverted backdrop-blur">
               <UIcon name="i-logos-google-icon" class="size-3.5" />
-              <div class="flex gap-0.5 text-cta-400" aria-hidden="true">
+              <div class="flex gap-0.5 text-star" aria-hidden="true">
                 <UIcon v-for="i in 5" :key="i" name="i-fa6-solid-star" class="size-2.5" />
               </div>
             </div>

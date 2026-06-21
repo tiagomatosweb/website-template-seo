@@ -5,7 +5,7 @@
     :headline="props.headline"
     :title="props.title"
     :ui="{
-      root: 'relative overflow-hidden bg-inverted',
+      root: 'relative overflow-hidden bg-neutral-950',
       container: 'relative lg:grid-cols-[1fr_1.1fr] lg:items-center gap-8 lg:gap-16',
       headline: 'text-primary-300',
       title: 'text-5xl sm:text-6xl lg:text-7xl leading-[0.92] text-inverted',
@@ -14,11 +14,11 @@
     <template #top>
       <div
         aria-hidden="true"
-        class="pointer-events-none absolute inset-0 opacity-[0.07] bg-[linear-gradient(var(--color-primary-400)_1px,transparent_1px),linear-gradient(90deg,var(--color-primary-400)_1px,transparent_1px)] bg-size-[3rem_3rem]"
+        class="pointer-events-none absolute inset-0 opacity-[0.07] bg-[linear-gradient(var(--color-white)_1px,transparent_1px),linear-gradient(90deg,var(--color-white)_1px,transparent_1px)] bg-size-[3rem_3rem]"
       />
       <div
         aria-hidden="true"
-        class="pointer-events-none absolute -left-32 top-1/2 size-136 -translate-y-1/2 rounded-full bg-primary/20 blur-[120px]"
+        class="pointer-events-none absolute -left-32 top-1/2 size-136 -translate-y-1/2 rounded-full bg-white/5 blur-[120px]"
       />
     </template>
 

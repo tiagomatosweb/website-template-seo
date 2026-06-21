@@ -2,11 +2,11 @@
   <UPageSection id="about">
     <!-- Dark panel; the photo bleeds past its right & bottom edges. -->
     <div class="relative lg:pr-[34%]">
-      <div class="relative overflow-visible rounded-2xl bg-primary-950 p-8 sm:p-12 lg:p-16">
-        <!-- Radial light blobs — clipped to the panel, behind the content. -->
+      <div class="relative overflow-visible rounded-2xl bg-neutral-950 p-8 sm:p-12 lg:p-16">
+        <!-- Radial neutral glow — subtle lift, clipped to the panel, behind content. -->
         <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
-          <div class="absolute -left-24 -top-24 size-96 rounded-full bg-primary/50 blur-[120px]" />
-          <div class="absolute -bottom-32 left-1/3 size-80 rounded-full bg-primary/50 blur-[110px]" />
+          <div class="absolute -left-24 -top-24 size-96 rounded-full bg-white/8 blur-[120px]" />
+          <div class="absolute -bottom-32 left-1/3 size-80 rounded-full bg-white/8 blur-[110px]" />
         </div>
 
         <div class="relative">

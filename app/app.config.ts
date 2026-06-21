@@ -22,7 +22,7 @@ export default defineAppConfig({
     colors: {
       primary: 'primary',
       cta: 'cta',
-      neutral: 'slate',
+      neutral: 'gray',
     },
     formField: {
       slots: {
@@ -84,7 +84,8 @@ export default defineAppConfig({
         // Card role (rounded-xl). Standalone/highlighted → override `root: 'rounded-2xl'`.
         // Borders use Nuxt UI's stock variants — `outline`/`subtle` already apply
         // `ring-default`, whose color is set once via `--ui-border` in main.css.
-        // We only customise `solid` (dark brand panel).
+        // We only customise `solid` (dark NEUTRAL panel — brand is an accent, not
+        // the surface; see the dark-surface note in CLAUDE.md).
         // Cards are FLAT by default (no hover). Lift is OPT-IN: add the `.lift`
         // class (main.css) only to INTERACTIVE cards — ones with a link/action.
         // Static cards (reviews, info panels) stay flat.
@@ -96,7 +97,7 @@ export default defineAppConfig({
       },
       variants: {
         variant: {
-          solid: { root: 'bg-primary-950 text-white' },
+          solid: { root: 'bg-neutral-950 text-inverted' },
         },
       },
     },
@@ -111,7 +112,7 @@ export default defineAppConfig({
       },
       variants: {
         variant: {
-          solid: { root: 'bg-primary-950 text-white' },
+          solid: { root: 'bg-neutral-950 text-inverted' },
         },
       },
     },
@@ -133,9 +134,9 @@ export default defineAppConfig({
       variants: {
         variant: {
           solid: {
-            root: 'bg-primary-950',
+            root: 'bg-neutral-950',
             title: 'text-inverted',
-            description: 'text-white/80'
+            description: 'text-toned-inverted'
           },
         },
       },

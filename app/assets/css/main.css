@@ -8,29 +8,31 @@
    below (also update the family list in nuxt.config.ts).
    ════════════════════════════════════════════════════════════════════════ */
 @theme static {
-  --color-primary-50:  #eef2f7;
-  --color-primary-100: #d6dfeb;
-  --color-primary-200: #aec0d6;
-  --color-primary-300: #84a0c1;
-  --color-primary-400: #5b80ab;
-  --color-primary-500: #3b6196;
-  --color-primary-600: #2f4e78;
-  --color-primary-700: #243c5c;
-  --color-primary-800: #182941;
-  --color-primary-900: #0e1929;
-  --color-primary-950: #070d16;
+  /* primary = professional trades blue */
+  --color-primary-50:  #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #2563eb;
+  --color-primary-600: #1d4ed8;
+  --color-primary-700: #1e40af;
+  --color-primary-800: #1e3a8a;
+  --color-primary-900: #1c326f;
+  --color-primary-950: #131f43;
 
-  --color-cta-50:  #fef6ec;
-  --color-cta-100: #fbe6c9;
-  --color-cta-200: #f6cb8f;
-  --color-cta-300: #f0ad54;
-  --color-cta-400: #ec9329;
-  --color-cta-500: #e07b15;
-  --color-cta-600: #c46410;
-  --color-cta-700: #9c4c12;
-  --color-cta-800: #7c3c15;
-  --color-cta-900: #663214;
-  --color-cta-950: #3a1a09;
+  /* cta = hi-vis warm orange */
+  --color-cta-50:  #fff7ed;
+  --color-cta-100: #ffedd5;
+  --color-cta-200: #fed7aa;
+  --color-cta-300: #fdba74;
+  --color-cta-400: #fb923c;
+  --color-cta-500: #f97316;
+  --color-cta-600: #ea580c;
+  --color-cta-700: #c2410c;
+  --color-cta-800: #9a3412;
+  --color-cta-900: #7c2d12;
+  --color-cta-950: #431407;
 
   --font-sans: "Nunito Sans", sans-serif;
   --font-display: "Poppins", sans-serif;
@@ -115,6 +117,10 @@
 @utility text-toned-inverted  { color: --alpha(#fff / 80%); }
 @utility text-muted-inverted  { color: --alpha(#fff / 65%); }
 @utility text-dimmed-inverted { color: --alpha(#fff / 45%); }
+
+/* Review stars — Tailwind's amber, independent of the brand `cta` color
+   (reviews always read as the familiar gold star). */
+@utility text-star { @apply text-amber-400; }
 
 @layer components {
   /* Lift — the interactive-card hover (Lifted role, shadow spec). Opt-in: add to

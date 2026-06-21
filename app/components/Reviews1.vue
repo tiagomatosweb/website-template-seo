@@ -14,21 +14,21 @@
         variant="subtle"
         :ui="{ body: 'flex h-full flex-col gap-3' }"
       >
-        <header class="flex items-start gap-3">
-          <UAvatar
-            :src="review.avatar"
-            :alt="review.name"
-            :text="initials(review.name)"
-            size="md"
+        <header class="flex items-start justify-between gap-3">
+          <UUser
+            :name="review.name"
+            :description="review.date"
+            :avatar="{
+              src: review.avatar,
+              alt: review.name,
+              ui: { fallback: 'text-default', root: 'bg-accented' },
+            }"
+            class="min-w-0"
           />
-          <div class="min-w-0 flex-1">
-            <div class="truncate font-bold text-highlighted">{{ review.name }}</div>
-            <div class="text-sm text-muted">{{ review.date }}</div>
-          </div>
-          <UIcon name="i-logos-google-icon" class="size-5 shrink-0" />
+          <UIcon name="i-logos-google-icon" class="size-3.5 shrink-0" />
         </header>
 
-        <div class="flex items-center gap-0.5 text-cta-400" :aria-label="`${review.rating ?? 5} out of 5 stars`">
+        <div class="flex items-center gap-0.5 text-star" :aria-label="`${review.rating ?? 5} out of 5 stars`">
           <UIcon v-for="n in (review.rating ?? 5)" :key="n" name="i-fa6-solid-star" class="size-4 shrink-0" />
         </div>
 
@@ -87,8 +87,4 @@ const props = withDefaults(defineProps<{
 })
 
 const reviews = computed(() => props.reviews)
-
-function initials(name: string) {
-  return name.split(' ').map(p => p[0]).join('').slice(0, 2).toUpperCase()
-}
 </script>

@@ -23,7 +23,7 @@
           >
           <span
             v-if="props.imageBadge"
-            class="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-primary-950/80 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-inverted backdrop-blur"
+            class="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-neutral-950/80 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-inverted backdrop-blur"
           >
             <UIcon name="i-fa6-solid-circle-check" class="size-3.5 text-primary-300" />
             {{ props.imageBadge }}

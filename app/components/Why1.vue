@@ -5,7 +5,7 @@
     :headline="props.headline"
     :title="props.title"
     :ui="{
-      root: 'bg-primary-950',
+      root: 'bg-neutral-950',
       container: 'lg:items-center',
       headline: 'text-primary-300',
       title: 'text-inverted',

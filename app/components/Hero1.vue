@@ -16,7 +16,7 @@
       <template v-if="props.bgImage" #top>
         <div class="absolute inset-0 -z-10">
           <div class="absolute inset-0 bg-cover bg-center" :style="{ backgroundImage: `url(${props.bgImage})` }" />
-          <div class="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--color-primary-950)_92%,transparent)_0%,color-mix(in_srgb,var(--color-primary-950)_72%,transparent)_100%)]" />
+          <div class="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--color-neutral-950)_92%,transparent)_0%,color-mix(in_srgb,var(--color-neutral-950)_72%,transparent)_100%)]" />
         </div>
       </template>
 

@@ -19,10 +19,10 @@
         />
         <div
           v-else
-          class="absolute inset-0 bg-primary-900 bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,var(--color-primary-700),transparent)]"
+          class="absolute inset-0 bg-neutral-900 bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,var(--color-neutral-800),transparent)]"
         />
         <div
-          class="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--color-primary-950)_90%,transparent)_0%,color-mix(in_srgb,var(--color-primary-950)_70%,transparent)_100%)]"
+          class="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--color-neutral-950)_90%,transparent)_0%,color-mix(in_srgb,var(--color-neutral-950)_70%,transparent)_100%)]"
         />
       </div>
     </template>

@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-primary-950 text-muted-inverted">
+  <footer class="bg-neutral-950 text-muted-inverted">
     <UContainer>
       <div class="grid gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
         <!-- Brand + blurb -->

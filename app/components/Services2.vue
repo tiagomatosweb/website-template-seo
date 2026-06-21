@@ -13,7 +13,7 @@
     <template #top>
       <span
         aria-hidden="true"
-        class="pointer-events-none absolute -top-16 -right-6 select-none font-display font-black leading-none text-[28vw] lg:text-[16rem] text-primary-50"
+        class="pointer-events-none absolute -top-16 -right-6 select-none font-display font-black leading-none text-[28vw] lg:text-[16rem] text-neutral-50"
       >
         {{ props.ghost }}
       </span>
@@ -30,7 +30,7 @@
         }"
       >
         <div class="flex items-start justify-between">
-          <IconTile :icon="featured.icon" variant="muted" class="text-inverted" />
+          <IconTile :icon="featured.icon" inverted class="bg-surface-soft-inverted text-primary-300" />
           <UIcon
             name="i-fa6-solid-arrow-right"
             class="size-4 -rotate-45 text-dimmed-inverted transition-all duration-300 group-hover:rotate-0 group-hover:text-inverted"
