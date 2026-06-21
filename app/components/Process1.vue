@@ -18,7 +18,7 @@
           <span
             v-if="i < props.steps.length - 1"
             aria-hidden="true"
-            class="hidden h-px flex-1 bg-neutral-200 lg:block lg:absolute lg:left-12 lg:top-6 lg:right-0 lg:-z-10"
+            class="hidden h-px flex-1 bg-accented lg:block lg:absolute lg:left-12 lg:top-6 lg:right-0 lg:-z-10"
           />
         </div>
         <div class="mt-4">

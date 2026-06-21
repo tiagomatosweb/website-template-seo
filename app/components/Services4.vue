@@ -1,14 +1,14 @@
 <template>
   <UPageSection
     id="services"
-    class="relative overflow-hidden bg-neutral-50"
+    class="relative overflow-hidden bg-muted"
   >
     <div aria-hidden="true" class="absolute inset-0 -z-10">
       <div
         class="absolute inset-0 scale-105 bg-cover bg-center"
         :style="{ backgroundImage: `url(${resolvedBg})` }"
       />
-      <div class="absolute inset-0 bg-neutral-50/85" />
+      <div class="absolute inset-0 bg-muted/85" />
       <div class="absolute inset-0 bg-linear-to-b from-neutral-50 via-neutral-50/70 to-primary-50/40" />
       <div class="absolute inset-0 opacity-[0.04] mix-blend-multiply [background-image:url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E')]" />
     </div>
@@ -40,14 +40,12 @@
         v-for="service in props.services"
         :key="service.title"
         :ui="{
-          root: 'lift group h-full hover:ring-primary',
+          root: 'lift h-full',
           body: 'flex h-full flex-col gap-3',
         }"
       >
         <NuxtLink :to="service.to ?? '#contact'" class="flex h-full flex-col">
-          <span class="icon-tile border border-primary/20 bg-linear-to-br from-primary/10 to-primary/5 text-primary">
-            <UIcon :name="service.icon" class="size-5.5" />
-          </span>
+          <IconTile :icon="service.icon" />
           <h4 class="mt-5">
             {{ service.title }}
           </h4>

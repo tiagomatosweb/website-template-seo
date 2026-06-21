@@ -85,6 +85,9 @@ export default defineAppConfig({
         // Borders use Nuxt UI's stock variants — `outline`/`subtle` already apply
         // `ring-default`, whose color is set once via `--ui-border` in main.css.
         // We only customise `solid` (dark brand panel).
+        // Cards are FLAT by default (no hover). Lift is OPT-IN: add the `.lift`
+        // class (main.css) only to INTERACTIVE cards — ones with a link/action.
+        // Static cards (reviews, info panels) stay flat.
         root: 'rounded-xl',
         // Unified card padding (CLAUDE.md): p-5 sm:p-6 — same on UCard & UPageCard.
         body: 'p-5 sm:p-6',
@@ -100,6 +103,7 @@ export default defineAppConfig({
     pageCard: {
       slots: {
         // See `card` above — borders use stock variants + `--ui-border`.
+        // Flat by default; lift is opt-in via `.lift` on interactive cards (see `card`).
         root: 'rounded-xl',
         // Unified card padding (CLAUDE.md): p-5 sm:p-6 — matches UCard's body/header/footer.
         container: 'p-5 sm:p-6',

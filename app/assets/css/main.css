@@ -54,17 +54,73 @@
   to { box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.06); }
 }
 
+/* ════════════════════════════════════════════════════════════════════════
+   BRAND TINTS (soft / muted) — pick directly, compose freely.
+   Nuxt UI ships a neutral surface ladder (bg-default/muted/elevated/accented)
+   AND the saturated brand fills (bg-primary / text-primary / bg-cta / text-cta
+   = the "solid" level, -500) — but NO brand TINTS, so we name only those here.
+   Each brand color exposes two tint values, usable as bg- OR text-, mixed like
+   normal Tailwind. Emphasis ladder (bg tint · text = the 500 brand at rising
+   opacity):
+     soft   low  — bg 50  · text 500 @ 50%               (ours)
+     muted  mid  — bg 100 · text 500 @ 75%               (ours)
+     solid  high — bg-primary / text-primary             (Nuxt UI's own — no token)
+   A saturated FILL (bg-primary) takes text-inverted (white); a pale tint
+   (bg-*-soft) takes the strong icon/text color (text-primary). NB text-*-soft at
+   50% is low-contrast — for body copy use the neutral text-toned/-muted instead.
+   @utility (compose with hover:/lg:/group-hover:), @apply straight to the palette;
+   per-site retune is here. LIGHT values (light-only site; dark = `-inverted`
+   block below). Grouped BY COLOR (all primary, then all cta). */
+/* primary */
+@utility bg-primary-soft    { @apply bg-primary-50; }
+@utility bg-primary-muted   { @apply bg-primary-100; }
+@utility text-primary-soft  { color: --alpha(var(--color-primary-500) / 50%); }
+@utility text-primary-muted { color: --alpha(var(--color-primary-500) / 75%); }
+/* cta */
+@utility bg-cta-soft    { @apply bg-cta-50; }
+@utility bg-cta-muted   { @apply bg-cta-100; }
+@utility text-cta-soft  { color: --alpha(var(--color-cta-500) / 50%); }
+@utility text-cta-muted { color: --alpha(var(--color-cta-500) / 75%); }
+
+/* ════════════════════════════════════════════════════════════════════════
+   ON-DARK SURFACES (`-inverted` suffix) — the on-dark variant of a token, for a
+   DARK section (bg-primary-950 roots). Replaces raw bg-white/N · ring-white/N ·
+   text-white/N (Nuxt UI has no alpha surface tokens). */
+
+/* Brand tints on dark: bg = translucent brand wash (soft 15% · muted 25%); text
+   = the light 300 shade (soft @50% · muted @75% · solid full). Grouped by color. */
+/* primary */
+@utility bg-primary-soft-inverted    { background-color: --alpha(var(--color-primary) / 15%); }
+@utility bg-primary-muted-inverted   { background-color: --alpha(var(--color-primary) / 25%); }
+@utility text-primary-soft-inverted  { color: --alpha(var(--color-primary-300) / 50%); }
+@utility text-primary-muted-inverted { color: --alpha(var(--color-primary-300) / 75%); }
+@utility text-primary-solid-inverted { @apply text-primary-300; }
+/* cta */
+@utility bg-cta-soft-inverted    { background-color: --alpha(var(--color-cta) / 15%); }
+@utility bg-cta-muted-inverted   { background-color: --alpha(var(--color-cta) / 25%); }
+@utility text-cta-soft-inverted  { color: --alpha(var(--color-cta-300) / 50%); }
+@utility text-cta-muted-inverted { color: --alpha(var(--color-cta-300) / 75%); }
+@utility text-cta-solid-inverted { @apply text-cta-300; }
+
+/* Neutral white-alpha washes on dark — surface fill / hover / faint, + hairline ring/border. */
+@utility bg-surface-soft-inverted   { background-color: --alpha(#fff / 10%); }
+@utility bg-surface-strong-inverted { background-color: --alpha(#fff / 15%); }
+@utility bg-surface-faint-inverted  { background-color: --alpha(#fff / 5%); }
+@utility ring-soft-inverted   { --tw-ring-color: --alpha(#fff / 10%); }
+@utility border-soft-inverted { border-color: --alpha(#fff / 10%); }
+
+/* Neutral text on dark — the `-inverted` counterparts of Nuxt UI's text ladder
+   (full strength = text-inverted). White-alpha (not neutral shades) so it stays
+   hue-neutral on any dark bg. Three tiers: toned /80 · muted /65 · dimmed /45. */
+@utility text-toned-inverted  { color: --alpha(#fff / 80%); }
+@utility text-muted-inverted  { color: --alpha(#fff / 65%); }
+@utility text-dimmed-inverted { color: --alpha(#fff / 45%); }
+
 @layer components {
-  /* Lift — the standard interactive hover (Lifted role in the shadow spec).
-     Apply to any hoverable surface (cards, tiles). One source of truth. */
+  /* Lift — the interactive-card hover (Lifted role, shadow spec). Opt-in: add to
+     cards that link / have an action; static cards stay flat. Single source. */
   .lift {
     @apply transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl;
-  }
-
-  /* Icon tile — the square that holds a card's leading icon (Control radius).
-     Structure only; set size (size-12 default) + bg/text colors inline. */
-  .icon-tile {
-    @apply inline-flex size-12 items-center justify-center rounded-md;
   }
 }
 
@@ -78,8 +134,10 @@
      genuinely differs from the tag (e.g. a small label that is semantically h-).
      h1 hero/page title · h2 section · h3 sub-section · h4 card title ·
      h5 minor heading · h6 headline/label. */
+  /* Color = text-highlighted (semantic token). On dark sections, set the heading
+     color explicitly (text-inverted). */
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display tracking-tight text-neutral-900 text-balance;
+    @apply font-display tracking-tight text-highlighted text-balance;
   }
   h1 { @apply text-4xl font-black leading-[1.05] sm:text-5xl lg:text-6xl; }
   h2 { @apply text-3xl font-black leading-[1.05] sm:text-4xl lg:text-5xl; }

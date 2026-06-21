@@ -23,7 +23,7 @@ This is a **marketing-site template**: a single landing page assembled from inte
 
 - **`app/pages/index/index.vue`** — the live homepage. It does nothing but compose section components in order (`Hero1`, `Trust1`, `Services2`, …) and set `useSeoMeta`. Swapping a section variant means changing one tag here.
 - **`app/components/*.vue`** — section components grouped by role with a numeric suffix: `Hero1`, `Services1`–`Services4`, `Why1`/`Why2`, `Process1`/`Process2`, `Trust1`/`Trust2`, `Cta1`. Each variant is a drop-in alternative for the same slot on the page. `SiteHeader`, `SiteFooter`, `QuoteForm`, `ProofList`, `DevMenu` are shared.
-- **`app/pages/dev/<role>/index.vue`** — variant galleries (`/dev/services`, `/dev/hero`, etc.) that render every variant of one role stacked with labels. These are `noindex` and reached via the floating `DevMenu` button (rendered globally in `app.vue`). When adding a new section variant, also register it in the matching `dev/<role>` gallery and the `DevMenu` list.
+- **`app/pages/blocks/<role>/index.vue`** — variant galleries (`/blocks/services`, `/blocks/hero`, etc.) that render every variant of one role stacked with labels. These are `noindex` and reached via the floating `DevMenu` button (rendered globally in `app.vue`). When adding a new section variant, also register it in the matching `blocks/<role>` gallery and the `DevMenu` list.
 
 ### Section component conventions
 
@@ -52,11 +52,10 @@ rebrand touches a fixed set of places — see **`REBRAND.md`** for the full chec
 Three layers, in order of preference for changes:
 
 1. **`app/app.config.ts`** — the **primary place to restyle Nuxt UI components** globally (slots, variants, compoundVariants for `button`, `card`, `pageHero`, `pageSection`, `pageCTA`, `accordion`, `badge`, inputs). Color aliases are mapped here: `primary`, `cta`, and `neutral → slate`. The `cta` color (amber) is a custom semantic color alongside `primary` (navy) for high-emphasis actions.
-2. **`app/assets/css/main.css`** — Tailwind v4 `@theme` block defining the `primary`/`cta` color scales and fonts (`--font-display: Poppins`, `--font-sans: Nunito Sans`), plus the `--ui-radius` / `--ui-border` token overrides. Shared component classes live in its `@layer components` (defined with `@apply` where possible):
-   - `.lift` — the Lifted hover (translate + `shadow-xl`); add to any hoverable surface (see shadow spec).
-   - `.icon-tile` — structure for a card's leading-icon square (`inline-flex size-12 items-center justify-center rounded-md`); set bg/text colors inline.
-
-   Also holds base heading/paragraph styles.
+2. **`app/assets/css/main.css`** — Tailwind v4 `@theme` block defining the `primary`/`cta` color scales and fonts (`--font-display: Poppins`, `--font-sans: Nunito Sans`), plus the `--ui-radius` / `--ui-border` token overrides. Also holds:
+   - the **brand-value `@utility` tokens** (`bg-/text-primary-soft`/`-muted` + the `-inverted` dark set) — see the Brand color values spec.
+   - **`.lift`** (`@layer components`) — the Lifted hover (translate + `shadow-xl`); add to interactive (linked) cards / hoverable surfaces (see shadow spec).
+   - base heading/paragraph styles.
 3. Per-component `:ui` overrides and utility classes for one-off adjustments.
 
 ### Global base styles — applied automatically, DON'T re-declare
@@ -69,7 +68,7 @@ The `@layer base` block in `main.css` already styles bare tags. When you write a
 | `p` | `leading-relaxed text-pretty text-lg` + `mb-4` between paragraphs | **color** (base sets none → `text-neutral-600`, `text-white/70` are real), a deliberately smaller size (`text-sm` caption), `max-w-*` |
 | `html` | `scroll-behavior: smooth` | — |
 
-Concretely: **don't write `<p class="text-lg leading-relaxed text-pretty">`** — that's the base, verbatim. Write `<p>` (or `<p class="text-neutral-600 max-w-md">` if you need the muted color / measure). Same for headings: a section title is `<h2>`, not `<h2 class="font-display text-3xl font-black">`. Reusable multi-utility patterns get a class in `@layer components` (`.lift`, `.icon-tile`) — never copy the utility string across components.
+Concretely: **don't write `<p class="text-lg leading-relaxed text-pretty">`** — that's the base, verbatim. Write `<p>` (or `<p class="text-neutral-600 max-w-md">` if you need the muted color / measure). Same for headings: a section title is `<h2>`, not `<h2 class="font-display text-3xl font-black">`. Reusable multi-utility patterns get a class in `@layer components` (e.g. `.lift`) or a component (e.g. `<IconTile>`) — never copy the utility string across components.
 
 ### Border-radius — role-based spec (plain Tailwind classes)
 
@@ -88,7 +87,7 @@ The deciding rule: **a collection of cards uses `rounded-xl` (Card); a card that
 - `UCard` / `UPageCard` default to `rounded-xl` via `card.root` / `pageCard.root` in `app.config.ts`. For a standalone/highlighted instance, pass `:ui="{ root: 'rounded-2xl' }"`.
 - **Nesting:** an inner element's radius must be ≤ its parent's (a `rounded-md` icon tile inside a `rounded-xl` card is correct; never the reverse).
 - `--ui-radius` in `main.css` is set to 6px (the Control role) so Nuxt UI buttons/inputs match.
-- **Per-site retune:** the `radii` table on the `/dev/design-system` page is the source of truth. To change a site's radii, re-map the classes there, then update the matching component slots and `app.config.ts`. (Ask Claude to read the brand spec and re-map.)
+- **Per-site retune:** the `radii` table on the `/blocks/design-system` page is the source of truth. To change a site's radii, re-map the classes there, then update the matching component slots and `app.config.ts`. (Ask Claude to read the brand spec and re-map.)
 
 ### Shadow — role-based elevation spec (plain Tailwind classes)
 
@@ -103,11 +102,11 @@ Shadow encodes **elevation = importance + interactivity**: the higher something 
 | Glow | `shadow-lg shadow-{color}/40` | **the single primary CTA** in a view — a brand accent, used once; NOT an elevation tier |
 
 The two deciding rules:
-1. **Resting card = ring, no shadow (Flat).** This is automatic: a card's default `outline` variant applies `ring ring-default` (color set once via `--ui-border` in `main.css`). If interactive, add the **`.lift` utility class** (defined in `main.css`) — it applies the Lifted hover (translate + `shadow-xl`). Use `.lift` on any hoverable surface; it's the single source for the lift. To change the edge color site-wide, edit `--ui-border`, not per-component rings.
+1. **Resting card = ring, no shadow (Flat).** This is automatic: a card's default `outline` variant applies `ring ring-default` (color set once via `--ui-border` in `main.css`). **Lift is opt-in and means "this card is interactive"** — add the **`.lift`** class only to cards that link / have an action (e.g. service cards). Static/informational cards (reviews, the quote-form panel) stay flat. `.lift` (in `main.css`) is the single source of the Lifted hover (translate + `shadow-xl`). To change the edge color site-wide, edit `--ui-border`, not per-component rings.
 2. **Colored glow is reserved for the one hero CTA** (e.g. `QuoteForm.vue`'s submit). Everything else uses neutral elevation.
 
 - `UCard`/`UPageCard` don't force a ring (they're used in many contexts) — apply Flat at the usage site as `Services3`/`Services4` do.
-- **Per-site retune:** the `shadows` table on the `/dev/design-system` page is the source of truth; re-map roles there, then update component slots. (Ask Claude to read the brand spec and re-map.)
+- **Per-site retune:** the `shadows` table on the `/blocks/design-system` page is the source of truth; re-map roles there, then update component slots. (Ask Claude to read the brand spec and re-map.)
 
 ### Spacing — role-based layout spec (plain Tailwind classes)
 
@@ -132,7 +131,7 @@ Rules:
 2. **Section padding is the `UPageSection` default.** Customise tighter only for bars (e.g. `Trust1`'s `py-8 lg:py-6`).
 3. **Stack margins** snap to `2/4/6/8` for layout stacking — avoid `mt-5`/`mt-10` etc. (guideline, not absolute, where a heading's rhythm needs fine-tuning).
 4. **Intra-component gaps** (icon↔label inside a button/badge/input/chip: `gap-1/2/3`) are **component internals** governed by `app.config.ts` slots — NOT this spec.
-- **Per-site retune:** the `spacing` table on the `/dev/design-system` page is the source of truth; re-map there, then update config + component classes.
+- **Per-site retune:** the `spacing` table on the `/blocks/design-system` page is the source of truth; re-map there, then update config + component classes.
 
 ### Headings — fixed scale, styled by tag
 
@@ -151,7 +150,7 @@ Rules:
 1. **Tag = document position; size follows the tag.** Section title → `h2`; things inside a section → `h3`; **grid/card titles → `h4`** (the outline goes h2→h4, skipping h3, which is fine and keeps card titles override-free at `text-lg`).
 2. **No size/weight/`font-display` classes on a heading** — the base layer supplies them. Only add classes for genuine overrides: color on dark backgrounds (`text-white`), layout margins (`mt-*`), or a deliberate size deviation (e.g. `Services2`'s big featured-card title).
 3. **The headline (kicker above the title)** uses the `UPageSection` `headline` prop — we use Nuxt UI's term "headline" everywhere (not "eyebrow"). Its style is global (`font-display text-sm font-bold uppercase tracking-widest text-primary`, the h6/label look) via `pageSection.slots.headline` in `app.config.ts`. Don't re-declare it per component; on dark sections override only the color (e.g. `headline: 'text-primary-300'`). A custom header outside the `UPageSection` slot (an intro inside the grid, a decorated panel) should **read the slot classes from config and merge** rather than hardcode them: `const sectionUi = useAppConfig().ui.pageSection.slots`, then `const headlineClass = twMerge(sectionUi.headline, '<overrides>')` and bind `:class="headlineClass"`. Use `twMerge` (from `tailwind-merge`) so an override like `text-primary-300` cleanly replaces the config's `text-primary` instead of both lingering. See `Services4`/`About1`. The headline is a label, not prose — use a `<div>`, not `<p>`. The section **title** is likewise global (`pageSection.slots.title` = the h2 scale); override only for a deliberate size change (a narrow intro column steps it down; `Services2`/`Process2` step it up) — again via `twMerge`.
-4. **Per-site retune:** edit the per-tag rules in `main.css`; the `headings` table on the `/dev/design-system` page is the reference.
+4. **Per-site retune:** edit the per-tag rules in `main.css`; the `headings` table on the `/blocks/design-system` page is the reference.
 
 ### Paragraphs — `<p>` is for prose only
 
@@ -160,9 +159,18 @@ Rules:
 - **Use `<p>`:** section/card descriptions, subtitles, blurbs, the copyright line, form helper text — anything that reads as a sentence.
 - **Use `<div>` (NOT `<p>`):** stat numbers (`{{ stat.value }}`), stat labels, headlines/kickers, captions, badges, single-word/short data labels. These are data or labels, not prose — making them `<p>` wrongly inherits body sizing and the `mb-4` paragraph margin (which then needs a `mb-0` hack — a smell that it shouldn't be a `<p>`).
 
+**Paragraph color is always the neutral ladder.** A `<p>` of body copy uses the neutral tokens — bare (inherits `text-default`) or `text-toned`/`text-muted` for de-emphasis. **Never** color a paragraph with a brand variant (`text-primary-*`/`text-cta-*`) — those are accent-only (see Text color). When generating content, default every paragraph/description to the neutral ladder.
+
 ### Text color — semantic tokens, by prominence
 
-Use Nuxt UI's **semantic text tokens**, never raw `text-neutral-*`, for neutral text. The token names map to the `neutral` (slate) scale and carry intent + survive a per-site neutral swap. Light-mode hierarchy (most → least prominent):
+**TWO separate text systems — do not mix their roles:**
+
+1. **Neutral ladder (the default for ALL normal text).** Headings, paragraphs, descriptions, captions, labels — every piece of running/body copy uses these. This is what you reach for by default.
+2. **Brand accents (`text-primary-*` / `text-cta-*`) — EXTRA, accent-only.** A single highlighted word, a stat number, an accent label. **Never** paragraph/body copy. `text-primary-muted` is "muted brand-blue", *not* a neutral gray — it does not belong on a sentence.
+
+> **Default rule when writing content:** any paragraph, description, subtitle, or body sentence uses the **neutral ladder** (`text-toned` for standard copy, `text-muted` for secondary, etc.) — and a bare `<p>` already inherits the right look (see Paragraphs). Only use a `text-primary-*`/`text-cta-*` variant when the intent is a deliberate **brand accent**, never as the color of normal prose.
+
+**Neutral ladder** — Nuxt UI's **semantic text tokens**, never raw `text-neutral-*`. The names map to the `neutral` (slate) scale, carry intent, and survive a per-site neutral swap. Light-mode hierarchy (most → least prominent):
 
 | Token | Shade | Use for |
 |---|---|---|
@@ -173,12 +181,61 @@ Use Nuxt UI's **semantic text tokens**, never raw `text-neutral-*`, for neutral 
 | `text-dimmed` | 400 | least prominent — empty-state icons, faint labels |
 | `text-inverted` | white | full-strength text on dark/brand backgrounds |
 
+**Brand accents** (the soft/muted/solid emphasis ladder; accent use only) — `text-primary-soft` (500 @ 50%) and `text-primary-muted` (500 @ 75%) are **ours** (in `main.css`); the **solid** level is **Nuxt UI's own** `text-primary` / `bg-primary` (= 500), so use those directly — there is no custom `-solid` token. Same for `cta` (`text-cta-soft`/`-muted` ours, `text-cta`/`bg-cta` Nuxt UI's). Dark counterparts: `text-primary-soft-inverted`/`-muted-inverted`/`-solid-inverted` (300 @ 50/75/100%). These pair with the `bg-*-soft`/`bg-*-muted` tints and the `bg-primary`/`bg-cta` fills (e.g. an icon tile via `<IconTile>`). They are **not** in the neutral prominence ladder above and are never the color of body text.
+
 Rules:
 1. **Never `text-neutral-NNN` for a text role** — pick the token by prominence. (Brand colors `text-primary`/`text-cta` are not in this ladder and stay as-is. The only sanctioned `text-neutral-900` is `SiteHeader`'s overlay-mode ternary `light ? 'text-white' : 'text-neutral-900'`, a two-state literal.)
-2. **Dark sections:** full-strength text = `text-inverted` (preferred for new code; existing `text-white` is identical and acceptable). De-emphasis has no semantic token, so use **three white-alpha tiers only — `text-white/80` (high), `text-white/65` (secondary), `text-white/45` (muted)**. Don't introduce other opacities.
+2. **Dark sections:** full-strength text = **`text-inverted`** (the standard — all components migrated; don't introduce raw `text-white`). The only sanctioned full-strength `text-white` literals are `SiteHeader`/`Services5`'s `light ? 'text-white' : …` two-state ternaries, `hover:`/`group-hover:text-white` interactive states, and text baked into a decorative alpha scrim badge. De-emphasis has no semantic token, so use **three white-alpha tiers only — `text-white/80` (high), `text-white/65` (secondary), `text-white/45` (muted)**. Don't introduce other opacities.
 3. Headings need no color class (base supplies `text-highlighted`).
 
 On a real `<p>`, **don't re-declare `text-lg` / `leading-relaxed` / `text-pretty`** — the base supplies them. The base sets **no color**, so a muted/dark-bg color (`text-toned`, `text-white/65`) IS an intentional override; keep it. A deliberately smaller paragraph (`text-sm` card description) also keeps its size — that's a real deviation, not drift.
+
+### Background surfaces — semantic tokens, never raw `bg-neutral-*` / `bg-primary-50`
+
+Surfaces use semantic tokens, never a raw color-number. Two groups — **neutral** (Nuxt UI built-in) and **brand tints** (our `@utility` classes).
+
+**Neutral surfaces** — Nuxt UI ships these (mapped to the neutral scale; light-only site, so each = its light-mode shade):
+
+| Token | Shade | Use for |
+|---|---|---|
+| `bg-default` | white | the base page surface |
+| `bg-muted` | neutral-50 | **alt light section root** — the white ↔ neutral-50 seam between adjacent light sections |
+| `bg-elevated` | neutral-100 | image/map placeholder, faint inset panel |
+| `bg-accented` | neutral-200 | stronger neutral fill (dividers, rarely a surface) |
+| `bg-inverted` | neutral-900 | dark fill on a light page |
+
+**Brand tints** — see the **Brand color values** spec below (the `soft`/`muted`/`solid` ladder covers brand backgrounds and text together, light and dark, in one place).
+
+Rules:
+1. **Never `bg-neutral-NNN` / `bg-primary-50` for a surface** — use the token by role.
+2. **Decorative blur-blob glows stay raw** (`bg-primary/20 blur-[120px]`, `bg-cta-500/15`, multi-stop image scrims). These are atmospheric decoration tuned by eye — size, blur, opacity co-vary — NOT flat surfaces; naming them would be false precision. Only flat fills get a token.
+
+### Brand color values — `soft` / `muted` / `solid` (the emphasis ladder)
+
+Each brand color (`primary`, `cta`) has an emphasis ladder usable as a `bg-` **or** `text-`, composed freely like normal Tailwind (`bg-primary-soft text-primary`, etc.). `soft`/`muted` are **our** `@utility` classes (`main.css`); `solid` is **Nuxt UI's own** `bg-primary`/`text-primary` — no custom `-solid` token. Defined `@utility` so they compose with `hover:`/`lg:`/`group-hover:`.
+
+| Level | as `bg-` | as `text-` | owner |
+|---|---|---|---|
+| `soft` | `bg-primary-soft` = 50 tint | `text-primary-soft` = 500 @ 50% | ours |
+| `muted` | `bg-primary-muted` = 100 | `text-primary-muted` = 500 @ 75% | ours |
+| `solid` | `bg-primary` = 500 | `text-primary` = 500 | **Nuxt UI** |
+
+**On a dark section**, append `-inverted` — the same ladder, dark-tuned (bg → translucent brand wash; text → the light 300 shade). `bg-primary-soft-inverted` (brand/15), `bg-primary-muted-inverted` (brand/25), `text-primary-soft-inverted` (300 @ 50%), `text-primary-muted-inverted` (300 @ 75%), `text-primary-solid-inverted` (300). Same set for `cta`.
+
+Rules:
+1. **A pale tint bg takes the strong icon/text color**, a saturated fill takes white: `bg-primary-soft` + `text-primary` (icon tile); `bg-primary` + `text-inverted` (solid fill). Never `bg-*-solid` + `text-*-soft` (low contrast).
+2. **`text-primary-*` are brand ACCENTS, never body copy** — see the Text color spec. Normal text uses the neutral ladder.
+3. **Per-site retune** is the `@utility` block in `main.css`; the `/blocks/design-system` page renders the ladder.
+
+### Icon tiles — the `<IconTile>` component
+
+The leading-icon square is the **`<IconTile>`** component (not a class). It owns the structure (`rounded-md`, sizing) and applies the brand ladder via props: `tone` (`primary`/`cta`/`neutral`), `variant` (`soft`/`muted`/`solid`), `inverted` (dark sections), `size` (`sm`/`md`/`lg`). Pass extra classes (e.g. `group-hover:*`) via `class` — they're merged with `twMerge`.
+
+```vue
+<IconTile icon="i-fa6-solid-bolt" />                       <!-- soft primary (default) -->
+<IconTile icon="..." variant="solid" tone="cta" />
+<IconTile icon="..." inverted size="lg" class="shrink-0" /> <!-- on a dark section -->
+```
 
 ### Motion — transition durations by role
 

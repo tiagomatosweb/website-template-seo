@@ -6,7 +6,7 @@
     :title="props.title"
     :description="props.description"
     :ui="{
-      root: 'bg-neutral-50',
+      root: 'bg-muted',
       container: 'lg:items-start',
     }"
   >
@@ -36,7 +36,7 @@
       :default-value="['0']"
       :ui="{
         root: 'w-full space-y-4',
-        item: 'rounded-xl bg-white ring ring-default px-5 sm:px-6 border-0',
+        item: 'rounded-xl bg-default ring ring-default px-5 sm:px-6 border-0',
       }"
     />
   </UPageSection>

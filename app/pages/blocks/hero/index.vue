@@ -9,7 +9,7 @@ useSeoMeta({
 
 <template>
   <div>
-    <div class="sticky top-0 z-50 bg-neutral-900 px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-white">
+    <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Hero1 — background image + overlay header
     </div>
     <Hero1 :bg-image="heroBg" overlay-header>
@@ -18,7 +18,7 @@ useSeoMeta({
       </template>
     </Hero1>
 
-    <div class="sticky top-0 z-50 bg-neutral-900 px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-white">
+    <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Hero1 — clear (white)
     </div>
     <Hero1 />

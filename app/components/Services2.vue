@@ -19,28 +19,26 @@
       </span>
     </template>
 
-    <UPageGrid class="auto-rows-fr lg:grid-cols-3">
+    <UPageGrid class="sm:auto-rows-fr lg:grid-cols-3">
       <!-- Featured card — bespoke dark panel spanning the grid -->
       <UCard
-        :to="'#contact'"
+        to="#contact"
         variant="solid"
         :ui="{
-          root: 'group relative overflow-hidden rounded-2xl sm:col-span-2 lg:row-span-2 min-h-64 transition-all duration-300 hover:-translate-y-1',
+          root: 'lift group relative overflow-hidden rounded-2xl sm:col-span-2 lg:row-span-2 sm:min-h-64',
           body: 'flex h-full flex-col justify-between',
         }"
       >
         <div class="flex items-start justify-between">
-          <span class="icon-tile bg-white/10 text-white">
-            <UIcon :name="featured.icon" class="size-6" />
-          </span>
+          <IconTile :icon="featured.icon" variant="muted" class="text-inverted" />
           <UIcon
             name="i-fa6-solid-arrow-right"
-            class="size-4 -rotate-45 text-white/45 transition-all duration-300 group-hover:rotate-0 group-hover:text-white"
+            class="size-4 -rotate-45 text-dimmed-inverted transition-all duration-300 group-hover:rotate-0 group-hover:text-inverted"
           />
         </div>
         <div class="mt-10">
-          <h3 class="text-white text-3xl lg:text-4xl">{{ featured.title }}</h3>
-          <p class="mt-2 text-white/65 max-w-md">{{ featured.description }}</p>
+          <h3 class="text-inverted text-3xl lg:text-4xl">{{ featured.title }}</h3>
+          <p class="mt-2 text-muted-inverted max-w-md">{{ featured.description }}</p>
         </div>
       </UCard>
 
@@ -51,17 +49,14 @@
         :title="service.title"
         :description="service.description"
         to="#contact"
-        class="lift group"
+        class="lift"
         :ui="{
-          root: 'hover:ring-primary/40',
           title: 'font-display font-black tracking-tight text-xl',
           description: 'text-[15px] text-muted',
         }"
       >
         <template #leading>
-          <span class="icon-tile bg-primary-50 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-            <UIcon :name="service.icon" class="size-6" />
-          </span>
+          <IconTile :icon="service.icon" />
         </template>
       </UPageCard>
     </UPageGrid>

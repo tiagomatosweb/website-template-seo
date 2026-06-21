@@ -9,8 +9,8 @@
         root: 'relative isolate',
         container: props.overlayHeader ? 'pt-32 lg:pt-40' : '',
         headline: 'text-primary-300',
-        title: 'text-white',
-        description: 'text-white/80',
+        title: 'text-inverted',
+        description: 'text-toned-inverted',
       } : undefined"
     >
       <template v-if="props.bgImage" #top>
@@ -40,7 +40,7 @@
       id="contact"
       as="aside"
       :ui="{
-        root: 'w-full max-w-[min(440px,100%)] mx-auto lg:ml-auto lg:mr-0 bg-white shadow-sm',
+        root: 'w-full max-w-[min(440px,100%)] mx-auto lg:ml-auto lg:mr-0 bg-default shadow-sm',
       }"
     >
       <div class="mb-6 text-center">
@@ -85,7 +85,7 @@ const defaultCta = computed<ButtonProps>(() => ({
   to: site.phone.href,
   variant: 'outline',
   ...(props.bgImage
-    ? { color: 'neutral', class: 'text-white ring-white/25 hover:bg-white/10' }
+    ? { color: 'neutral', class: 'text-inverted ring-white/25 hover:bg-surface-soft-inverted' }
     : { color: 'primary' }),
 }))
 

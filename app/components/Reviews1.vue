@@ -1,33 +1,40 @@
 <template>
   <UPageSection
     id="reviews"
-    class="bg-neutral-50"
+    class="bg-muted"
     :headline="props.headline"
     :title="props.title"
     :description="props.description"
   >
-    <UPageGrid class="lg:grid-cols-3">
+    <UPageGrid class="lg:grid-cols-4">
       <UCard
         v-for="(review, i) in reviews"
         :key="i"
         as="article"
-        :ui="{ body: 'flex h-full flex-col gap-4' }"
+        variant="subtle"
+        :ui="{ body: 'flex h-full flex-col gap-3' }"
       >
-        <div class="flex items-center gap-1 text-cta-400" :aria-label="`${review.rating ?? 5} out of 5 stars`">
+        <header class="flex items-start gap-3">
+          <UAvatar
+            :src="review.avatar"
+            :alt="review.name"
+            :text="initials(review.name)"
+            size="md"
+          />
+          <div class="min-w-0 flex-1">
+            <div class="truncate font-bold text-highlighted">{{ review.name }}</div>
+            <div class="text-sm text-muted">{{ review.date }}</div>
+          </div>
+          <UIcon name="i-logos-google-icon" class="size-5 shrink-0" />
+        </header>
+
+        <div class="flex items-center gap-0.5 text-cta-400" :aria-label="`${review.rating ?? 5} out of 5 stars`">
           <UIcon v-for="n in (review.rating ?? 5)" :key="n" name="i-fa6-solid-star" class="size-4 shrink-0" />
         </div>
 
         <blockquote class="flex-1 text-toned">
-          <p>“{{ review.quote }}”</p>
+          <p class="text-base line-clamp-4">{{ review.quote }}</p>
         </blockquote>
-
-        <footer>
-          <UUser
-            :name="review.name"
-            :description="review.location"
-            :avatar="{ src: review.avatar, alt: review.name, text: initials(review.name) }"
-          />
-        </footer>
       </UCard>
     </UPageGrid>
   </UPageSection>
@@ -37,7 +44,7 @@
 interface Review {
   quote: string
   name: string
-  location: string
+  date: string
   rating?: number
   avatar?: string
 }
@@ -55,19 +62,25 @@ const props = withDefaults(defineProps<{
     {
       quote: 'Reliable, professional and they had our hot water back on the same day. Honest pricing and no surprises — exactly what you want when the hot water goes out.',
       name: 'Sarah M.',
-      location: 'Cronulla',
+      date: '3 weeks ago',
       rating: 5,
     },
     {
       quote: 'They explained exactly what our system needed and stuck to a clear quote. No pressure, no upselling — just a great job done properly.',
       name: 'James T.',
-      location: 'Randwick',
+      date: '1 month ago',
       rating: 5,
     },
     {
       quote: 'The team knows hot water systems inside out. Our recurring problem is finally sorted for good. Worth every dollar for the peace of mind.',
       name: 'Priya K.',
-      location: 'Hurstville',
+      date: '1 month ago',
+      rating: 5,
+    },
+    {
+      quote: 'Fantastic service and fairly priced. The team turned up on time, were respectful of our home and left everything spotless. Highly recommend!',
+      name: 'Celine M.',
+      date: '2 months ago',
       rating: 5,
     },
   ],

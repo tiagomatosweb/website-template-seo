@@ -23,7 +23,7 @@ const items = computed(() => [
         class="size-5 shrink-0"
         :class="item.brand ? '' : (props.inverted ? 'text-primary-300' : 'text-primary')"
       />
-      <span class="font-display font-semibold text-sm tabular-nums" :class="props.inverted ? 'text-white' : 'text-default'">{{ item.label }}</span>
+      <span class="font-display font-semibold text-sm tabular-nums" :class="props.inverted ? 'text-inverted' : 'text-default'">{{ item.label }}</span>
     </li>
   </ul>
 </template>

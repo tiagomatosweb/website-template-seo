@@ -23,7 +23,7 @@
           >
           <span
             v-if="props.imageBadge"
-            class="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-primary-950/80 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-white backdrop-blur"
+            class="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-primary-950/80 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-inverted backdrop-blur"
           >
             <UIcon name="i-fa6-solid-circle-check" class="size-3.5 text-primary-300" />
             {{ props.imageBadge }}
@@ -32,11 +32,9 @@
 
         <div
           v-if="props.stat"
-          class="absolute -bottom-5 right-4 flex items-center gap-3 rounded-xl bg-white p-4 shadow-lg ring ring-default sm:right-6"
+          class="absolute -bottom-5 right-4 flex items-center gap-3 rounded-xl bg-default p-4 shadow-lg ring ring-default sm:right-6"
         >
-          <span class="icon-tile bg-primary-50 text-primary">
-            <UIcon name="i-fa6-solid-house" class="size-5" />
-          </span>
+          <IconTile icon="i-fa6-solid-house" />
           <div>
             <div class="font-display text-xl font-black leading-none text-highlighted tabular-nums">
               {{ props.stat.value }}
@@ -65,9 +63,7 @@
         :description="reason.description"
       >
         <template #leading>
-          <span class="icon-tile bg-primary-50 text-primary">
-            <UIcon :name="reason.icon" class="size-5" />
-          </span>
+          <IconTile :icon="reason.icon" />
         </template>
       </UPageCard>
     </UPageGrid>

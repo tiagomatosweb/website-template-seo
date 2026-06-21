@@ -8,15 +8,15 @@
       root: 'bg-primary-950',
       container: 'lg:items-center',
       headline: 'text-primary-300',
-      title: 'text-white',
+      title: 'text-inverted',
     }"
   >
     <template #description>
-      <p class="text-white/65 max-w-lg">{{ props.description }}</p>
+      <p class="text-muted-inverted max-w-lg">{{ props.description }}</p>
       <div class="mt-8 flex flex-wrap items-center gap-x-10 gap-y-6">
         <div v-for="stat in props.stats" :key="stat.label">
-          <div class="font-display font-black text-4xl text-white tabular-nums">{{ stat.value }}</div>
-          <div class="mt-1 text-sm text-white/65">{{ stat.label }}</div>
+          <div class="font-display font-black text-4xl text-inverted tabular-nums">{{ stat.value }}</div>
+          <div class="mt-1 text-sm text-muted-inverted">{{ stat.label }}</div>
         </div>
       </div>
     </template>
@@ -30,10 +30,10 @@
         :title="reason.title"
         :description="reason.description"
         :ui="{
-          root: 'bg-white/5 ring-1 ring-white/10 transition-colors hover:bg-white/10',
+          root: 'bg-surface-faint-inverted ring-1 ring-soft-inverted transition-colors hover:bg-surface-soft-inverted',
           leadingIcon: 'text-primary-300',
-          title: 'text-white',
-          description: 'text-white/65',
+          title: 'text-inverted',
+          description: 'text-muted-inverted',
         }"
       />
     </UPageGrid>

@@ -5,8 +5,8 @@
       <div class="relative overflow-visible rounded-2xl bg-primary-950 p-8 sm:p-12 lg:p-16">
         <!-- Radial light blobs — clipped to the panel, behind the content. -->
         <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
-          <div class="absolute -left-24 -top-24 size-96 rounded-full bg-primary/30 blur-[120px]" />
-          <div class="absolute -bottom-32 left-1/3 size-80 rounded-full bg-cta-500/15 blur-[110px]" />
+          <div class="absolute -left-24 -top-24 size-96 rounded-full bg-primary/50 blur-[120px]" />
+          <div class="absolute -bottom-32 left-1/3 size-80 rounded-full bg-primary/50 blur-[110px]" />
         </div>
 
         <div class="relative">
@@ -16,15 +16,15 @@
           <h2 :class="titleClass">
             {{ props.title }}
           </h2>
-          <p class="mt-6 max-w-lg text-white/65">
+          <p class="mt-6 max-w-lg text-muted-inverted">
             {{ props.description }}
           </p>
 
           <ul class="mt-10 max-w-xl space-y-6">
             <li v-for="item in props.items" :key="item.term" class="flex gap-3.5">
               <UIcon name="i-fa6-solid-check" class="mt-1 size-5 shrink-0 text-primary-400" />
-              <p class="text-[15px] text-white/65">
-                <span class="font-bold text-white">{{ item.term }}</span>
+              <p class="text-[15px] text-muted-inverted">
+                <span class="font-bold text-inverted">{{ item.term }}</span>
                 — {{ item.description }}
               </p>
             </li>
@@ -54,7 +54,7 @@ import defaultImage from '~/assets/img/pexels-reneterp-13821194.jpg'
 // tailwind-merge (so text-primary-300 cleanly replaces the config's text-primary).
 const sectionUi = useAppConfig().ui.pageSection.slots
 const headlineClass = twMerge(sectionUi.headline, 'text-primary-300')
-const titleClass = twMerge(sectionUi.title, 'mt-6 max-w-md text-white')
+const titleClass = twMerge(sectionUi.title, 'mt-6 max-w-md text-inverted')
 
 interface CapabilityItem {
   term: string

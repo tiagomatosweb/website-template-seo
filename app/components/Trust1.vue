@@ -1,7 +1,7 @@
 <template>
   <UPageSection
     :ui="{
-      root: 'border-y border-default bg-neutral-50',
+      root: 'border-y border-default bg-muted',
       container: 'py-8 lg:py-6',
     }"
   >
@@ -16,7 +16,7 @@
         </span>
       </div>
 
-      <div class="h-px w-16 bg-neutral-200 lg:h-8 lg:w-px" />
+      <div class="h-px w-16 bg-accented lg:h-8 lg:w-px" />
 
       <ul class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
         <li v-for="item in props.items" :key="item.label" class="flex items-center gap-2.5">

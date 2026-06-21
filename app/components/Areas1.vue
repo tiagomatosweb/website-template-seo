@@ -1,7 +1,7 @@
 <template>
   <UPageSection
     id="areas"
-    class="bg-neutral-50"
+    class="bg-muted"
     :headline="props.headline"
     :title="props.title"
   >
@@ -41,9 +41,9 @@
         </div>
       </div>
 
-      <div class="overflow-hidden rounded-2xl ring ring-default bg-white p-3 sm:p-4">
+      <div class="overflow-hidden rounded-2xl ring ring-default bg-default p-3 sm:p-4">
         <div
-          class="flex aspect-4/3 w-full items-center justify-center rounded-xl bg-neutral-100"
+          class="flex aspect-4/3 w-full items-center justify-center rounded-xl bg-elevated"
           role="img"
           :aria-label="`Map of the ${activeArea.name} service area`"
         >

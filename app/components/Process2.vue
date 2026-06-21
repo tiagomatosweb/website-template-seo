@@ -13,13 +13,13 @@
     }"
   >
     <ol class="relative">
-      <span aria-hidden="true" class="absolute left-9 top-4 bottom-4 w-px bg-neutral-200" />
+      <span aria-hidden="true" class="absolute left-9 top-4 bottom-4 w-px bg-accented" />
       <li
         v-for="(step, i) in props.steps"
         :key="step.title"
         class="relative flex gap-7 pb-12 last:pb-0"
       >
-        <span class="relative z-10 flex size-18 shrink-0 items-center justify-center rounded-md bg-neutral-900 font-display font-black text-2xl text-white">
+        <span class="relative z-10 flex size-18 shrink-0 items-center justify-center rounded-md bg-inverted font-display font-black text-2xl text-inverted">
           {{ String(i + 1).padStart(2, '0') }}
         </span>
         <div class="pt-3">

@@ -17,7 +17,7 @@
         }"
       >
         <template #header>
-          <div class="relative aspect-4/3 w-full overflow-hidden bg-neutral-100">
+          <div class="relative aspect-4/3 w-full overflow-hidden bg-elevated">
             <img
               v-if="service.image"
               :src="service.image"
@@ -30,7 +30,7 @@
             </div>
             <span
               v-if="service.badge"
-              class="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-neutral-900/80 px-3 py-1 font-display text-xs font-bold text-white backdrop-blur"
+              class="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-inverted/80 px-3 py-1 font-display text-xs font-bold text-inverted backdrop-blur"
             >
               {{ service.badge }}
             </span>

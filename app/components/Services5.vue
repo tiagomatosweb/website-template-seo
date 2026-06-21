@@ -5,25 +5,41 @@
     :title="props.title"
     :description="props.description"
   >
-    <!-- Seamless gapless grid: one ringed panel, cells divided by hairlines
-         (1px gap revealing the muted background) — not separate gutter-spaced cards. -->
+    <!-- Seamless grid panel — no double border. Divider logic lives on the GRID
+         via responsive child selectors (columns change per breakpoint, so the
+         "last in row" rule must too):
+           · all cells get border-r + border-b (internal hairlines)
+           · last column gets NO border-r — per breakpoint: every cell (1 col,
+             mobile), every 2nd (sm), every 3rd (lg)
+           · last row gets NO border-b (last :nth child group, per col count)
+         The wrapper ring is then the single outer edge — nothing stacks. -->
     <div class="overflow-hidden rounded-2xl ring ring-default">
-      <div class="grid gap-px bg-muted sm:grid-cols-2 lg:grid-cols-3">
+      <div
+        class="grid sm:grid-cols-2 lg:grid-cols-3
+          *:border-default *:border-b
+          [&>*:last-child]:border-b-0
+          sm:*:border-r
+          sm:[&>*:nth-child(2n)]:border-r-0
+          sm:[&>*:nth-last-child(-n+2)]:border-b-0
+          lg:[&>*:nth-child(2n)]:border-r
+          lg:[&>*:nth-child(3n)]:border-r-0
+          lg:[&>*:nth-last-child(-n+3)]:border-b-0"
+      >
         <UCard
           v-for="(service, i) in services"
           :key="service.title"
           as="article"
           :ui="{
-            root: i === 0 ? 'rounded-none bg-primary-50' : 'rounded-none bg-default transition-colors hover:bg-elevated/50',
+            // ring-0 (no per-card box) — dividers come from the grid selectors above.
+            // These seamless cells deliberately DON'T lift (it'd pull a cell out of
+            // the joined grid); a flat bg-tint is the hover cue instead.
+            root: i === 0
+              ? 'rounded-none ring-0 bg-primary-soft'
+              : 'rounded-none ring-0 bg-default transition-colors hover:bg-elevated/50',
             body: 'flex h-full flex-col',
           }"
         >
-          <span
-            class="icon-tile mb-6 size-12"
-            :class="i === 0 ? 'bg-primary text-white' : 'bg-primary-50 text-primary'"
-          >
-            <UIcon :name="service.icon" class="size-6" />
-          </span>
+          <IconTile :icon="service.icon" :variant="i === 0 ? 'solid' : 'soft'" class="mb-6" />
 
           <h4>{{ service.title }}</h4>
           <p class="mt-3 flex-1 text-sm text-toned">{{ service.description }}</p>
