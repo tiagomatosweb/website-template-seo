@@ -49,7 +49,7 @@ reads from here via `const { site } = useAppConfig()`.
 - Replace the hero/CTA background image(s) in `app/assets/img/` and update the
   imports in `index.vue`.
 - Logo: search for `PLACEHOLDER: replace wordmark with logo image` in
-  `SiteHeader.vue` / `SiteFooter.vue` to swap the text wordmark for an `<img>`.
+  `site/Header.vue` / `site/Footer.vue` to swap the text wordmark for an `<img>`.
 
 ## 5. Before launch — remaining placeholders
 

@@ -6,12 +6,14 @@ export default defineAppConfig({
   // ──────────────────────────────────────────────────────────────────────────
   site: {
     name: 'BusinessName',
+    shortName: 'Business',
     tagline: 'Your trusted local specialists',
     blurb: 'A short sentence about the business, the area it serves and what makes it the trusted local choice.',
     // Phone: `display` is what the user sees, `href` is the tel: link (digits only).
     phone: { display: '00 0000 0000', href: 'tel:0000000000' },
     email: 'hello@example.com',
     serviceArea: 'Serving your local area',
+    hours: 'Mon–Fri 8am–5pm',
     social: {
       facebook: '#',
       instagram: '#',
@@ -44,6 +46,11 @@ export default defineAppConfig({
         },
       },
       compoundVariants: [
+        {
+          color: 'primary',
+          variant: ['outline', 'subtle'],
+          class: 'focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-primary focus-visible:shadow-[0_0_0_3px] focus-visible:shadow-primary/15',
+        },
         { leading: true, size: 'xs', class: 'ps-8' },
         { leading: true, size: 'sm', class: 'ps-9' },
         { leading: true, size: 'md', class: 'ps-9' },
@@ -54,16 +61,29 @@ export default defineAppConfig({
     select: {
       slots: {
         base: 'w-full',
+        leadingIcon: 'text-dimmed/80',
       },
       variants: {
         size: {
-          xs: { base: 'px-3 py-2' },
-          sm: { base: 'px-3.5 py-2.5' },
-          md: { base: 'px-3.5 py-2.5' },
-          lg: { base: 'px-4 py-3' },
-          xl: { base: 'px-4 py-3' },
+          xs: { base: 'px-3 py-2', leading: 'ps-3', leadingIcon: 'size-3' },
+          sm: { base: 'px-3.5 py-2.5', leading: 'ps-3.5', leadingIcon: 'size-3.5' },
+          md: { base: 'px-3.5 py-2.5', leading: 'ps-3.5', leadingIcon: 'size-3.5' },
+          lg: { base: 'px-4 py-3', leading: 'ps-4', leadingIcon: 'size-3.5' },
+          xl: { base: 'px-4 py-3', leading: 'ps-4', leadingIcon: 'size-3.5' },
         },
       },
+      compoundVariants: [
+        {
+          color: 'primary',
+          variant: ['outline', 'subtle'],
+          class: 'focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-primary focus-visible:shadow-[0_0_0_3px] focus-visible:shadow-primary/15',
+        },
+        { leading: true, size: 'xs', class: 'ps-8' },
+        { leading: true, size: 'sm', class: 'ps-9' },
+        { leading: true, size: 'md', class: 'ps-9' },
+        { leading: true, size: 'lg', class: 'ps-9.5' },
+        { leading: true, size: 'xl', class: 'ps-9.5' },
+      ],
     },
     textarea: {
       slots: {
@@ -78,6 +98,22 @@ export default defineAppConfig({
           xl: { base: 'px-4 py-3' },
         },
       },
+      compoundVariants: [
+        {
+          color: 'primary',
+          variant: ['outline', 'subtle'],
+          class: 'focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-primary focus-visible:shadow-[0_0_0_3px] focus-visible:shadow-primary/15',
+        },
+      ],
+    },
+    inputNumber: {
+      compoundVariants: [
+        {
+          color: 'primary',
+          variant: ['outline', 'subtle'],
+          class: 'focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-primary focus-visible:shadow-[0_0_0_3px] focus-visible:shadow-primary/15',
+        },
+      ],
     },
     // Cards: rounded-xl, p-5 sm:p-6 padding, flat by default (lift is opt-in via the
     // `.lift` class on interactive cards). `solid` = dark NEUTRAL panel. See CLAUDE.md.
@@ -116,12 +152,16 @@ export default defineAppConfig({
         { variant: 'outline', to: true, class: { root: 'hover:bg-default' } },
       ],
     },
+    pageGrid: {
+      // Card gutter = gap-6.
+      base: 'gap-6 sm:gap-6 lg:gap-6',
+    },
     accordion: {
       slots: {
         item: 'border-b border-default last:border-b-0',
-        trigger: 'py-5 gap-4 font-display font-bold text-base text-neutral-900 hover:text-primary transition-colors',
+        trigger: 'py-5 gap-4 font-display font-bold text-base text-highlighted hover:text-primary transition-colors',
         trailingIcon: 'text-primary',
-        body: 'text-base leading-relaxed text-neutral-600 pb-5',
+        body: 'text-base leading-relaxed text-toned pb-5',
       },
     },
     pageCTA: {
@@ -136,19 +176,19 @@ export default defineAppConfig({
           solid: {
             root: 'bg-neutral-950',
             title: 'text-inverted',
-            description: 'text-toned-inverted'
+            description: 'text-toned-inverted',
           },
         },
       },
       defaultVariants: {
-        variant: 'solid'
-      }
+        variant: 'solid',
+      },
     },
     pageHero: {
       slots: {
         container: 'py-16 lg:py-24 gap-12 lg:gap-16',
         headline: 'mb-4 font-display text-sm font-semibold uppercase tracking-widest text-primary',
-        title: 'font-display font-black text-4xl sm:text-5xl lg:text-6xl leading-[1.05] text-neutral-900 text-balance',
+        title: 'font-display font-black text-4xl sm:text-5xl lg:text-6xl leading-[1.05] text-highlighted text-balance',
         description: 'text-lg leading-relaxed text-pretty',
         body: 'mt-8',
         footer: 'mt-8',
@@ -178,6 +218,7 @@ export default defineAppConfig({
             title: 'text-left',
             description: 'text-left text-balance',
             links: 'justify-start',
+            features: 'sm:grid-cols-2 lg:grid-cols-3 gap-8',
           },
           horizontal: {
             container: 'lg:grid-cols-2 lg:items-center gap-8 lg:gap-16',
@@ -185,15 +226,11 @@ export default defineAppConfig({
         },
       },
     },
-    pageGrid: {
-      // Card gutter = gap-6.
-      base: 'gap-6 sm:gap-6 lg:gap-6',
-    },
     user: {
       slots: {
         // mb-0 + !leading-tight override the global `p` base styles.
         name: 'font-display mb-0 !leading-tight',
-        description: 'text-neutral-500 mb-0 !leading-tight',
+        description: 'text-muted mb-0 !leading-tight',
       },
     },
     badge: {
@@ -236,7 +273,7 @@ export default defineAppConfig({
     },
     button: {
       slots: {
-        base: 'font-display font-semibold text-[0.88rem] tracking-[0.02em] cursor-pointer'
+        base: 'font-display font-semibold text-[0.88rem] tracking-[0.02em] cursor-pointer',
       },
       compoundVariants: [
         {
@@ -276,8 +313,8 @@ export default defineAppConfig({
             leadingIcon: 'size-4',
             trailingIcon: 'size-4',
           },
-        }
-      }
-    }
+        },
+      },
+    },
   },
 })

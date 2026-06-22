@@ -15,7 +15,7 @@
       <Faq1 />
       <Cta1 :bg-image="ctaBg" />
     </main>
-    <SiteFooter />
+    <Footer />
   </div>
 </template>
 

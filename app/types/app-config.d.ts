@@ -11,11 +11,13 @@ declare module 'nuxt/schema' {
 
 export interface SiteConfig {
   name: string
+  shortName: string
   tagline: string
   blurb: string
   phone: { display: string, href: string }
   email: string
   serviceArea: string
+  hours: string
   social: {
     facebook: string
     instagram: string

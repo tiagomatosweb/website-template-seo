@@ -1,6 +1,6 @@
 <template>
   <div :class="props.overlayHeader ? 'relative' : ''">
-    <SiteHeader v-if="props.overlayHeader" overlay />
+    <Header v-if="props.overlayHeader" overlay />
 
     <UPageHero
       orientation="horizontal"
