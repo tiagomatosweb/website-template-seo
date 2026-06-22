@@ -31,7 +31,20 @@ Every section is **fully self-contained and prop-driven with sensible defaults**
 
 - `withDefaults(defineProps<{...}>(), { ... })` with full default content (default arrays use factory functions `() => [...]`).
 - Background images are imported as ES modules from `~/assets/img/` and passed via a `bgImage`-style prop, resolved through a `computed` fallback to a default import.
-- **Build UI from Nuxt UI components** (`UPageSection`, `UPageGrid`, `UPageCard`/`UCard`, `UButton`, `UContainer`, `UIcon`, `UPageCTA`, `UPageHero`) rather than hand-rolled divs. Reach for raw markup only for layout/decoration not covered by a component.
+- **Build UI from Nuxt UI components** (`UPageSection`, `UPageGrid`, `UPageCard`, `UButton`, `UContainer`, `UIcon`, `UPageCTA`, `UPageHero`) rather than hand-rolled divs. Reach for raw markup only for layout/decoration not covered by a component.
+
+### `UPageCard` vs `UCard` — pick by role, not by API
+
+These two are nearly identical surfaces (same `rounded-xl`, same `p-5 sm:p-6` padding, same `solid` dark variant — wired in `app.config.ts` for both). The decision is **role-based, not "props vs slots"**:
+
+- **`UPageCard` is the default for ALL marketing content** — any card that *presents an item*: a service, a benefit, a review, a featured panel, a CTA box. Whether in a grid or standalone. This is what you reach for ~always.
+  - Content maps to its props (`title` / `description` / `icon`)? Use them.
+  - Need custom markup (image header, feature list, multi-part body)? Use its **slots** — `#header`, `#footer`, `#leading`, and the **default slot** for the body. `UPageCard` has no `body` slot; custom body content goes in the default slot, and its inner-padding `:ui` key is **`container`** (not `body`).
+- **`UCard` only for a bare container** — a card that wraps another component/composite and has **no title/description of its own**. The canonical (essentially only) case is `Hero1`'s `<UCard><QuoteForm /></UCard>`.
+
+The deciding question: *does this card describe a thing (→ `UPageCard`), or is it just a box around something else (→ `UCard`)?* When unsure, use `UPageCard`.
+
+`:ui` slot-name mapping when authoring/migrating: `UCard`'s `body` → `UPageCard`'s `container`; `header`/`footer` are the same on both. Everything else (radius override, `lift`, `variant`) is identical.
 
 ### Per-site customisation (rebranding)
 
@@ -65,10 +78,10 @@ The `@layer base` block in `main.css` already styles bare tags. When you write a
 | Tag | Already applied (do NOT repeat) | Only add for a genuine override |
 |---|---|---|
 | `h1`–`h6` | `font-display tracking-tight text-neutral-900 text-balance` + per-level size/weight/leading (see Headings spec) | dark-bg color (`text-white`), margins (`mt-*`), a deliberate size deviation |
-| `p` | `leading-relaxed text-pretty text-lg` + `mb-4` between paragraphs | **color** (base sets none → `text-neutral-600`, `text-white/70` are real), a deliberately smaller size (`text-sm` caption), `max-w-*` |
+| `p` | `leading-relaxed text-pretty text-base` + `mb-4` between paragraphs | **color** (base sets none → `text-neutral-600`, `text-white/70` are real), the **lead-in size** (`text-lg`, see below) or a deliberately smaller size (`text-sm` caption), `max-w-*` |
 | `html` | `scroll-behavior: smooth` | — |
 
-Concretely: **don't write `<p class="text-lg leading-relaxed text-pretty">`** — that's the base, verbatim. Write `<p>` (or `<p class="text-neutral-600 max-w-md">` if you need the muted color / measure). Same for headings: a section title is `<h2>`, not `<h2 class="font-display text-3xl font-black">`. Reusable multi-utility patterns get a class in `@layer components` (e.g. `.lift`) or a component (e.g. `<IconTile>`) — never copy the utility string across components.
+Concretely: **don't write `<p class="text-base leading-relaxed text-pretty">`** — that's the base, verbatim. Write `<p>` (or `<p class="text-neutral-600 max-w-md">` if you need the muted color / measure). Same for headings: a section title is `<h2>`, not `<h2 class="font-display text-3xl font-black">`. Reusable multi-utility patterns get a class in `@layer components` (e.g. `.lift`) or a component (e.g. `<IconTile>`) — never copy the utility string across components.
 
 ### Border-radius — role-based spec (plain Tailwind classes)
 
@@ -154,10 +167,12 @@ Rules:
 
 ### Paragraphs — `<p>` is for prose only
 
-`<p>` carries a base style (`leading-relaxed text-pretty text-lg` + `mb-4` between paragraphs) from `@layer base` in `main.css`. So **use `<p>` only for actual running text** — descriptions, subtitles, blurbs, body copy. For anything that is *not* a sentence/paragraph, use `<div>` (or `<span>` inline):
+`<p>` carries a base style (`leading-relaxed text-pretty text-base` + `mb-4` between paragraphs) from `@layer base` in `main.css`. So **use `<p>` only for actual running text** — descriptions, subtitles, blurbs, body copy. For anything that is *not* a sentence/paragraph, use `<div>` (or `<span>` inline):
 
 - **Use `<p>`:** section/card descriptions, subtitles, blurbs, the copyright line, form helper text — anything that reads as a sentence.
 - **Use `<div>` (NOT `<p>`):** stat numbers (`{{ stat.value }}`), stat labels, headlines/kickers, captions, badges, single-word/short data labels. These are data or labels, not prose — making them `<p>` wrongly inherits body sizing and the `mb-4` paragraph margin (which then needs a `mb-0` hack — a smell that it shouldn't be a `<p>`).
+
+**Three prose size tiers — base is `text-base`, `text-lg` is earned.** There is no `text-base`-vs-`text-lg` ambiguity: the body default is **`text-base` (16px)** — comfortable, credible long-form reading. The larger **`text-lg` (18px)** is the **lead-in / emphasis tier**, opt-in for the punchy intro copy: hero subtitles and **section lead-in descriptions** (the `<p>` directly under a section `<h2>`). It's wired into config for the slot-driven cases — `pageHero.description`, `pageSection.description`, `pageCTA.description` are all `text-lg` — so a UPageSection's `description` prop is large automatically. Only add `text-lg` by hand when the lead-in lives in a **custom header** or a `#description` **slot with your own `<p>`s** (config classes sit on the slot wrapper, not your inner `<p>`) — see `Why1`/`Why3`/`About1`/`Services4`. The smaller **`text-sm` (14px)** is the compact tier — card descriptions, captions, helper text (and `pageCard.description` = `text-[15px]`). Default body prose and long-form content stay **`text-base`**; don't promote a multi-paragraph SEO block to `text-lg`.
 
 **Paragraph color is always the neutral ladder.** A `<p>` of body copy uses the neutral tokens — bare (inherits `text-default`) or `text-toned`/`text-muted` for de-emphasis. **Never** color a paragraph with a brand variant (`text-primary-*`/`text-cta-*`) — those are accent-only (see Text color). When generating content, default every paragraph/description to the neutral ladder.
 
@@ -188,7 +203,7 @@ Rules:
 2. **Dark sections:** full-strength text = **`text-inverted`** (the standard — all components migrated; don't introduce raw `text-white`). The only sanctioned full-strength `text-white` literals are `SiteHeader`/`Services5`'s `light ? 'text-white' : …` two-state ternaries, `hover:`/`group-hover:text-white` interactive states, and text baked into a decorative alpha scrim badge. De-emphasis has no semantic token, so use **three white-alpha tiers only — `text-white/80` (high), `text-white/65` (secondary), `text-white/45` (muted)**. Don't introduce other opacities.
 3. Headings need no color class (base supplies `text-highlighted`).
 
-On a real `<p>`, **don't re-declare `text-lg` / `leading-relaxed` / `text-pretty`** — the base supplies them. The base sets **no color**, so a muted/dark-bg color (`text-toned`, `text-white/65`) IS an intentional override; keep it. A deliberately smaller paragraph (`text-sm` card description) also keeps its size — that's a real deviation, not drift.
+On a real `<p>`, **don't re-declare `text-base` / `leading-relaxed` / `text-pretty`** — the base supplies them. The base sets **no color**, so a muted/dark-bg color (`text-toned`, `text-white/65`) IS an intentional override; keep it. A size away from the base IS a real deviation, not drift — `text-lg` for a lead-in (see the three-tier note above) and `text-sm` for a compact caption both keep their size.
 
 ### Background surfaces — semantic tokens, never raw `bg-neutral-*` / `bg-primary-50`
 

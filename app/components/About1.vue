@@ -16,7 +16,7 @@
           <h2 :class="titleClass">
             {{ props.title }}
           </h2>
-          <p class="mt-6 max-w-lg text-muted-inverted">
+          <p class="mt-6 max-w-lg text-lg text-muted-inverted">
             {{ props.description }}
           </p>
 

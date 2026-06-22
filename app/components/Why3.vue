@@ -8,7 +8,7 @@
     <div>
       <div :class="headlineClass">{{ props.headline }}</div>
       <h2 :class="titleClass">{{ props.title }}</h2>
-      <p v-if="props.description" class="mt-4 text-toned max-w-md">
+      <p v-if="props.description" class="mt-4 text-lg text-toned max-w-md">
         {{ props.description }}
       </p>
 

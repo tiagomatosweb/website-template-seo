@@ -25,10 +25,12 @@
           lg:[&>*:nth-child(3n)]:border-r-0
           lg:[&>*:nth-last-child(-n+3)]:border-b-0"
       >
-        <UCard
+        <UPageCard
           v-for="(service, i) in services"
           :key="service.title"
           as="article"
+          :title="service.title"
+          :description="service.description"
           :ui="{
             // ring-0 (no per-card box) — dividers come from the grid selectors above.
             // These seamless cells deliberately DON'T lift (it'd pull a cell out of
@@ -36,23 +38,25 @@
             root: i === 0
               ? 'rounded-none ring-0 bg-primary-soft'
               : 'rounded-none ring-0 bg-default transition-colors hover:bg-elevated/50',
-            body: 'flex h-full flex-col',
+            container: 'flex h-full flex-col',
+            body: 'flex-1',
           }"
         >
-          <IconTile :icon="service.icon" :variant="i === 0 ? 'solid' : 'soft'" class="mb-6" />
+          <template #leading>
+            <IconTile :icon="service.icon" :variant="i === 0 ? 'solid' : 'soft'" />
+          </template>
 
-          <h4>{{ service.title }}</h4>
-          <p class="mt-3 flex-1 text-sm text-toned">{{ service.description }}</p>
-
-          <UButton
-            :label="service.cta.label"
-            :to="service.cta.to"
-            variant="link"
-            color="primary"
-            trailing-icon="i-fa6-solid-arrow-right"
-            class="mt-6 self-start px-0 font-display font-bold"
-          />
-        </UCard>
+          <template #footer>
+            <UButton
+              :label="service.cta.label"
+              :to="service.cta.to"
+              variant="soft"
+              size="xs"
+              color="primary"
+              trailing-icon="i-fa6-solid-arrow-right"
+            />
+          </template>
+        </UPageCard>
       </div>
     </div>
   </UPageSection>

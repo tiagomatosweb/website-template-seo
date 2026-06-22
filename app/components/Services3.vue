@@ -5,79 +5,63 @@
     :title="props.title"
   >
     <UPageGrid class="lg:grid-cols-4">
-      <UCard
+      <UPageCard
         v-for="service in props.services"
         :key="service.title"
+        :title="service.title"
         :ui="{
-          root: 'lift h-full flex flex-col overflow-hidden',
-          // Local override: image header bleeds edge-to-edge (no padding, beats the
-          // global p-5 sm:p-6 card padding). Image is clipped by root overflow-hidden.
-          header: 'p-0 sm:p-0',
-          body: 'flex flex-1 flex-col',
+          root: 'lift overflow-hidden',
+          container: 'flex flex-col lg:flex',
+          header: 'p-0 sm:p-0 -mx-5 -mt-5 sm:-mx-6 sm:-mt-6',
+          footer: 'w-full mt-4'
         }"
       >
         <template #header>
-          <div class="relative aspect-4/3 w-full overflow-hidden bg-elevated">
-            <img
-              v-if="service.image"
-              :src="service.image"
-              :alt="service.title"
-              loading="lazy"
-              class="size-full object-cover"
-            >
-            <div v-else class="flex size-full items-center justify-center">
-              <UIcon name="i-fa6-solid-image" class="size-10 text-dimmed" />
-            </div>
-            <span
-              v-if="service.badge"
-              class="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-inverted/80 px-3 py-1 font-display text-xs font-bold text-inverted backdrop-blur"
-            >
-              {{ service.badge }}
-            </span>
-          </div>
+          <img
+            :src="service.image"
+            :alt="service.title"
+            loading="lazy"
+            class="aspect-4/3 w-full object-cover bg-elevated"
+          >
         </template>
 
-        <h4 class="uppercase tracking-wide">
-          {{ service.title }}
-        </h4>
-        <p
-          v-if="service.subtitle"
-          class="mt-2 text-sm italic"
-          :class="service.accent === 'cta' ? 'text-cta-600' : 'text-primary'"
-        >
-          {{ service.subtitle }}
-        </p>
+        <template #description>
+          <p
+            v-if="service.subtitle"
+            class="mt-2 text-sm italic text-primary"
+          >
+            {{ service.subtitle }}
+          </p>
 
-        <ul class="mt-4 space-y-2.5">
-          <li v-for="feature in service.features" :key="feature" class="flex items-center gap-2.5 text-sm text-toned">
-            <UIcon name="i-fa6-solid-check" class="size-3.5 shrink-0 text-primary" />
-            {{ feature }}
-          </li>
-        </ul>
+          <ul class="mt-4 space-y-2.5">
+            <li v-for="feature in service.features" :key="feature" class="flex items-center gap-2.5 text-sm text-toned">
+              <UIcon name="i-fa6-solid-check" class="size-3.5 shrink-0 text-primary" />
+              {{ feature }}
+            </li>
+          </ul>
+        </template>
 
-        <div class="mt-auto pt-6">
+        <template #footer>
           <UButton
             :label="service.cta.label"
-            :color="service.accent === 'cta' ? 'cta' : 'primary'"
+            color="primary"
             variant="outline"
             block
             trailing-icon="i-fa6-solid-arrow-right"
             :to="service.cta.to"
             class="justify-center"
           />
-        </div>
-      </UCard>
+        </template>
+      </UPageCard>
     </UPageGrid>
   </UPageSection>
 </template>
 
 <script setup lang="ts">
 interface ServiceItems {
-  image?: string
-  badge?: string
+  image: string
   title: string
   subtitle?: string
-  accent?: 'primary' | 'cta'
   features: string[]
   cta: { label: string, to: string }
 }
@@ -91,26 +75,28 @@ const props = withDefaults(defineProps<{
   title: 'What do you need help with?',
   services: () => [
     {
-      badge: '24/7',
+      image: 'https://images.pexels.com/photos/8486972/pexels-photo-8486972.jpeg?auto=compress&cs=tinysrgb&w=800',
       title: 'Emergency call-outs',
       subtitle: 'Something gone wrong? Need help today?',
-      accent: 'cta',
       features: ['Same-day service', 'Zero call-out fee', 'All brands & systems', 'Parts on the van'],
       cta: { label: 'Get help now', to: '#contact' },
     },
     {
+      image: 'https://images.pexels.com/photos/1249611/pexels-photo-1249611.jpeg?auto=compress&cs=tinysrgb&w=800',
       title: 'Installations & replacements',
       subtitle: 'Upgrading your system?',
       features: ['Quality fit-outs', 'Honest sizing advice', 'Fully guaranteed', 'Free assessment'],
       cta: { label: 'Get free quote', to: '#contact' },
     },
     {
+      image: 'https://images.pexels.com/photos/8005397/pexels-photo-8005397.jpeg?auto=compress&cs=tinysrgb&w=800',
       title: 'General service',
       subtitle: 'Day-to-day repairs and maintenance',
       features: ['Fast diagnosis', 'Tidy workmanship', 'Upfront pricing', 'Friendly team'],
       cta: { label: 'View services', to: '#contact' },
     },
     {
+      image: 'https://images.pexels.com/photos/2760243/pexels-photo-2760243.jpeg?auto=compress&cs=tinysrgb&w=800',
       title: 'Commercial & strata',
       subtitle: 'Managing multiple properties?',
       features: ['Priority response', 'Reliable scheduling', 'Direct invoicing', 'Ongoing account'],

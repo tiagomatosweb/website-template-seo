@@ -21,26 +21,20 @@
 
     <UPageGrid class="sm:auto-rows-fr lg:grid-cols-3">
       <!-- Featured card — bespoke dark panel spanning the grid -->
-      <UCard
+      <UPageCard
         to="#contact"
         variant="solid"
         :ui="{
           root: 'lift group relative overflow-hidden rounded-2xl sm:col-span-2 lg:row-span-2 sm:min-h-64',
-          body: 'flex h-full flex-col justify-between',
+          container: 'flex h-full flex-col justify-between',
         }"
       >
-        <div class="flex items-start justify-between">
-          <IconTile :icon="featured.icon" inverted class="bg-surface-soft-inverted text-primary-300" />
-          <UIcon
-            name="i-fa6-solid-arrow-right"
-            class="size-4 -rotate-45 text-dimmed-inverted transition-all duration-300 group-hover:rotate-0 group-hover:text-inverted"
-          />
-        </div>
+        <IconTile :icon="featured.icon" inverted class="bg-surface-soft-inverted text-primary-300" />
         <div class="mt-10">
           <h3 class="text-inverted text-3xl lg:text-4xl">{{ featured.title }}</h3>
           <p class="mt-2 text-muted-inverted max-w-md">{{ featured.description }}</p>
         </div>
-      </UCard>
+      </UPageCard>
 
       <!-- Small cards — UPageCard with a tile-style leading icon -->
       <UPageCard
@@ -50,10 +44,6 @@
         :description="service.description"
         to="#contact"
         class="lift"
-        :ui="{
-          title: 'font-display font-black tracking-tight text-xl',
-          description: 'text-[15px] text-muted',
-        }"
       >
         <template #leading>
           <IconTile :icon="service.icon" />

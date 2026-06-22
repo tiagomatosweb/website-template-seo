@@ -363,6 +363,25 @@ const contactItems = [
 
         <template #cards>
           <section>
+            <h2 class="text-xl font-extrabold mb-4">Which component — UPageCard vs UCard</h2>
+            <p class="text-sm text-muted mb-6 max-w-prose">
+              <strong>UPageCard is the default for all marketing content</strong> — any card that
+              presents an item (service, benefit, review, featured panel, CTA box), in a grid or
+              standalone. Use its props (<code class="text-primary">title</code> /
+              <code class="text-primary">description</code> / <code class="text-primary">icon</code>)
+              when content maps to them; use its slots (<code class="text-primary">#header</code>,
+              <code class="text-primary">#footer</code>, <code class="text-primary">#leading</code>,
+              and the <strong>default slot</strong> for the body) for custom markup. Its inner-padding
+              <code class="text-primary">:ui</code> key is <code class="text-primary">container</code>
+              (not <code class="text-primary">body</code>). <strong>UCard</strong> is reserved for a
+              <em>bare container</em> with no title/description of its own — e.g.
+              <code class="text-primary">&lt;UCard&gt;&lt;QuoteForm/&gt;&lt;/UCard&gt;</code> in the hero.
+              Card titles are all the <code class="text-primary">h4</code> shape and descriptions are all
+              <code class="text-primary">text-[15px] text-muted</code> (set once via
+              <code class="text-primary">pageCard.title</code> / <code class="text-primary">.description</code> —
+              don't restyle them per component; dark <code class="text-primary">solid</code> cards only
+              override the description <em>color</em> to <code class="text-primary">text-muted-inverted</code>).
+            </p>
             <h2 class="text-xl font-extrabold mb-4">Card variants</h2>
             <p class="text-sm text-muted mb-6 max-w-prose">
               Pick a <code class="text-primary">variant</code> — the border lives on the bordered

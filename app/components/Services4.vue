@@ -22,7 +22,7 @@
         <h2 :class="titleClass">
           {{ props.title }}
         </h2>
-        <p v-if="props.description" class="mt-3">
+        <p v-if="props.description" class="mt-3 text-lg">
           {{ props.description }}
         </p>
         <UButton
@@ -35,25 +35,20 @@
         />
       </div>
 
-      <!-- Service cards -->
-      <UCard
+      <!-- Service cards — prop-driven; `to` makes the whole card the link (no NuxtLink) -->
+      <UPageCard
         v-for="service in props.services"
         :key="service.title"
-        :ui="{
-          root: 'lift h-full',
-          body: 'flex h-full flex-col gap-3',
-        }"
+        :to="service.to ?? '#contact'"
+        :title="service.title"
+        :description="service.description"
+        class="lift"
+        :ui="{ root: 'h-full' }"
       >
-        <NuxtLink :to="service.to ?? '#contact'" class="flex h-full flex-col">
+        <template #leading>
           <IconTile :icon="service.icon" />
-          <h4 class="mt-5">
-            {{ service.title }}
-          </h4>
-          <p class="mt-3 text-sm text-muted">
-            {{ service.description }}
-          </p>
-        </NuxtLink>
-      </UCard>
+        </template>
+      </UPageCard>
     </UPageGrid>
   </UPageSection>
 </template>

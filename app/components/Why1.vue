@@ -12,7 +12,7 @@
     }"
   >
     <template #description>
-      <p class="text-muted-inverted max-w-lg">{{ props.description }}</p>
+      <p class="text-lg text-muted-inverted max-w-lg">{{ props.description }}</p>
       <div class="mt-8 flex flex-wrap items-center gap-x-10 gap-y-6">
         <div v-for="stat in props.stats" :key="stat.label">
           <div class="font-display font-black text-4xl text-inverted tabular-nums">{{ stat.value }}</div>

@@ -13,19 +13,22 @@
     <template #description>
       <p class="max-w-md text-toned">{{ props.description }}</p>
 
-      <UCard class="mt-8">
-        <h4>{{ props.ctaTitle }}</h4>
-        <p class="mt-2 text-toned">{{ props.ctaDescription }}</p>
-        <UButton
-          :label="`Call  ${site.phone.display}`"
-          :to="site.phone.href"
-          icon="i-fa6-solid-phone"
-          color="primary"
-          variant="outline"
-          size="lg"
-          class="mt-6"
-        />
-      </UCard>
+      <UPageCard
+        class="mt-8"
+        :title="props.ctaTitle"
+        :description="props.ctaDescription"
+      >
+        <template #footer>
+          <UButton
+            :label="`Call  ${site.phone.display}`"
+            :to="site.phone.href"
+            icon="i-fa6-solid-phone"
+            color="primary"
+            variant="outline"
+            size="lg"
+          />
+        </template>
+      </UPageCard>
     </template>
 
     <!-- Carded accordion: each item is a Card-role surface, overriding the

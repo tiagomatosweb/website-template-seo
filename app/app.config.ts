@@ -79,18 +79,11 @@ export default defineAppConfig({
         },
       },
     },
+    // Cards: rounded-xl, p-5 sm:p-6 padding, flat by default (lift is opt-in via the
+    // `.lift` class on interactive cards). `solid` = dark NEUTRAL panel. See CLAUDE.md.
     card: {
       slots: {
-        // Card role (rounded-xl). Standalone/highlighted → override `root: 'rounded-2xl'`.
-        // Borders use Nuxt UI's stock variants — `outline`/`subtle` already apply
-        // `ring-default`, whose color is set once via `--ui-border` in main.css.
-        // We only customise `solid` (dark NEUTRAL panel — brand is an accent, not
-        // the surface; see the dark-surface note in CLAUDE.md).
-        // Cards are FLAT by default (no hover). Lift is OPT-IN: add the `.lift`
-        // class (main.css) only to INTERACTIVE cards — ones with a link/action.
-        // Static cards (reviews, info panels) stay flat.
         root: 'rounded-xl',
-        // Unified card padding (CLAUDE.md): p-5 sm:p-6 — same on UCard & UPageCard.
         body: 'p-5 sm:p-6',
         header: 'p-5 sm:p-6',
         footer: 'p-5 sm:p-6',
@@ -103,18 +96,25 @@ export default defineAppConfig({
     },
     pageCard: {
       slots: {
-        // See `card` above — borders use stock variants + `--ui-border`.
-        // Flat by default; lift is opt-in via `.lift` on interactive cards (see `card`).
         root: 'rounded-xl',
-        // Unified card padding (CLAUDE.md): p-5 sm:p-6 — matches UCard's body/header/footer.
         container: 'p-5 sm:p-6',
         leadingIcon: 'size-7 text-primary',
+        // Card title/description shape, set once (don't restyle per component). Dark
+        // `solid` cards override the description COLOR to `text-muted-inverted`.
+        title: 'font-display text-lg font-bold tracking-tight leading-snug text-highlighted',
+        description: 'text-[15px] text-muted',
       },
       variants: {
         variant: {
           solid: { root: 'bg-neutral-950 text-inverted' },
         },
       },
+      // A linked card (`to`, default outline variant) gets a framework hover-bg wash.
+      // We don't want it — `.lift` (rise + shadow) is the only hover cue, so the card
+      // bg stays put on hover.
+      compoundVariants: [
+        { variant: 'outline', to: true, class: { root: 'hover:bg-default' } },
+      ],
     },
     accordion: {
       slots: {
@@ -129,7 +129,7 @@ export default defineAppConfig({
         root: 'rounded-none z-10',
         container: 'relative',
         title: 'text-3xl sm:text-4xl lg:text-5xl font-black',
-        description: 'leading-relaxed max-w-3xl mx-auto',
+        description: 'text-lg leading-relaxed max-w-3xl mx-auto',
       },
       variants: {
         variant: {
@@ -161,15 +161,13 @@ export default defineAppConfig({
         },
       },
     },
+    // Section padding py-16 lg:py-24, title = h2 scale, headline = the kicker look.
     pageSection: {
       slots: {
-        // Spacing spec (CLAUDE.md): Section padding = py-16 lg:py-24.
         container: 'py-16 lg:py-24',
-        // Heading spec (CLAUDE.md): section title = h2 scale. Set here so all
-        // UPageSection titles match the base <h2>; components don't re-declare size.
         title: 'text-3xl sm:text-4xl lg:text-5xl font-black',
-        // Headline/kicker above the title — the single source for the headline look.
-        // Custom headers outside the UPageSection slot read this via useAppConfig().
+        // Section lead-in copy is the emphasis tier → text-lg (body <p> default is text-base).
+        description: 'text-lg leading-relaxed text-pretty',
         headline: 'font-display text-sm font-semibold uppercase tracking-widest text-primary',
       },
       variants: {
@@ -181,7 +179,6 @@ export default defineAppConfig({
             description: 'text-left text-balance',
             links: 'justify-start',
           },
-          // Major 2-col split: Column gap = gap-8 lg:gap-16.
           horizontal: {
             container: 'lg:grid-cols-2 lg:items-center gap-8 lg:gap-16',
           },
@@ -189,13 +186,12 @@ export default defineAppConfig({
       },
     },
     pageGrid: {
-      // Spacing spec (CLAUDE.md): Card gutter = gap-6.
+      // Card gutter = gap-6.
       base: 'gap-6 sm:gap-6 lg:gap-6',
     },
     user: {
       slots: {
-        // Brand display font for the name; muted location/description.
-        // mb-0 + leading-normal override the global `p` base styles.
+        // mb-0 + !leading-tight override the global `p` base styles.
         name: 'font-display mb-0 !leading-tight',
         description: 'text-neutral-500 mb-0 !leading-tight',
       },

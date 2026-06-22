@@ -7,12 +7,12 @@
     :description="props.description"
   >
     <UPageGrid class="lg:grid-cols-4">
-      <UCard
+      <UPageCard
         v-for="(review, i) in reviews"
         :key="i"
         as="article"
         variant="subtle"
-        :ui="{ body: 'flex h-full flex-col gap-3' }"
+        :ui="{ container: 'flex h-full flex-col gap-3' }"
       >
         <header class="flex items-start justify-between gap-3">
           <UUser
@@ -28,14 +28,12 @@
           <UIcon name="i-logos-google-icon" class="size-3.5 shrink-0" />
         </header>
 
-        <div class="flex items-center gap-0.5 text-star" :aria-label="`${review.rating ?? 5} out of 5 stars`">
-          <UIcon v-for="n in (review.rating ?? 5)" :key="n" name="i-fa6-solid-star" class="size-4 shrink-0" />
-        </div>
+        <GoogleStars :rating="review.rating ?? 5" size="md" />
 
         <blockquote class="flex-1 text-toned">
           <p class="text-base line-clamp-4">{{ review.quote }}</p>
         </blockquote>
-      </UCard>
+      </UPageCard>
     </UPageGrid>
   </UPageSection>
 </template>
