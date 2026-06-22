@@ -29,7 +29,7 @@
           container: 'flex h-full flex-col justify-between',
         }"
       >
-        <IconTile :icon="featured.icon" inverted class="bg-surface-soft-inverted text-primary-300" />
+        <UiIconTile :icon="featured.icon" inverted class="bg-surface-soft-inverted text-primary-300" />
         <div class="mt-10">
           <h3 class="text-inverted text-3xl lg:text-4xl">{{ featured.title }}</h3>
           <p class="mt-2 text-muted-inverted max-w-md">{{ featured.description }}</p>
@@ -46,7 +46,7 @@
         class="lift"
       >
         <template #leading>
-          <IconTile :icon="service.icon" />
+          <UiIconTile :icon="service.icon" />
         </template>
       </UPageCard>
     </UPageGrid>

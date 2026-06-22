@@ -42,7 +42,7 @@ async function onSubmit(_event: FormSubmitEvent<Schema>) {
     v-if="submitted"
     class="flex flex-col items-center gap-3 rounded-xl bg-primary-soft p-8 text-center"
   >
-    <IconTile icon="i-fa6-solid-check" variant="solid" />
+    <UiIconTile icon="i-fa6-solid-check" variant="solid" />
     <div>
       <h4>Thanks — we'll be in touch.</h4>
       <p class="mt-1 text-sm text-muted">One of our specialists will call you shortly.</p>

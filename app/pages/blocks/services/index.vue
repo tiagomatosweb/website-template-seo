@@ -5,11 +5,11 @@ useSeoMeta({
 })
 
 const variants = [
-  { label: 'Services1', component: resolveComponent('Services1') },
-  { label: 'Services2', component: resolveComponent('Services2') },
-  { label: 'Services3', component: resolveComponent('Services3') },
-  { label: 'Services4', component: resolveComponent('Services4') },
-  { label: 'Services5', component: resolveComponent('Services5') },
+  { label: 'Services1', component: resolveComponent('SectionsServices1') },
+  { label: 'Services2', component: resolveComponent('SectionsServices2') },
+  { label: 'Services3', component: resolveComponent('SectionsServices3') },
+  { label: 'Services4', component: resolveComponent('SectionsServices4') },
+  { label: 'Services5', component: resolveComponent('SectionsServices5') },
 ]
 </script>
 

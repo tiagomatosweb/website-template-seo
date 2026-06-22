@@ -443,19 +443,19 @@ const contactItems = [
                 <div class="mt-6 text-xs font-bold uppercase tracking-wider text-muted">IconTile · soft / muted / solid</div>
                 <div class="mt-3 space-y-3">
                   <div class="flex items-center gap-3">
-                    <IconTile icon="i-fa6-solid-bolt" tone="primary" variant="soft" />
-                    <IconTile icon="i-fa6-solid-bolt" tone="primary" variant="muted" />
-                    <IconTile icon="i-fa6-solid-bolt" tone="primary" variant="solid" />
+                    <UiIconTile icon="i-fa6-solid-bolt" tone="primary" variant="soft" />
+                    <UiIconTile icon="i-fa6-solid-bolt" tone="primary" variant="muted" />
+                    <UiIconTile icon="i-fa6-solid-bolt" tone="primary" variant="solid" />
                     <span class="text-sm text-muted">primary</span>
                   </div>
                   <div class="flex items-center gap-3">
-                    <IconTile icon="i-fa6-solid-star" tone="cta" variant="soft" />
-                    <IconTile icon="i-fa6-solid-star" tone="cta" variant="muted" />
-                    <IconTile icon="i-fa6-solid-star" tone="cta" variant="solid" />
+                    <UiIconTile icon="i-fa6-solid-star" tone="cta" variant="soft" />
+                    <UiIconTile icon="i-fa6-solid-star" tone="cta" variant="muted" />
+                    <UiIconTile icon="i-fa6-solid-star" tone="cta" variant="solid" />
                     <span class="text-sm text-muted">cta</span>
                   </div>
                   <div class="flex items-center gap-3">
-                    <IconTile icon="i-fa6-solid-shield-halved" tone="neutral" />
+                    <UiIconTile icon="i-fa6-solid-shield-halved" tone="neutral" />
                     <span class="text-sm text-muted">neutral</span>
                   </div>
                 </div>
@@ -485,19 +485,19 @@ const contactItems = [
                 <div class="mt-6 text-xs font-bold uppercase tracking-wider text-muted-inverted">IconTile · soft / muted / solid</div>
                 <div class="mt-3 space-y-3">
                   <div class="flex items-center gap-3">
-                    <IconTile icon="i-fa6-solid-bolt" tone="primary" variant="soft" inverted />
-                    <IconTile icon="i-fa6-solid-bolt" tone="primary" variant="muted" inverted />
-                    <IconTile icon="i-fa6-solid-bolt" tone="primary" variant="solid" inverted />
+                    <UiIconTile icon="i-fa6-solid-bolt" tone="primary" variant="soft" inverted />
+                    <UiIconTile icon="i-fa6-solid-bolt" tone="primary" variant="muted" inverted />
+                    <UiIconTile icon="i-fa6-solid-bolt" tone="primary" variant="solid" inverted />
                     <span class="text-sm text-muted-inverted">primary</span>
                   </div>
                   <div class="flex items-center gap-3">
-                    <IconTile icon="i-fa6-solid-star" tone="cta" variant="soft" inverted />
-                    <IconTile icon="i-fa6-solid-star" tone="cta" variant="muted" inverted />
-                    <IconTile icon="i-fa6-solid-star" tone="cta" variant="solid" inverted />
+                    <UiIconTile icon="i-fa6-solid-star" tone="cta" variant="soft" inverted />
+                    <UiIconTile icon="i-fa6-solid-star" tone="cta" variant="muted" inverted />
+                    <UiIconTile icon="i-fa6-solid-star" tone="cta" variant="solid" inverted />
                     <span class="text-sm text-muted-inverted">cta</span>
                   </div>
                   <div class="flex items-center gap-3">
-                    <IconTile icon="i-fa6-solid-shield-halved" tone="neutral" inverted />
+                    <UiIconTile icon="i-fa6-solid-shield-halved" tone="neutral" inverted />
                     <span class="text-sm text-muted-inverted">neutral</span>
                   </div>
                 </div>

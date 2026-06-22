@@ -10,9 +10,9 @@ import { twMerge } from 'tailwind-merge'
 // IconTile — the square that holds a leading icon (Control radius, rounded-md).
 // Structure lives here; color comes from the soft/solid brand-value pairs.
 // Pick a `variant` (emphasis) + `tone` (color); `inverted` for dark sections.
-//   <IconTile icon="i-fa6-solid-bolt" />                    // soft primary (default)
-//   <IconTile icon="..." variant="solid" tone="cta" />
-//   <IconTile icon="..." variant="soft" inverted />         // on a dark section
+//   <UiIconTile icon="i-fa6-solid-bolt" />                    // soft primary (default)
+//   <UiIconTile icon="..." variant="solid" tone="cta" />
+//   <UiIconTile icon="..." variant="soft" inverted />         // on a dark section
 // Pass extra classes (group-hover, shrink-0, margins) via `class`; they're
 // merged last-wins with twMerge, so e.g. `size-14` overrides the size prop.
 type Variant = 'soft' | 'solid' | 'muted' | 'fill'

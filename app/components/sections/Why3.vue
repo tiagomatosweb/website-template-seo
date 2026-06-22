@@ -34,7 +34,7 @@
           v-if="props.stat"
           class="absolute -bottom-5 right-4 flex items-center gap-3 rounded-xl bg-default p-4 shadow-lg ring ring-default sm:right-6"
         >
-          <IconTile icon="i-fa6-solid-house" />
+          <UiIconTile icon="i-fa6-solid-house" />
           <div>
             <div class="font-display text-xl font-black leading-none text-highlighted tabular-nums">
               {{ props.stat.value }}
@@ -63,7 +63,7 @@
         :description="reason.description"
       >
         <template #leading>
-          <IconTile :icon="reason.icon" />
+          <UiIconTile :icon="reason.icon" />
         </template>
       </UPageCard>
     </UPageGrid>

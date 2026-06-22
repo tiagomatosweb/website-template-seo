@@ -43,7 +43,7 @@
           }"
         >
           <template #leading>
-            <IconTile :icon="service.icon" :variant="i === 0 ? 'solid' : 'soft'" />
+            <UiIconTile :icon="service.icon" :variant="i === 0 ? 'solid' : 'soft'" />
           </template>
 
           <template #footer>

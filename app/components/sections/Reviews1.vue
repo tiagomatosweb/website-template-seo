@@ -28,7 +28,7 @@
           <UIcon name="i-logos-google-icon" class="size-3.5 shrink-0" />
         </header>
 
-        <GoogleStars :rating="review.rating ?? 5" size="md" />
+        <UiGoogleStars :rating="review.rating ?? 5" size="md" />
 
         <blockquote class="flex-1 text-toned">
           <p class="text-base line-clamp-4">{{ review.quote }}</p>

@@ -46,7 +46,7 @@
         :ui="{ root: 'h-full' }"
       >
         <template #leading>
-          <IconTile :icon="service.icon" />
+          <UiIconTile :icon="service.icon" />
         </template>
       </UPageCard>
     </UPageGrid>

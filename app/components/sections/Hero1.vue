@@ -1,6 +1,6 @@
 <template>
   <div :class="props.overlayHeader ? 'relative' : ''">
-    <Header v-if="props.overlayHeader" overlay />
+    <SiteHeader v-if="props.overlayHeader" overlay />
 
     <UPageHero
       orientation="horizontal"
@@ -33,7 +33,7 @@
     </template>
 
     <template #body>
-      <ProofList :inverted="!!props.bgImage" />
+      <UiProofList :inverted="!!props.bgImage" />
     </template>
 
     <UCard
@@ -43,7 +43,7 @@
         root: 'w-full max-w-[min(440px,100%)] mx-auto lg:ml-auto lg:mr-0 bg-default shadow-sm',
       }"
     >
-      <QuoteForm :title="props.formTitle" :subtitle="props.formSubtitle" />
+      <UiQuoteForm :title="props.formTitle" :subtitle="props.formSubtitle" />
     </UCard>
     </UPageHero>
   </div>

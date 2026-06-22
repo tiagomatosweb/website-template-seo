@@ -39,7 +39,7 @@
         :key="reason.title"
         class="group flex items-center gap-5 bg-surface-faint-inverted p-6 transition-colors hover:bg-surface-strong-inverted"
       >
-        <IconTile :icon="reason.icon" size="lg" inverted class="shrink-0 transition-transform duration-300 group-hover:scale-110" />
+        <UiIconTile :icon="reason.icon" size="lg" inverted class="shrink-0 transition-transform duration-300 group-hover:scale-110" />
         <div>
           <h4 class="text-inverted">{{ reason.title }}</h4>
           <p class="mt-0.5 text-dimmed-inverted">{{ reason.description }}</p>

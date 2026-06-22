@@ -5,7 +5,7 @@ useSeoMeta({
 })
 
 const variants = [
-  { label: 'Reviews1', component: resolveComponent('Reviews1') },
+  { label: 'Reviews1', component: resolveComponent('SectionsReviews1') },
 ]
 </script>
 

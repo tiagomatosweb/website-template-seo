@@ -1,6 +1,6 @@
 <template>
   <UApp>
     <NuxtPage />
-    <DevMenu />
+    <UiDevMenu />
   </UApp>
 </template>
