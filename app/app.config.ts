@@ -1,15 +1,9 @@
 export default defineAppConfig({
-  // ──────────────────────────────────────────────────────────────────────────
-  // SITE — per-client business data. This is the FIRST file to edit when
-  // cloning the template for a new website. See REBRAND.md.
-  // Read anywhere with: const { site } = useAppConfig()
-  // ──────────────────────────────────────────────────────────────────────────
   site: {
     name: 'BusinessName',
     shortName: 'Business',
     tagline: 'Your trusted local specialists',
     blurb: 'A short sentence about the business, the area it serves and what makes it the trusted local choice.',
-    // Phone: `display` is what the user sees, `href` is the tel: link (digits only).
     phone: { display: '00 0000 0000', href: 'tel:0000000000' },
     email: 'hello@example.com',
     serviceArea: 'Serving your local area',
@@ -115,8 +109,6 @@ export default defineAppConfig({
         },
       ],
     },
-    // Cards: rounded-xl, p-5 sm:p-6 padding, flat by default (lift is opt-in via the
-    // `.lift` class on interactive cards). `solid` = dark NEUTRAL panel. See CLAUDE.md.
     card: {
       slots: {
         root: 'rounded-xl',
@@ -135,8 +127,6 @@ export default defineAppConfig({
         root: 'rounded-xl',
         container: 'p-5 sm:p-6',
         leadingIcon: 'size-7 text-primary',
-        // Card title/description shape, set once (don't restyle per component). Dark
-        // `solid` cards override the description COLOR to `text-muted-inverted`.
         title: 'font-display text-lg font-bold tracking-tight leading-snug text-highlighted',
         description: 'text-[15px] text-muted',
       },
@@ -145,15 +135,11 @@ export default defineAppConfig({
           solid: { root: 'bg-neutral-950 text-inverted' },
         },
       },
-      // A linked card (`to`, default outline variant) gets a framework hover-bg wash.
-      // We don't want it — `.lift` (rise + shadow) is the only hover cue, so the card
-      // bg stays put on hover.
       compoundVariants: [
         { variant: 'outline', to: true, class: { root: 'hover:bg-default' } },
       ],
     },
     pageGrid: {
-      // Card gutter = gap-6.
       base: 'gap-6 sm:gap-6 lg:gap-6',
     },
     accordion: {
@@ -169,7 +155,7 @@ export default defineAppConfig({
         root: 'rounded-none z-10',
         container: 'relative',
         title: 'text-3xl sm:text-4xl lg:text-5xl font-black',
-        description: 'text-lg leading-relaxed max-w-3xl mx-auto',
+        description: 'text-lg leading-relaxed max-w-3xl mx-auto **:text-lg',
       },
       variants: {
         variant: {
@@ -189,7 +175,7 @@ export default defineAppConfig({
         container: 'py-16 lg:py-24 gap-12 lg:gap-16',
         headline: 'mb-4 font-display text-sm font-semibold uppercase tracking-widest text-primary',
         title: 'font-display font-black text-4xl sm:text-5xl lg:text-6xl leading-[1.05] text-highlighted text-balance',
-        description: 'text-lg leading-relaxed text-pretty',
+        description: 'text-lg leading-relaxed text-pretty **:text-lg',
         body: 'mt-8',
         footer: 'mt-8',
       },
@@ -201,13 +187,11 @@ export default defineAppConfig({
         },
       },
     },
-    // Section padding py-16 lg:py-24, title = h2 scale, headline = the kicker look.
     pageSection: {
       slots: {
         container: 'py-16 lg:py-24',
         title: 'text-3xl sm:text-4xl lg:text-5xl font-black',
-        // Section lead-in copy is the emphasis tier → text-lg (body <p> default is text-base).
-        description: 'text-lg leading-relaxed text-pretty',
+        description: 'text-lg leading-relaxed text-pretty **:text-lg',
         headline: 'font-display text-sm font-semibold uppercase tracking-widest text-primary',
       },
       variants: {
@@ -228,9 +212,8 @@ export default defineAppConfig({
     },
     user: {
       slots: {
-        // mb-0 + !leading-tight override the global `p` base styles.
-        name: 'font-display mb-0 !leading-tight',
-        description: 'text-muted mb-0 !leading-tight',
+        name: 'font-display mb-0 leading-tight!',
+        description: 'text-muted mb-0 leading-tight!',
       },
     },
     badge: {
