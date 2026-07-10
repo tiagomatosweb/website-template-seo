@@ -1,9 +1,7 @@
 <template>
   <UPageSection
     id="faq"
-    :headline="props.headline"
-    :title="props.title"
-    :description="props.description"
+    v-bind="sectionProps"
     :ui="{
       headline: 'justify-center',
       title: 'text-center',
@@ -11,14 +9,36 @@
       body: 'w-full',
     }"
   >
-    <div class="mx-auto w-full max-w-3xl text-left">
-      <UAccordion :items="accordionItems" type="multiple" />
-    </div>
+    <template v-if="headlineFn" #headline>
+      <component :is="headlineFn" />
+    </template>
+
+    <template v-if="titleFn" #title>
+      <component :is="titleFn" />
+    </template>
+
+    <template v-if="descriptionFn" #description>
+      <component :is="descriptionFn" />
+    </template>
+
+    <template v-for="(_, name) in forwardedSlots" #[name]="slotProps">
+      <slot :name="name" v-bind="slotProps ?? {}" />
+    </template>
+
+    <template #body>
+      <div class="mx-auto w-full max-w-3xl text-left">
+        <UAccordion 
+          :items="accordionItems" 
+          type="multiple"
+        />
+      </div>
+    </template>
   </UPageSection>
 </template>
 
 <script setup lang="ts">
-import type { AccordionItem } from '@nuxt/ui'
+import type { AccordionItem, PageSectionProps } from '@nuxt/ui'
+import type { SectionText } from '~/composables/usePageSection'
 
 // Shared so a page can emit matching FAQPage JSON-LD schema from the same data.
 export interface Faq {
@@ -26,45 +46,17 @@ export interface Faq {
   content: string
 }
 
-const props = withDefaults(defineProps<{
-  headline?: string
-  title?: string
-  description?: string
-  items?: Faq[]
+const props = withDefaults(defineProps<Omit<PageSectionProps, 'headline' | 'title' | 'description'> & {
+  headline?: SectionText
+  title?: SectionText
+  description?: SectionText
+  items: Faq[]
 }>(), {
   headline: 'FAQ',
   title: 'Frequently Asked Questions',
-  items: () => [
-    {
-      label: 'How quickly can you repair my hot water system?',
-      content: 'In most cases we offer same-day service. Call us early and we will do everything we can to have hot water back on the same day, often within a couple of hours for emergencies.',
-    },
-    {
-      label: 'Do you charge a call-out fee?',
-      content: 'No. We do not charge a call-out fee. You only pay for the work we do, and we give you an upfront quote before we start.',
-    },
-    {
-      label: 'Should I repair or replace my hot water system?',
-      content: 'It depends on the age and condition of your unit. If it is more than 10 years old or the tank is leaking, replacement is usually the better value. For most other faults a repair will get you going again. We will give you an honest recommendation either way.',
-    },
-    {
-      label: 'What hot water brands do you service?',
-      content: 'We service all major brands including Rheem, Rinnai, Dux, Bosch, Vulcan, Aquamax, Everhot and Stiebel Eltron — across gas, electric, heat pump, solar and continuous flow systems.',
-    },
-    {
-      label: 'Do you service the Wollongong area?',
-      content: 'Yes. We cover Wollongong and the surrounding suburbs. Call us to confirm coverage for your exact location.',
-    },
-    {
-      label: 'What does your no fix, no pay guarantee mean?',
-      content: 'If we cannot fix the problem, you do not pay for the labour. It is our way of making sure you only pay when we deliver a result.',
-    },
-    {
-      label: 'How much does an emergency hot water repair cost?',
-      content: 'Cost depends on the fault and the parts required, but we always provide an upfront quote before any work begins — so there are no surprises on the final bill.',
-    },
-  ],
 })
+
+const { sectionProps, headlineFn, titleFn, descriptionFn, forwardedSlots } = usePageSection(props, ['items'])
 
 const accordionItems = computed<AccordionItem[]>(() => props.items)
 </script>

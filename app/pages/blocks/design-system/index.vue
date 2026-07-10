@@ -25,13 +25,11 @@ const textColors = [
   { token: 'text-dimmed', use: 'Least prominent — faint labels, empty-state icons' },
 ]
 
-// Brand-accent text — EXTRA, accent-only (never body copy). soft/muted/solid.
+// Brand-accent text — EXTRA, accent-only (never body copy). soft/solid.
 const brandText = [
   { token: 'text-primary-soft', use: 'primary 500 @ 50% — faint brand accent' },
-  { token: 'text-primary-muted', use: 'primary 500 @ 75% — mid brand accent' },
   { token: 'text-primary', use: 'primary 500 — full brand accent (Nuxt UI token)' },
   { token: 'text-cta-soft', use: 'cta 500 @ 50%' },
-  { token: 'text-cta-muted', use: 'cta 500 @ 75%' },
   { token: 'text-cta', use: 'cta 500 (Nuxt UI token)' },
 ]
 
@@ -50,7 +48,6 @@ const neutralSurfaces = [
 // Use instead of raw bg-primary-50 / bg-primary/15. Same set exists for cta.
 const brandSurfaces = [
   { token: 'bg-primary-soft', sw: 'bg-primary-soft', use: 'soft — pale 50 tint (icon tiles, highlight panel)' },
-  { token: 'bg-primary-muted', sw: 'bg-primary-muted', use: 'muted — stronger 100 tint' },
   { token: 'bg-primary', sw: 'bg-primary', use: 'solid — saturated 500 fill (Nuxt UI token)', solid: true },
   { token: 'bg-primary-soft-inverted', sw: 'bg-primary-soft-inverted', use: 'soft on DARK — brand /15 wash', dark: true },
 ]
@@ -220,7 +217,7 @@ const contactItems = [
             <section>
               <h2 class="text-xl font-extrabold mb-4">Brand accents — EXTRA, accent-only</h2>
               <p class="text-sm text-muted mb-4 max-w-prose">
-                <strong>Never</strong> for body copy — a brand-colored highlight, stat, or accent label only. Pairs with the <code class="rounded bg-elevated px-1 font-mono text-xs">bg-*-soft/muted/solid</code> fills. <code class="rounded bg-elevated px-1 font-mono text-xs">text-primary-muted</code> is muted brand-blue, NOT a neutral gray.
+                <strong>Never</strong> for body copy — a brand-colored highlight, stat, or accent label only. Pairs with the <code class="rounded bg-elevated px-1 font-mono text-xs">bg-*-soft/solid</code> fills. <code class="rounded bg-elevated px-1 font-mono text-xs">text-primary-soft</code> is faint brand-blue, NOT a neutral gray.
               </p>
               <UCard :ui="listCardUi">
                 <div v-for="t in brandText" :key="t.token" class="flex items-baseline justify-between gap-6 px-7 py-4">
@@ -230,10 +227,8 @@ const contactItems = [
               </UCard>
               <div class="mt-4 rounded-xl bg-primary-950 p-6 flex flex-wrap gap-x-6 gap-y-2 font-display font-bold">
                 <span class="text-primary-soft-inverted">primary-soft</span>
-                <span class="text-primary-muted-inverted">primary-muted</span>
                 <span class="text-primary-solid-inverted">primary-solid</span>
                 <span class="text-cta-soft-inverted">cta-soft</span>
-                <span class="text-cta-muted-inverted">cta-muted</span>
                 <span class="text-cta-solid-inverted">cta-solid</span>
               </div>
             </section>
@@ -302,7 +297,7 @@ const contactItems = [
               <UCard :ui="cardUi">
                 <div class="space-y-5">
                   <div v-for="r in radii" :key="r.role" class="flex items-center gap-5">
-                    <div class="size-12 bg-primary-muted ring-2 ring-primary-200 shrink-0" :style="{ borderRadius: r.r }" />
+                    <div class="size-12 bg-primary-soft ring-2 ring-primary-200 shrink-0" :style="{ borderRadius: r.r }" />
                     <div>
                       <span class="font-display font-bold text-highlighted">{{ r.role }}</span>
                       <span class="font-mono text-sm text-muted"> · {{ r.name }}</span>
@@ -440,33 +435,33 @@ const contactItems = [
               <div class="rounded-2xl bg-default p-8 ring-1 ring-default">
                 <div class="font-display text-xs font-bold uppercase tracking-widest text-primary">Light surface</div>
 
-                <div class="mt-6 text-xs font-bold uppercase tracking-wider text-muted">IconTile · soft / muted / solid</div>
+                <div class="mt-6 text-xs font-bold uppercase tracking-wider text-muted">IconTile · soft / solid / naked</div>
                 <div class="mt-3 space-y-3">
                   <div class="flex items-center gap-3">
-                    <UiIconTile icon="i-fa6-solid-bolt" tone="primary" variant="soft" />
-                    <UiIconTile icon="i-fa6-solid-bolt" tone="primary" variant="muted" />
-                    <UiIconTile icon="i-fa6-solid-bolt" tone="primary" variant="solid" />
+                    <UiIconTile icon="i-fa6-solid-bolt" color="primary" variant="soft" />
+                    <UiIconTile icon="i-fa6-solid-bolt" color="primary" variant="solid" />
+                    <UiIconTile icon="i-fa6-solid-bolt" color="primary" variant="naked" />
                     <span class="text-sm text-muted">primary</span>
                   </div>
                   <div class="flex items-center gap-3">
-                    <UiIconTile icon="i-fa6-solid-star" tone="cta" variant="soft" />
-                    <UiIconTile icon="i-fa6-solid-star" tone="cta" variant="muted" />
-                    <UiIconTile icon="i-fa6-solid-star" tone="cta" variant="solid" />
+                    <UiIconTile icon="i-fa6-solid-star" color="cta" variant="soft" />
+                    <UiIconTile icon="i-fa6-solid-star" color="cta" variant="solid" />
+                    <UiIconTile icon="i-fa6-solid-star" color="cta" variant="naked" />
                     <span class="text-sm text-muted">cta</span>
                   </div>
                   <div class="flex items-center gap-3">
-                    <UiIconTile icon="i-fa6-solid-shield-halved" tone="neutral" />
+                    <UiIconTile icon="i-fa6-solid-shield-halved" color="neutral" variant="soft" />
+                    <UiIconTile icon="i-fa6-solid-shield-halved" color="neutral" variant="solid" />
+                    <UiIconTile icon="i-fa6-solid-shield-halved" color="neutral" variant="naked" />
                     <span class="text-sm text-muted">neutral</span>
                   </div>
                 </div>
 
-                <div class="mt-8 text-xs font-bold uppercase tracking-wider text-muted">brand text · soft / muted / solid</div>
+                <div class="mt-8 text-xs font-bold uppercase tracking-wider text-muted">brand text · soft / solid</div>
                 <div class="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 font-display font-bold">
                   <span class="text-primary-soft">primary-soft</span>
-                  <span class="text-primary-muted">primary-muted</span>
                   <span class="text-primary">primary</span>
                   <span class="text-cta-soft">cta-soft</span>
-                  <span class="text-cta-muted">cta-muted</span>
                   <span class="text-cta">cta</span>
                 </div>
 
@@ -482,33 +477,33 @@ const contactItems = [
               <div class="rounded-2xl bg-primary-950 p-8 ring-1 ring-soft-inverted">
                 <div class="font-display text-xs font-bold uppercase tracking-widest text-primary-300">Dark surface</div>
 
-                <div class="mt-6 text-xs font-bold uppercase tracking-wider text-muted-inverted">IconTile · soft / muted / solid</div>
+                <div class="mt-6 text-xs font-bold uppercase tracking-wider text-muted-inverted">IconTile · soft / solid / naked</div>
                 <div class="mt-3 space-y-3">
                   <div class="flex items-center gap-3">
-                    <UiIconTile icon="i-fa6-solid-bolt" tone="primary" variant="soft" inverted />
-                    <UiIconTile icon="i-fa6-solid-bolt" tone="primary" variant="muted" inverted />
-                    <UiIconTile icon="i-fa6-solid-bolt" tone="primary" variant="solid" inverted />
+                    <UiIconTile icon="i-fa6-solid-bolt" color="primary" variant="soft" inverted />
+                    <UiIconTile icon="i-fa6-solid-bolt" color="primary" variant="solid" inverted />
+                    <UiIconTile icon="i-fa6-solid-bolt" color="primary" variant="naked" inverted />
                     <span class="text-sm text-muted-inverted">primary</span>
                   </div>
                   <div class="flex items-center gap-3">
-                    <UiIconTile icon="i-fa6-solid-star" tone="cta" variant="soft" inverted />
-                    <UiIconTile icon="i-fa6-solid-star" tone="cta" variant="muted" inverted />
-                    <UiIconTile icon="i-fa6-solid-star" tone="cta" variant="solid" inverted />
+                    <UiIconTile icon="i-fa6-solid-star" color="cta" variant="soft" inverted />
+                    <UiIconTile icon="i-fa6-solid-star" color="cta" variant="solid" inverted />
+                    <UiIconTile icon="i-fa6-solid-star" color="cta" variant="naked" inverted />
                     <span class="text-sm text-muted-inverted">cta</span>
                   </div>
                   <div class="flex items-center gap-3">
-                    <UiIconTile icon="i-fa6-solid-shield-halved" tone="neutral" inverted />
+                    <UiIconTile icon="i-fa6-solid-shield-halved" color="neutral" variant="soft" inverted />
+                    <UiIconTile icon="i-fa6-solid-shield-halved" color="neutral" variant="solid" inverted />
+                    <UiIconTile icon="i-fa6-solid-shield-halved" color="neutral" variant="naked" inverted />
                     <span class="text-sm text-muted-inverted">neutral</span>
                   </div>
                 </div>
 
-                <div class="mt-8 text-xs font-bold uppercase tracking-wider text-muted-inverted">brand text · soft / muted / solid</div>
+                <div class="mt-8 text-xs font-bold uppercase tracking-wider text-muted-inverted">brand text · soft / solid</div>
                 <div class="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 font-display font-bold">
                   <span class="text-primary-soft-inverted">primary-soft</span>
-                  <span class="text-primary-muted-inverted">primary-muted</span>
                   <span class="text-primary-solid-inverted">primary-solid</span>
                   <span class="text-cta-soft-inverted">cta-soft</span>
-                  <span class="text-cta-muted-inverted">cta-muted</span>
                   <span class="text-cta-solid-inverted">cta-solid</span>
                 </div>
 

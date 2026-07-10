@@ -8,6 +8,7 @@ export default defineAppConfig({
     email: 'hello@example.com',
     serviceArea: 'Serving your local area',
     hours: 'Mon–Fri 8am–5pm',
+    rating: '4.9',
     social: {
       facebook: '#',
       instagram: '#',
@@ -125,7 +126,8 @@ export default defineAppConfig({
     pageCard: {
       slots: {
         root: 'rounded-xl',
-        container: 'p-5 sm:p-6',
+        header: 'rounded-lg',
+        container: 'p-4 sm:p-5',
         leadingIcon: 'size-7 text-primary',
         title: 'font-display text-lg font-bold tracking-tight leading-snug text-highlighted',
         description: 'text-[15px] text-muted',
@@ -144,9 +146,10 @@ export default defineAppConfig({
     },
     accordion: {
       slots: {
-        item: 'border-b border-default last:border-b-0',
-        trigger: 'py-5 gap-4 font-display font-bold text-base text-highlighted hover:text-primary transition-colors',
-        trailingIcon: 'text-primary',
+        root: 'w-full space-y-4',
+        item: 'rounded-xl bg-default ring ring-default px-5 sm:px-6 border-0',
+        trigger: 'py-5 gap-4 font-display font-bold text-base text-highlighted hover:text-primary data-[state=open]:text-primary transition-colors',
+        trailingIcon: 'text-highlighted group-data-[state=open]:text-primary transition-colors',
         body: 'text-base leading-relaxed text-toned pb-5',
       },
     },
@@ -193,6 +196,8 @@ export default defineAppConfig({
         title: 'text-3xl sm:text-4xl lg:text-5xl font-black',
         description: 'text-lg leading-relaxed text-pretty **:text-lg',
         headline: 'font-display text-sm font-semibold uppercase tracking-widest text-primary',
+        footer: 'mt-8',
+        links: 'flex flex-wrap gap-x-6 gap-y-3',
       },
       variants: {
         orientation: {
@@ -287,10 +292,10 @@ export default defineAppConfig({
       ],
       variants: {
         size: {
-          xs: { base: 'px-3 py-1.5', trailingIcon: 'size-3' },
-          sm: { base: 'px-3.5 py-2', trailingIcon: 'size-3' },
-          md: { base: 'px-4 py-2.5', trailingIcon: 'size-3.5' },
-          lg: { base: 'px-5 py-3', trailingIcon: 'size-3.5' },
+          xs: { base: 'px-3 py-1.5', leadingIcon: 'size-3', trailingIcon: 'size-3' },
+          sm: { base: 'px-3.5 py-2', leadingIcon: 'size-3', trailingIcon: 'size-3' },
+          md: { base: 'px-4 py-2.5', leadingIcon: 'size-3.5', trailingIcon: 'size-3.5' },
+          lg: { base: 'px-5 py-3', leadingIcon: 'size-3.5', trailingIcon: 'size-3.5' },
           xl: {
             base: 'px-6 py-3.5',
             leadingIcon: 'size-4',

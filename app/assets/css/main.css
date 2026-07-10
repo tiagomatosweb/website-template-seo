@@ -57,15 +57,14 @@
 }
 
 /* ════════════════════════════════════════════════════════════════════════
-   BRAND TINTS (soft / muted) — pick directly, compose freely.
+   BRAND TINTS (soft) — pick directly, compose freely.
    Nuxt UI ships a neutral surface ladder (bg-default/muted/elevated/accented)
    AND the saturated brand fills (bg-primary / text-primary / bg-cta / text-cta
    = the "solid" level, -500) — but NO brand TINTS, so we name only those here.
-   Each brand color exposes two tint values, usable as bg- OR text-, mixed like
+   Each brand color exposes one tint value, usable as bg- OR text-, mixed like
    normal Tailwind. Emphasis ladder (bg tint · text = the 500 brand at rising
    opacity):
      soft   low  — bg 50  · text 500 @ 50%               (ours)
-     muted  mid  — bg 100 · text 500 @ 75%               (ours)
      solid  high — bg-primary / text-primary             (Nuxt UI's own — no token)
    A saturated FILL (bg-primary) takes text-inverted (white); a pale tint
    (bg-*-soft) takes the strong icon/text color (text-primary). NB text-*-soft at
@@ -75,33 +74,25 @@
    block below). Grouped BY COLOR (all primary, then all cta). */
 /* primary */
 @utility bg-primary-soft    { @apply bg-primary-50; }
-@utility bg-primary-muted   { @apply bg-primary-100; }
 @utility text-primary-soft  { color: --alpha(var(--color-primary-500) / 50%); }
-@utility text-primary-muted { color: --alpha(var(--color-primary-500) / 75%); }
 /* cta */
 @utility bg-cta-soft    { @apply bg-cta-50; }
-@utility bg-cta-muted   { @apply bg-cta-100; }
 @utility text-cta-soft  { color: --alpha(var(--color-cta-500) / 50%); }
-@utility text-cta-muted { color: --alpha(var(--color-cta-500) / 75%); }
 
 /* ════════════════════════════════════════════════════════════════════════
    ON-DARK SURFACES (`-inverted` suffix) — the on-dark variant of a token, for a
    DARK section (bg-primary-950 roots). Replaces raw bg-white/N · ring-white/N ·
    text-white/N (Nuxt UI has no alpha surface tokens). */
 
-/* Brand tints on dark: bg = translucent brand wash (soft 15% · muted 25%); text
-   = the light 300 shade (soft @50% · muted @75% · solid full). Grouped by color. */
+/* Brand tints on dark: bg = translucent brand wash (soft 15%); text
+   = the light 300 shade (soft @50% · solid full). Grouped by color. */
 /* primary */
 @utility bg-primary-soft-inverted    { background-color: --alpha(var(--color-primary) / 15%); }
-@utility bg-primary-muted-inverted   { background-color: --alpha(var(--color-primary) / 25%); }
 @utility text-primary-soft-inverted  { color: --alpha(var(--color-primary-300) / 50%); }
-@utility text-primary-muted-inverted { color: --alpha(var(--color-primary-300) / 75%); }
 @utility text-primary-solid-inverted { @apply text-primary-300; }
 /* cta */
 @utility bg-cta-soft-inverted    { background-color: --alpha(var(--color-cta) / 15%); }
-@utility bg-cta-muted-inverted   { background-color: --alpha(var(--color-cta) / 25%); }
 @utility text-cta-soft-inverted  { color: --alpha(var(--color-cta-300) / 50%); }
-@utility text-cta-muted-inverted { color: --alpha(var(--color-cta-300) / 75%); }
 @utility text-cta-solid-inverted { @apply text-cta-300; }
 
 /* Neutral white-alpha washes on dark — surface fill / hover / faint, + hairline ring/border. */

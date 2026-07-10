@@ -17,10 +17,10 @@ type Schema = yup.InferType<typeof schema>
 
 const props = withDefaults(defineProps<{
   title?: string
-  subtitle?: string
+  description?: string
 }>(), {
   title: 'Get Your Free Quote',
-  subtitle: 'Tell us what you need and one of our specialists will get in touch.',
+  description: 'Tell us what you need and one of our specialists will get in touch.',
 })
 
 const state = reactive<Partial<Schema>>({
@@ -52,7 +52,7 @@ async function onSubmit(_event: FormSubmitEvent<Schema>) {
   <UForm v-else :schema="schema" :state="state" class="grid gap-4" @submit="onSubmit">
     <div class="mb-2 text-center">
       <h4 class="text-xl">{{ props.title }}</h4>
-      <p class="mt-2.5 text-sm leading-snug text-muted">{{ props.subtitle }}</p>
+      <p class="mt-2.5 text-sm leading-snug text-muted">{{ props.description }}</p>
     </div>
 
     <UFormField name="name" label="Name" required>

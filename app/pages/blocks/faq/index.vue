@@ -3,20 +3,22 @@ useSeoMeta({
   title: 'FAQ — variants',
   robots: 'noindex, nofollow',
 })
-
-const variants = [
-  { label: 'Faq1', component: resolveComponent('SectionsFaq1') },
-  { label: 'Faq2', component: resolveComponent('SectionsFaq2') },
-]
 </script>
 
 <template>
   <div>
-    <template v-for="v in variants" :key="v.label">
-      <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
-        {{ v.label }}
-      </div>
-      <component :is="v.component" />
-    </template>
+    <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
+      Faq1
+    </div>
+    <SectionsFaq1 :items="faqs" />
+
+    <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
+      Faq2
+    </div>
+    <SectionsFaq2
+      :items="faqs"
+      description="Everything growing businesses ask before partnering with an agency — answered."
+      :cta="{ title: 'Still have questions?', description: 'Talk to a senior marketer — no pressure, no obligation.' }"
+    />
   </div>
 </template>

@@ -32,11 +32,11 @@
             </div>
           </div>
           <div class="flex items-center gap-5">
-            <a :href="site.phone.href" class="group flex flex-col items-end leading-none text-right py-0.5">
-              <span class="font-mono text-xs tracking-widest uppercase mb-1" :class="light ? 'text-muted-inverted' : 'text-muted'">Call Now</span>
-              <span class="font-display font-extrabold text-2xl tracking-normal tabular-nums transition-colors duration-150" :class="light ? 'text-inverted group-hover:text-primary-300' : 'text-highlighted group-hover:text-primary'">{{ site.phone.display }}</span>
+            <a :href="site.phone.href" class="group flex items-center gap-2 py-0.5">
+              <UIcon name="i-fa6-solid-phone" class="size-3.5 shrink-0 transition-colors duration-150" :class="light ? 'text-inverted group-hover:text-primary-300' : 'text-highlighted'" />
+              <span class="font-display font-semibold text-base tracking-normal tabular-nums transition-colors duration-150" :class="light ? 'text-inverted group-hover:text-primary-300' : 'text-highlighted group-hover:text-primary'">{{ site.phone.display }}</span>
             </a>
-            <UButton label="Get a Free Quote" color="cta" size="xl" to="#contact" />
+            <UButton label="Get a Free Quote" color="cta" to="#contact" />
           </div>
         </div>
       </UContainer>

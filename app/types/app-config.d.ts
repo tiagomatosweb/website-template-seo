@@ -18,6 +18,7 @@ export interface SiteConfig {
   email: string
   serviceArea: string
   hours: string
+  rating: string
   social: {
     facebook: string
     instagram: string

@@ -14,10 +14,7 @@
       } : undefined"
     >
       <template v-if="props.bgImage" #top>
-        <div class="absolute inset-0 -z-10">
-          <div class="absolute inset-0 bg-cover bg-center" :style="{ backgroundImage: `url(${props.bgImage})` }" />
-          <div class="absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--color-neutral-950)_92%,transparent)_0%,color-mix(in_srgb,var(--color-neutral-950)_72%,transparent)_100%)]" />
-        </div>
+        <UiBackdrop :src="props.bgImage" />
       </template>
 
     <template #headline>
@@ -33,7 +30,11 @@
     </template>
 
     <template #body>
-      <UiProofList :inverted="!!props.bgImage" />
+      <UiTrustList1
+        :items="trustList1"
+        :icon="{ inverted: !!props.bgImage }"
+        :ui="props.bgImage ? { label: 'text-inverted' } : undefined"
+      />
     </template>
 
     <UCard
@@ -43,7 +44,7 @@
         root: 'w-full max-w-[min(440px,100%)] mx-auto lg:ml-auto lg:mr-0 bg-default shadow-sm',
       }"
     >
-      <UiQuoteForm :title="props.formTitle" :subtitle="props.formSubtitle" />
+      <UiQuoteForm :title="props.formTitle" :description="props.formDescription" />
     </UCard>
     </UPageHero>
   </div>
@@ -54,7 +55,7 @@ import type { ButtonProps } from '@nuxt/ui'
 
 const { site } = useAppConfig()
 
-const props = withDefaults(defineProps<{
+const props = defineProps<{
   headline?: string
   title?: string
   description?: string
@@ -62,17 +63,8 @@ const props = withDefaults(defineProps<{
   overlayHeader?: boolean
   cta?: ButtonProps
   formTitle?: string
-  formSubtitle?: string
-}>(), {
-  headline: 'Local · Trusted · Reliable',
-  bgImage: '',
-  overlayHeader: false,
-  title: 'A headline that says exactly what you do',
-  description: 'One or two sentences that explain the service, the area you cover, and why customers should choose you over the competition.',
-  cta: () => ({}),
-  formTitle: 'Get Your Free Quote',
-  formSubtitle: 'Tell us what you need and one of our specialists will get in touch.',
-})
+  formDescription?: string
+}>()
 
 const defaultCta = computed<ButtonProps>(() => ({
   label: 'Call Now',
