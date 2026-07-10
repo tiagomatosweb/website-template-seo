@@ -83,5 +83,10 @@ useSeoMeta({
       Content15
     </div>
     <SectionsContent15 v-bind="demo.content15" />
+
+    <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
+      Content16
+    </div>
+    <SectionsContent16 v-bind="demo.content16" />
   </div>
 </template>

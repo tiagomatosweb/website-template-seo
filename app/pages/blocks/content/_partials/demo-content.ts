@@ -5,6 +5,7 @@ import UiList from '~/components/ui/List.vue'
 import type { ListItem } from '~/components/ui/List.vue'
 import type { ContentCardItem } from '~/components/ui/ContentCard.vue'
 import placeholderImage from '~/assets/img/placeholder-image.png'
+import samplePhoto from '~/assets/img/pexels-reneterp-13821194.jpg'
 
 export const content1 = {
   headline: 'What we do',
@@ -297,8 +298,7 @@ export const content6 = {
   description: 'Specialist knowledge of your market, backed by results you can measure.',
   items: [
     {
-      icon: 'i-fa6-solid-location-dot',
-      title: 'Market expertise',
+      title:'Market expertise',
       description: 'We know your space — the audience, the competition, and what actually converts.',
     },
     {
@@ -537,9 +537,6 @@ export const content14 = {
   headline: 'How we work',
   title: 'Built around the way you operate',
   description: 'A closer look at what each engagement involves — and how we keep the process transparent from first brief to launch.',
-  ui: {
-    title: 'text-warning-500'
-  },
   items: [
     {
       image: { alt: 'Strategy session with the team' },
@@ -564,6 +561,26 @@ export const content14 = {
       headline: 'Step 03 — Report',
       title: 'Honest reporting, week after week',
       description: 'You always know where every dollar goes and what it returns. When something works we double down together; when it does not, we tell you plainly and change course.',
+    },
+  ],
+}
+
+export const content16 = {
+  headline: 'Real results',
+  title: 'Before and after, side by side',
+  description: 'Drag the slider on each project to see the transformation for yourself — real work from real clients.',
+  items: [
+    {
+      before: { src: samplePhoto, alt: 'Overgrown side path before' },
+      after: { src: samplePhoto, alt: 'Clean gravel path after' },
+      title: 'Mosman',
+      description: 'Overgrown side path → clean, low-maintenance gravel runway.',
+    },
+    {
+      before: { src: samplePhoto, alt: 'Weed-choked courtyard before' },
+      after: { src: samplePhoto, alt: 'Manicured courtyard after' },
+      title: 'Chatswood',
+      description: 'Weed-choked courtyard garden → clean, manicured low-maintenance beds.',
     },
   ],
 }

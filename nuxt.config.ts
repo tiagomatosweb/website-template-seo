@@ -19,7 +19,12 @@ export default defineNuxtConfig({
       stripPartials(pages)
     },
   },
-  css: ['~/assets/css/main.css'],
+  css: ['~/assets/css/main.css', 'img-comparison-slider/dist/styles.css'],
+  vue: {
+    compilerOptions: {
+      isCustomElement: tag => tag === 'img-comparison-slider',
+    },
+  },
   imports: {
     dirs: ['content'],
   },
@@ -40,7 +45,7 @@ export default defineNuxtConfig({
   },
   fonts: {
     families: [
-      { name: 'Poppins', weights: [400, 500, 600, 700, 800, 900] },
+      { name: 'Roboto', weights: [400, 500, 600, 700, 800, 900] },
       { name: 'Nunito Sans', weights: [400, 600, 700, 800] },
     ],
   },

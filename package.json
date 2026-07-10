@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@img-comparison-slider/vue": "^8.0.0",
     "@nuxt/ui": "^4.9.0",
     "nuxt": "^4.4.8",
     "tailwindcss": "^4.3.1",
