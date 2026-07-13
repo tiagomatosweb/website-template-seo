@@ -13,11 +13,13 @@
     </template>
 
     <template #body>
+      <slot name="body-before" />
       <UiList
         :items="props.items"
         :icon="{ size: 'md' }"
         :ui="{ root: 'space-y-6', icon: 'text-primary' }"
       />
+      <slot name="body-after" />
     </template>
 
     <template v-for="(_, name) in forwardedSlots" #[name]="slotProps">

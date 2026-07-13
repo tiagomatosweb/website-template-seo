@@ -17,6 +17,7 @@
     </template>
 
     <template #body>
+      <slot name="body-before" />
       <UCard class="overflow-hidden" :ui="{ body: 'p-0 sm:p-0' }">
         <UPageGrid :class="[gridClass, dividerClass]">
           <template v-for="(item, i) in props.items" :key="i">
@@ -35,6 +36,7 @@
           </template>
         </UPageGrid>
       </UCard>
+      <slot name="body-after" />
     </template>
   </UPageSection>
 </template>
@@ -46,13 +48,15 @@ import type { SectionText } from '~/composables/usePageSection'
 import type { RenderItem } from '~/utils/render'
 import type { FeatureItem } from '../ui/FeatureItem.vue'
 
-const props = defineProps<Omit<PageSectionProps, 'headline' | 'title' | 'description'> & {
+const props = withDefaults(defineProps<Omit<PageSectionProps, 'headline' | 'title' | 'description'> & {
   headline?: SectionText
   title?: SectionText
   description?: SectionText
   itemsColumns?: GridColumns
   items: RenderItem<FeatureItem>[]
-}>()
+}>(), {
+  ui: () => ({ links: 'justify-center' }),
+})
 
 const { sectionProps, headlineFn, titleFn, descriptionFn, forwardedSlots } = usePageSection(props, ['itemsColumns', 'items'])
 const gridClass = useGridColumns(() => props.itemsColumns, 4)

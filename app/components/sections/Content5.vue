@@ -17,6 +17,7 @@
     </template>
 
     <template #body>
+      <slot name="body-before" />
       <UCard class="overflow-hidden" :ui="{ body: 'p-0 sm:p-0' }">
         <UPageGrid :class="[gridClass, dividerClass]">
           <template v-for="(item, i) in props.items" :key="i">
@@ -25,6 +26,7 @@
           </template>
         </UPageGrid>
       </UCard>
+      <slot name="body-after" />
     </template>
   </UPageSection>
 </template>

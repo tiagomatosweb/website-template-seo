@@ -16,6 +16,7 @@
       <slot :name="name" v-bind="slotProps ?? {}" />
     </template>
 
+    <slot name="body-before" />
     <ol class="relative">
       <span aria-hidden="true" class="absolute left-9 top-4 bottom-4 w-px bg-accented" />
       <li
@@ -35,6 +36,7 @@
         </div>
       </li>
     </ol>
+    <slot name="body-after" />
   </UPageSection>
 </template>
 

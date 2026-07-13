@@ -5,13 +5,18 @@
     <UPageHero
       orientation="horizontal"
       :links="links"
-      :ui="props.bgImage ? {
-        root: 'relative isolate',
-        container: props.overlayHeader ? 'pt-32 lg:pt-40' : '',
-        headline: 'text-primary-300',
-        title: 'text-inverted',
-        description: 'text-toned-inverted',
-      } : undefined"
+      :ui="{
+        container: [
+          'lg:grid-cols-[1.6fr_1fr]',
+          props.overlayHeader && props.bgImage ? 'pt-32 lg:pt-40' : '',
+        ],
+        ...(props.bgImage ? {
+          root: 'relative isolate',
+          headline: 'text-primary-300',
+          title: 'text-inverted',
+          description: 'text-toned-inverted',
+        } : {}),
+      }"
     >
       <template v-if="props.bgImage" #top>
         <UiBackdrop :src="props.bgImage" />
@@ -41,7 +46,7 @@
       id="contact"
       as="aside"
       :ui="{
-        root: 'w-full max-w-[min(440px,100%)] mx-auto lg:ml-auto lg:mr-0 bg-default shadow-sm',
+        root: 'w-full max-w-none sm:max-w-[400px] lg:max-w-none mx-auto bg-default shadow-sm',
       }"
     >
       <UiQuoteForm :title="props.formTitle" :description="props.formDescription" />
@@ -52,8 +57,6 @@
 
 <script setup lang="ts">
 import type { ButtonProps } from '@nuxt/ui'
-
-const { site } = useAppConfig()
 
 const props = defineProps<{
   headline?: string
@@ -66,14 +69,11 @@ const props = defineProps<{
   formDescription?: string
 }>()
 
-const defaultCta = computed<ButtonProps>(() => ({
-  label: 'Call Now',
-  icon: 'i-fa6-solid-phone',
-  to: site.phone.href,
-  variant: 'outline',
+const defaultCta = computed<ButtonProps>(() => callCta({
+  size: 'lg',
   ...(props.bgImage
-    ? { color: 'neutral', class: 'text-inverted ring-white/25 hover:bg-surface-soft-inverted' }
-    : { color: 'primary' }),
+    ? { color: 'white', variant: 'solid' }
+    : { color: 'primary', variant: 'outline' }),
 }))
 
 const links = computed<ButtonProps[]>(() => [

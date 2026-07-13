@@ -17,6 +17,7 @@
     </template>
 
     <template #body>
+      <slot name="body-before" />
       <div class="grid lg:grid-cols-2 lg:items-center" :class="gapClass">
         <UiFigure v-bind="props.image" />
 
@@ -27,6 +28,7 @@
           </template>
         </div>
       </div>
+      <slot name="body-after" />
     </template>
   </UPageSection>
 </template>

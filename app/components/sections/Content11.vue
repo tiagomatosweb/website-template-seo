@@ -16,12 +16,14 @@
       <slot :name="name" v-bind="slotProps ?? {}" />
     </template>
 
+    <slot name="body-before" />
     <UPageGrid :class="gridClass">
       <template v-for="(item, i) in props.items" :key="i">
         <component :is="item" v-if="isRenderFn(item)" />
         <UiContentCard v-else :item="item" />
       </template>
     </UPageGrid>
+    <slot name="body-after" />
   </UPageSection>
 </template>
 

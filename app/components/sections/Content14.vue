@@ -17,7 +17,9 @@
     </template>
 
     <template #body>
-      <UiZigZag :items="props.items" :ui="props.itemUi" />
+      <slot name="body-before" />
+      <UiZigZag :items="props.items" :reverse="props.reverse" :ui="props.itemUi" />
+      <slot name="body-after" />
     </template>
   </UPageSection>
 </template>
@@ -33,8 +35,9 @@ const props = defineProps<Omit<PageSectionProps, 'headline' | 'title' | 'descrip
   title?: SectionText
   description?: SectionText
   items: RenderItem<ZigZagItem>[]
+  reverse?: boolean
   itemUi?: ZigZagUi
 }>()
 
-const { sectionProps, headlineFn, titleFn, descriptionFn, forwardedSlots } = usePageSection(props, ['items', 'itemUi'])
+const { sectionProps, headlineFn, titleFn, descriptionFn, forwardedSlots } = usePageSection(props, ['items', 'reverse', 'itemUi'])
 </script>

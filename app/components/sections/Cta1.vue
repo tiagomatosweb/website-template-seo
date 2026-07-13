@@ -39,8 +39,6 @@ const props = withDefaults(defineProps<Omit<PageCTAProps, 'title' | 'description
   secondaryCta: () => ({}),
 })
 
-const { site } = useAppConfig()
-
 const titleFn = computed(() => (isRenderFn(props.title) ? props.title : undefined))
 const descriptionFn = computed(() => (isRenderFn(props.description) ? props.description : undefined))
 const titleText = computed(() => (isRenderFn(props.title) ? undefined : props.title))
@@ -57,8 +55,8 @@ const ui = computed<PageCTAProps['ui']>(() => defu(props.ui, {
   description: 'max-w-2xl mx-auto',
 }))
 
-const defaultPrimaryCta: ButtonProps = { label: 'Get a Free Quote', color: 'cta', size: 'xl', trailingIcon: 'i-fa6-solid-arrow-right', to: '#contact', class: 'w-full sm:w-auto justify-center' }
-const defaultSecondaryCta: ButtonProps = { label: 'Call Now', color: 'neutral', variant: 'outline', size: 'xl', icon: 'i-fa6-solid-phone', to: site.phone.href, class: 'w-full sm:w-auto justify-center' }
+const defaultPrimaryCta = quoteCta({ size: 'xl', class: 'w-full sm:w-auto justify-center' })
+const defaultSecondaryCta = callCta({ color: 'neutral', size: 'xl', class: 'w-full sm:w-auto justify-center' })
 const links = computed<ButtonProps[]>(() => props.links ?? [
   { ...defaultPrimaryCta, ...props.primaryCta },
   { ...defaultSecondaryCta, ...props.secondaryCta },

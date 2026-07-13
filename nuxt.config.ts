@@ -36,6 +36,7 @@ export default defineNuxtConfig({
         'primary',
         'secondary',
         'cta',
+        'white',
         'info',
         'success',
         'warning',
@@ -46,7 +47,6 @@ export default defineNuxtConfig({
   fonts: {
     families: [
       { name: 'Roboto', weights: [400, 500, 600, 700, 800, 900] },
-      { name: 'Nunito Sans', weights: [400, 600, 700, 800] },
     ],
   },
 })

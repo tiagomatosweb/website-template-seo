@@ -1,5 +1,5 @@
 <template>
-  <UPageSection id="reviews" v-bind="sectionProps" class="bg-muted">
+  <UPageSection id="reviews" v-bind="sectionProps">
     <template v-if="headlineFn" #headline>
       <component :is="headlineFn" />
     </template>

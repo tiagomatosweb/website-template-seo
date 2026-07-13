@@ -17,6 +17,7 @@
     </template>
 
     <template #body>
+      <slot name="body-before" />
       <UiFigure v-bind="props.image" />
     </template>
 
@@ -26,6 +27,7 @@
         <UiContentCard v-else :item="item" />
       </template>
     </UPageGrid>
+    <slot name="body-after" />
   </UPageSection>
 </template>
 

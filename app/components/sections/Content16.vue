@@ -17,12 +17,14 @@
     </template>
 
     <template #body>
+      <slot name="body-before" />
       <UPageGrid :class="columnsClass">
         <template v-for="(item, i) in props.items" :key="i">
           <component :is="item" v-if="isRenderFn(item)" />
           <UiBeforeAfter v-else v-bind="item" :ui="{ ...props.itemUi, ...item.ui }" />
         </template>
       </UPageGrid>
+      <slot name="body-after" />
     </template>
   </UPageSection>
 </template>
@@ -43,9 +45,7 @@ const props = withDefaults(defineProps<Omit<PageSectionProps, 'headline' | 'titl
 }>(), {
   itemsColumns: 2,
   ui: () => ({
-    headline: 'justify-center',
-    title: 'text-center',
-    description: 'text-center',
+    links: 'justify-center',
   }),
 })
 

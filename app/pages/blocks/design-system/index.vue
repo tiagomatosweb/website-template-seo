@@ -157,7 +157,7 @@ const contactItems = [
                   <p class="text-sm text-muted mt-4">Headings, buttons, labels, navigation.</p>
                 </UCard>
                 <UCard :ui="cardUi">
-                  <p class="text-xs font-bold uppercase tracking-widest text-primary mb-4">Body · Nunito Sans <span class="text-dimmed normal-case tracking-normal">(font-sans · default)</span></p>
+                  <p class="text-xs font-bold uppercase tracking-widest text-primary mb-4">Body · System UI <span class="text-dimmed normal-case tracking-normal">(font-sans · default)</span></p>
                   <p class="font-sans text-5xl font-bold leading-none">Aa Bb Cc</p>
                   <p class="font-sans text-base text-dimmed mt-3 leading-relaxed">
                     ABCDEFGHIJKLM<br>abcdefghijklm 0123456789
@@ -184,7 +184,7 @@ const contactItems = [
               <h2 class="text-xl font-extrabold mb-4">Body default text</h2>
               <UCard :ui="cardUi">
                 <p class="text-base text-toned max-w-prose">
-                  This is the default body paragraph. Nunito Sans at 16px with relaxed line-height carries
+                  This is the default body paragraph. The system UI font at 16px with relaxed line-height carries
                   descriptions, service copy and longer-form content. Keep paragraphs readable with a
                   <code class="text-primary">max-w-prose</code> measure.
                 </p>

@@ -4,7 +4,6 @@
     orientation="horizontal"
     v-bind="sectionProps"
     :ui="{
-      root: 'bg-muted',
       container: 'lg:items-start',
     }"
   >
@@ -51,8 +50,6 @@ export interface Faq {
   content: string
 }
 
-const { site } = useAppConfig()
-
 const props = withDefaults(defineProps<Omit<PageSectionProps, 'headline' | 'title' | 'description'> & {
   headline?: SectionText
   title?: SectionText
@@ -70,14 +67,7 @@ const { sectionProps, headlineFn, titleFn, descriptionFn, forwardedSlots } = use
   ['description'],
 )
 
-const ctaButton = computed<ButtonProps>(() => ({
-  label: 'Call Now',
-  to: site.phone.href,
-  icon: 'i-fa6-solid-phone',
-  color: 'primary',
-  variant: 'outline',
-  ...props.cta?.button,
-}))
+const ctaButton = computed<ButtonProps>(() => callCta({ ...props.cta?.button }))
 
 const accordionItems = computed<AccordionItem[]>(() => props.items)
 </script>

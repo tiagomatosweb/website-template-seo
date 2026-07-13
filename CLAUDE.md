@@ -191,7 +191,7 @@ Rules:
 - **Use `<p>`:** section/card descriptions, subtitles, blurbs, the copyright line, form helper text — anything that reads as a sentence.
 - **Use `<div>` (NOT `<p>`):** stat numbers (`{{ stat.value }}`), stat labels, headlines/kickers, captions, badges, single-word/short data labels. These are data or labels, not prose — making them `<p>` wrongly inherits body sizing and the `mb-4` paragraph margin (which then needs a `mb-0` hack — a smell that it shouldn't be a `<p>`).
 
-**Three prose size tiers — base is `text-base`, `text-lg` is earned.** There is no `text-base`-vs-`text-lg` ambiguity: the body default is **`text-base` (16px)** — comfortable, credible long-form reading. The larger **`text-lg` (18px)** is the **lead-in / emphasis tier**, opt-in for the punchy intro copy: hero subtitles and **section lead-in descriptions** (the `<p>` directly under a section `<h2>`). It's wired into config for the slot-driven cases — `pageHero.description`, `pageSection.description`, `pageCTA.description` are all `text-lg` — so a UPageSection's `description` prop is large automatically. Only add `text-lg` by hand when the lead-in lives in a **custom header** or a `#description` **slot with your own `<p>`s** (config classes sit on the slot wrapper, not your inner `<p>`) — the slot descriptions in config carry `**:text-lg` to cover this, but a fully custom header outside the slot needs it by hand. The smaller **`text-sm` (14px)** is the compact tier — card descriptions, captions, helper text (and `pageCard.description` = `text-[15px]`). Default body prose and long-form content stay **`text-base`**; don't promote a multi-paragraph SEO block to `text-lg`.
+**Three prose size tiers — base is `text-base`, `text-lg` is earned.** There is no `text-base`-vs-`text-lg` ambiguity: the body default is **`text-base` (16px)** — comfortable, credible long-form reading. The larger **`text-lg` (18px)** is the **lead-in / emphasis tier**, opt-in for the punchy intro copy: hero subtitles and **section lead-in descriptions** (the `<p>` directly under a section `<h2>`). It's wired into config for the slot-driven cases — `pageHero.description`, `pageSection.description`, `pageCTA.description` are all `text-lg` — so a UPageSection's `description` prop is large automatically. Only add `text-lg` by hand when the lead-in lives in a **custom header** or a `#description` **slot with your own `<p>`s** (config classes sit on the slot wrapper, not your inner `<p>`) — the slot descriptions in config carry `[&_p]:text-lg` (targets nested `<p>` tags only, not every descendant) to cover this, but a fully custom header outside the slot needs it by hand. The smaller **`text-sm` (14px)** is the compact tier — card descriptions, captions, helper text (and `pageCard.description` = `text-[15px]`). Default body prose and long-form content stay **`text-base`**; don't promote a multi-paragraph SEO block to `text-lg`.
 
 **Paragraph color is always the neutral ladder.** A `<p>` of body copy uses the neutral tokens — bare (inherits `text-default`) or `text-toned`/`text-muted` for de-emphasis. **Never** color a paragraph with a brand variant (`text-primary-*`/`text-cta-*`) — those are accent-only (see Text color). When generating content, default every paragraph/description to the neutral ladder.
 
@@ -298,9 +298,28 @@ Composing a page is governed by two layers — what a single section looks like,
 1. **Light is the connective tissue** — most sections are light; **dark and image are punctuation**, not the norm.
 2. **Never place two dark sections adjacent, nor two image sections adjacent.** If the spotlight rule would, demote the less-essential one to light.
 3. **Image bookends:** the hero (top) and final CTA (bottom) are the image moments; dark statement sections land around the 1/3 and 2/3 beats. Canonical cadence: `image(hero) → light → light → dark → light → light → image(cta) → dark(footer)`. The current homepage follows this.
-4. **Sub-rhythm within light:** alternate `white` ↔ `neutral-50` on adjacent light sections so they have a visible seam.
+4. **Sub-rhythm within light — the `alt` surface.** Light sections alternate `base` ↔ `alt` so adjacent light sections have a visible seam. `base`/`alt` are **roles, not fixed colors** — each site binds them to its own palette (see the binding below). Three rules govern where the `alt` lands:
+   - **Never two `alt` sections touching** — every `alt` is bracketed by `base` (or dark).
+   - **Never an `alt` directly against a dark/image section** — keep a `base` section between them so the dark's contrast lands.
+   - **Prefer the `alt` on "container" sections** (card grids, step timelines, comparison tables) — they already read as one group, so the tint reinforces the grouping. An `alt` on a plain-prose section just looks like a stray highlight.
 
-This is a **composition** decision set on the page via each section's `:ui.root` / `bgImage` (not a `surface` prop) — sections already express their surface through those. When adding/reordering sections, check the cadence above; when unsure whether a section should be light or dark, default to **light** and reserve dark/image for the one or two moments that deserve the weight.
+**The three surface roles** (bind per site; the *rule* below is what's fixed, not the colors):
+
+| Role | What it's for | Template default binding |
+|---|---|---|
+| `base` | the default reading surface — the connective tissue | `bg-default` (white) |
+| `alt` | the alternation tint that groups/separates light sections | `bg-muted` (neutral-50) — a rebrand may swap this for a light brand tint |
+| `dark` | statement moments + image bookends | `bg-neutral-950` (+ `text-inverted`), or `bgImage` |
+
+**Choosing a section's surface — the decision tree** (resolve to `base`/`alt`/`dark`, *then* to the site's bound color). Surface is picked by *role* first, then adjusted for rhythm:
+1. Is it the **hero, the final CTA, or a deliberate statement/manifesto** section? → **`dark`** (image or dark — the spotlight table above).
+2. Is it **proof — reviews / testimonials**? → **always `base`.** This is a hard override: an `alt`-tinted proof section reads as "styled marketing," `base` reads as "real / credible." Reviews stay `base` even when the alternation would otherwise want an `alt` there.
+3. Is it **long-form reading — prose-led copy, FAQ**? → **`base`** (default).
+4. Otherwise it's a **container** (cards / steps / comparison): apply **`alt`** unless doing so would break a sub-rhythm rule above (touch another `alt`, or sit against a `dark`/image section) — in which case **`base`**, and move the `alt` to the next eligible container.
+
+One-liner: **`dark` = drama (rare, bookends + one mid-page beat); `alt` = grouping (rhythmic, on container sections, never touching, never against dark); `base` = everything you read or must trust (default, and always for proof).** When unsure, default to **`base`**.
+
+This is a **composition** decision set on the page via each section's `class` / `:ui.root` / `bgImage` (not a `surface` prop) — sections already express their surface through those. When adding/reordering sections, walk the tree per section, then check the cadence top-to-bottom.
 
 ### Exported item types — import, don't redefine
 

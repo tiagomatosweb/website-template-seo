@@ -1,13 +1,8 @@
 export default defineAppConfig({
   site: {
     name: 'BusinessName',
-    shortName: 'Business',
-    tagline: 'Your trusted local specialists',
-    blurb: 'A short sentence about the business, the area it serves and what makes it the trusted local choice.',
+    description: 'A short sentence about the business, the area it serves and what makes it the trusted local choice.',
     phone: { display: '00 0000 0000', href: 'tel:0000000000' },
-    email: 'hello@example.com',
-    serviceArea: 'Serving your local area',
-    hours: 'Mon–Fri 8am–5pm',
     rating: '4.9',
     social: {
       facebook: '#',
@@ -19,6 +14,7 @@ export default defineAppConfig({
     colors: {
       primary: 'primary',
       cta: 'cta',
+      white: 'white',
       neutral: 'gray',
     },
     formField: {
@@ -130,7 +126,7 @@ export default defineAppConfig({
         container: 'p-4 sm:p-5',
         leadingIcon: 'size-7 text-primary',
         title: 'font-display text-lg font-bold tracking-tight leading-snug text-highlighted',
-        description: 'text-[15px] text-muted',
+        description: 'text-[15px]',
       },
       variants: {
         variant: {
@@ -147,18 +143,55 @@ export default defineAppConfig({
     accordion: {
       slots: {
         root: 'w-full space-y-4',
-        item: 'rounded-xl bg-default ring ring-default px-5 sm:px-6 border-0',
-        trigger: 'py-5 gap-4 font-display font-bold text-base text-highlighted hover:text-primary data-[state=open]:text-primary transition-colors',
+        item: 'rounded-xl bg-default ring ring-default px-4 sm:px-5 border-0',
+        trigger: 'py-4 sm:py-5 gap-4 font-display font-bold text-base text-highlighted hover:text-primary data-[state=open]:text-primary transition-colors cursor-pointer',
         trailingIcon: 'text-highlighted group-data-[state=open]:text-primary transition-colors',
-        body: 'text-base leading-relaxed text-toned pb-5',
+        body: 'text-base leading-relaxed text-toned pb-4 sm:pb-5',
       },
     },
+    navigationMenu: {
+      slots: {
+        linkTrailingIcon: 'size-4 text-highlighted',
+        viewport: 'rounded-lg ring-1 ring-default shadow-xl',
+        link: 'cursor-pointer',
+        childLinkLabel: 'font-medium whitespace-nowrap',
+      },
+      variants: {
+        orientation: {
+          horizontal: {
+            link: 'font-bold text-sm',
+            childList: 'p-1.5',
+            childLink: 'px-3 py-1.5 pr-6 font-medium text-sm',
+            content: 'w-auto!',
+          },
+          vertical: {
+            link: 'px-3 py-2.5 font-semibold text-lg',
+            childLink: 'px-3 py-2.5 text-[15px]',
+          },
+        },
+        active: {
+          true: {
+            link: 'text-primary! before:bg-primary/8!',
+            childLink: 'text-primary! before:bg-primary/8!',
+            childLinkIcon: 'text-primary',
+          },
+          false: {
+            link: 'text-toned! hover:text-primary! hover:before:bg-primary/8! data-[state=open]:text-primary! data-[state=open]:before:bg-primary/8! transition-colors before:transition-colors',
+            childLink: 'text-muted! hover:text-primary! hover:before:bg-primary/8! transition-colors before:transition-colors',
+            childLinkIcon: 'text-dimmed group-hover:text-primary transition-colors',
+          },
+        },
+      },
+      compoundVariants: [
+        { orientation: 'vertical', collapsed: false, class: { childList: 'ms-3 border-s-2 border-primary/15' } },
+      ],
+    } as any,
     pageCTA: {
       slots: {
         root: 'rounded-none z-10',
         container: 'relative',
         title: 'text-3xl sm:text-4xl lg:text-5xl font-black',
-        description: 'text-lg leading-relaxed max-w-3xl mx-auto **:text-lg',
+        description: 'text-lg leading-relaxed max-w-3xl mx-auto [&_p]:text-lg',
       },
       variants: {
         variant: {
@@ -178,7 +211,7 @@ export default defineAppConfig({
         container: 'py-16 lg:py-24 gap-12 lg:gap-16',
         headline: 'mb-4 font-display text-sm font-semibold uppercase tracking-widest text-primary',
         title: 'font-display font-black text-4xl sm:text-5xl lg:text-6xl leading-[1.05] text-highlighted text-balance',
-        description: 'text-lg leading-relaxed text-pretty **:text-lg',
+        description: 'text-lg leading-relaxed text-pretty [&_p]:text-lg',
         body: 'mt-8',
         footer: 'mt-8',
       },
@@ -194,7 +227,7 @@ export default defineAppConfig({
       slots: {
         container: 'py-16 lg:py-24',
         title: 'text-3xl sm:text-4xl lg:text-5xl font-black',
-        description: 'text-lg leading-relaxed text-pretty **:text-lg',
+        description: 'text-lg leading-relaxed text-pretty [&_p]:text-lg',
         headline: 'font-display text-sm font-semibold uppercase tracking-widest text-primary',
         footer: 'mt-8',
         links: 'flex flex-wrap gap-x-6 gap-y-3',
@@ -288,6 +321,11 @@ export default defineAppConfig({
           color: 'neutral',
           variant: 'outline',
           class: 'bg-white/10 hover:bg-white/20 active:bg-white/20 disabled:bg-white/10 aria-disabled:bg-white/10',
+        },
+        {
+          color: 'white',
+          variant: 'solid',
+          class: 'bg-white text-highlighted hover:bg-neutral-200 active:bg-neutral-200',
         },
       ],
       variants: {

@@ -17,7 +17,9 @@
     </template>
 
     <template #body>
+      <slot name="body-before" />
       <UiComparison :columns="columns" :ui="comparisonUi" />
+      <slot name="body-after" />
     </template>
   </UPageSection>
 </template>
@@ -39,6 +41,7 @@ const props = withDefaults(defineProps<Omit<PageSectionProps, 'headline' | 'titl
     title: 'text-center',
     description: 'text-center',
     body: 'mx-auto w-full max-w-4xl',
+    links: 'justify-center',
   }),
 })
 

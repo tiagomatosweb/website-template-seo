@@ -5,13 +5,13 @@
 
       <div
         v-else
-        :class="ui.item({ class: [props.ui?.item, item.ui?.item, i % 2 === 1 && reverseClass] })"
+        :class="ui.item({ class: [props.ui?.item, item.ui?.item, (i % 2 === 1) !== props.reverse && reverseClass] })"
       >
         <component :is="item.image" v-if="isRenderFn(item.image)" :class="ui.figure({ class: [props.ui?.figure, item.ui?.figure] })" />
         <UiFigure v-else v-bind="item.image" :class="ui.figure({ class: [props.ui?.figure, item.ui?.figure] })" />
 
         <div :class="ui.content({ class: [props.ui?.content, item.ui?.content] })">
-          <div :class="ui.body({ class: [props.ui?.body, item.ui?.body] })">
+          <div v-if="item.headline || item.title" :class="ui.header({ class: [props.ui?.header, item.ui?.header] })">
             <div v-if="item.headline" :class="ui.headline({ class: [props.ui?.headline, item.ui?.headline] })">
               <component :is="item.headline" v-if="isRenderFn(item.headline)" />
               <template v-else>{{ item.headline }}</template>
@@ -21,11 +21,11 @@
               <component :is="item.title" v-if="isRenderFn(item.title)" />
               <template v-else>{{ item.title }}</template>
             </h3>
+          </div>
 
-            <div v-if="item.description" :class="ui.description({ class: [props.ui?.description, item.ui?.description] })">
-              <component :is="item.description" v-if="isRenderFn(item.description)" />
-              <p v-else>{{ item.description }}</p>
-            </div>
+          <div v-if="item.description" :class="ui.description({ class: [props.ui?.description, item.ui?.description] })">
+            <component :is="item.description" v-if="isRenderFn(item.description)" />
+            <p v-else>{{ item.description }}</p>
           </div>
 
           <div v-if="item.links?.length" :class="ui.links({ class: [props.ui?.links, item.ui?.links] })">
@@ -41,7 +41,6 @@
 import type { VNodeChild } from 'vue'
 import { tv } from '@nuxt/ui/utils/tv'
 import type { ButtonProps } from '@nuxt/ui'
-import pageSectionTheme from '#build/ui/page-section'
 import type { SectionText } from '~/composables/usePageSection'
 import type { RenderItem } from '~/utils/render'
 import type { FigureImage } from './Figure.vue'
@@ -50,7 +49,7 @@ export interface ZigZagItemUi {
   item?: string
   figure?: string
   content?: string
-  body?: string
+  header?: string
   headline?: string
   title?: string
   description?: string
@@ -72,28 +71,21 @@ export interface ZigZagUi extends ZigZagItemUi {
 
 const props = defineProps<{
   items: RenderItem<ZigZagItem>[]
+  reverse?: boolean
   ui?: ZigZagUi
 }>()
-
-const appConfig = useAppConfig()
-const pageSectionOverride = appConfig.ui?.pageSection as Record<string, unknown> | undefined
-const section = tv({ extend: tv(pageSectionTheme), ...(pageSectionOverride || {}) })({
-  orientation: 'horizontal',
-  headline: true,
-  title: true,
-})
 
 const theme = tv({
   slots: {
     root: 'space-y-16 lg:space-y-24',
     item: 'grid lg:grid-cols-2 lg:items-center gap-8 lg:gap-16',
     figure: '',
-    content: '',
-    body: '',
-    headline: section.headline(),
-    title: section.title({ class: 'font-display text-2xl sm:text-3xl lg:text-3xl font-black text-balance' }),
-    description: section.description(),
-    links: [section.footer(), section.links()],
+    content: 'space-y-6',
+    header: '',
+    headline: 'mb-3 font-display text-sm uppercase tracking-widest font-semibold text-primary flex items-center gap-1.5',
+    title: 'tracking-tight text-highlighted font-display text-2xl sm:text-3xl lg:text-3xl font-black text-balance',
+    description: 'sm:text-lg text-muted text-lg leading-relaxed [&_p]:text-lg text-pretty',
+    links: 'flex flex-wrap gap-x-6 gap-y-3',
   },
 })
 

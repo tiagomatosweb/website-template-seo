@@ -34,7 +34,11 @@
   --color-cta-900: #7c2d12;
   --color-cta-950: #431407;
 
-  --font-sans: "Nunito Sans", sans-serif;
+  --color-white-500: #FFFFFF;
+  --color-white-600: var(--color-gray-200);
+
+  /* Body font: no override — inherit Tailwind v4's default system stack
+     (ui-sans-serif, system-ui, sans-serif, …). */
   --font-display: "Roboto", sans-serif;
 
   --animate-header-shadow: header-shadow linear both;
