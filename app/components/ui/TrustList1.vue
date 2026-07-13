@@ -7,6 +7,7 @@ const props = withDefaults(defineProps<{
   items: ListItem[]
   orientation?: 'horizontal' | 'vertical'
   icon?: string | Partial<IconTileProps>
+  class?: string
   ui?: ListUi
 }>(), {
   orientation: 'horizontal',
@@ -19,7 +20,7 @@ const icon = computed<Partial<IconTileProps>>(() => ({
 
 const ui = computed<ListUi>(() => ({
   ...props.ui,
-  root: twMerge('gap-x-8 gap-y-4', props.ui?.root),
+  root: twMerge('gap-x-8 gap-y-4', props.ui?.root, props.class),
   label: twMerge('font-display text-sm font-semibold tabular-nums text-default', props.ui?.label),
 }))
 </script>

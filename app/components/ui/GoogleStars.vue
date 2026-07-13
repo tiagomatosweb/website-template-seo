@@ -5,6 +5,7 @@ const props = withDefaults(defineProps<{
   rating?: number
   max?: number
   size?: 'xs' | 'sm' | 'md'
+  class?: string
 }>(), {
   rating: 5,
   max: 5,
@@ -20,7 +21,7 @@ const stars = computed(() => {
 
 <template>
   <span
-    class="inline-flex items-center gap-0.5 leading-none text-star"
+    :class="['inline-flex items-center gap-0.5 leading-none text-star', props.class]"
     role="img"
     :aria-label="`${Math.round(props.rating)} out of ${props.max} stars`"
   >

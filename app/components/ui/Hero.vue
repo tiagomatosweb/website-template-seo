@@ -19,7 +19,7 @@
       }"
     >
       <template v-if="props.bgImage" #top>
-        <UiBackdrop :src="props.bgImage" />
+        <UiBackdrop :src="props.bgImage" :color="props.bgColor" />
       </template>
 
     <template #headline>
@@ -36,7 +36,7 @@
 
     <template #body>
       <UiTrustList1
-        :items="trustList1"
+        :items="props.trust ?? trustList1"
         :icon="{ inverted: !!props.bgImage }"
         :ui="props.bgImage ? { label: 'text-inverted' } : undefined"
       />
@@ -49,7 +49,7 @@
         root: 'w-full max-w-none sm:max-w-[400px] lg:max-w-none mx-auto bg-default shadow-sm',
       }"
     >
-      <UiQuoteForm :title="props.formTitle" :description="props.formDescription" />
+      <UiQuoteForm v-bind="props.quote" />
     </UCard>
     </UPageHero>
   </div>
@@ -57,16 +57,19 @@
 
 <script setup lang="ts">
 import type { ButtonProps } from '@nuxt/ui'
+import type { ListItem } from './List.vue'
+import type { QuoteFormProps } from './QuoteForm.vue'
 
 const props = defineProps<{
   headline?: string
   title?: string
   description?: string
   bgImage?: string
+  bgColor?: 'neutral' | 'primary'
   overlayHeader?: boolean
   cta?: ButtonProps
-  formTitle?: string
-  formDescription?: string
+  quote?: QuoteFormProps
+  trust?: ListItem[]
 }>()
 
 const defaultCta = computed<ButtonProps>(() => callCta({

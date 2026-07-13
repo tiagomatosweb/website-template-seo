@@ -1,10 +1,10 @@
 <template>
-  <UCard class="overflow-hidden" :ui="{ body: 'p-0 sm:p-0' }">
+  <UCard :class="['overflow-hidden', props.class]" :ui="{ body: 'p-0 sm:p-0' }">
     <UPageGrid :class="[gridClass, dividerClass]">
       <UiFeatureItem
         v-for="(item, i) in props.items"
         :key="i"
-        :item="item"
+        v-bind="item"
         :orientation="props.itemOrientation"
         :ui="props.itemUi"
       />
@@ -21,6 +21,7 @@ const props = withDefaults(defineProps<{
   orientation?: 'horizontal' | 'vertical'
   columns?: GridColumns
   itemOrientation?: 'horizontal' | 'vertical'
+  class?: string
   itemUi?: FeatureItemUi
 }>(), {
   orientation: 'vertical',

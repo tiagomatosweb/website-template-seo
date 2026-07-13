@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Review } from '~/components/sections/Reviews1.vue'
+import type { Review } from '~/components/ui/Review.vue'
 
 useSeoMeta({
   title: 'Reviews — variants',
@@ -17,8 +17,22 @@ const reviews: Review[] = [
 <template>
   <div>
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
-      Reviews1
+      Reviews
     </div>
-    <SectionsReviews1 :reviews="reviews" />
+    <UPageSection
+      id="reviews"
+      headline="Reviews"
+      title="What Our Customers Are Saying"
+    >
+      <template #body>
+        <UPageGrid class="lg:grid-cols-4">
+          <UiReview
+            v-for="(review, i) in reviews"
+            :key="i"
+            :review="review"
+          />
+        </UPageGrid>
+      </template>
+    </UPageSection>
   </div>
 </template>

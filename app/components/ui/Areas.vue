@@ -1,5 +1,5 @@
 <template>
-  <div class="grid items-start gap-x-8 gap-y-8 lg:grid-cols-2 lg:gap-x-16">
+  <div :class="['grid items-start gap-x-8 gap-y-8 lg:grid-cols-2 lg:gap-x-16', props.class]">
     <div class="space-y-5">
       <div class="flex flex-wrap gap-1.5" role="tablist">
         <UButton
@@ -53,6 +53,7 @@ export interface AreasArea {
 
 const props = defineProps<{
   areas: AreasArea[]
+  class?: string
 }>()
 
 const activeIndex = ref(0)

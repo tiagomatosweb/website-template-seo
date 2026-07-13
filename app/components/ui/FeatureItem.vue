@@ -1,23 +1,31 @@
 <template>
-  <div :class="ui.root({ class: [cardPadding, props.ui?.root] })">
-    <UiIconTile v-bind="icon" :class="ui.tile({ class: props.ui?.tile })" />
+  <div :class="ui.root({ class: [cardPadding, props.ui?.root, props.class] })">
+    <slot name="icon">
+      <UiIconTile v-bind="iconTile" :class="ui.tile({ class: props.ui?.tile })" />
+    </slot>
+
     <div :class="ui.body({ class: props.ui?.body })">
-      <h4 :class="ui.title({ class: props.ui?.title })">{{ item.title }}</h4>
-      <component :is="item.description" v-if="isRenderFn(item.description)" :class="ui.description({ class: props.ui?.description })" />
-      <p v-else :class="ui.description({ class: props.ui?.description })">{{ item.description }}</p>
+      <h4 :class="ui.title({ class: props.ui?.title })">
+        <slot name="title">{{ props.title }}</slot>
+      </h4>
+
+      <div :class="ui.description({ class: props.ui?.description })">
+        <slot name="description">
+          <p v-if="props.description">{{ props.description }}</p>
+        </slot>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { VNodeChild } from 'vue'
 import { tv } from 'tailwind-variants'
 import type { IconTileProps } from './IconTile.vue'
 
 export interface FeatureItem {
   icon: string | IconTileProps
   title: string
-  description: string | (() => VNodeChild)
+  description?: string
 }
 
 export interface FeatureItemUi {
@@ -28,17 +36,17 @@ export interface FeatureItemUi {
   description?: string
 }
 
-const props = withDefaults(defineProps<{
-  item: FeatureItem
+const props = withDefaults(defineProps<FeatureItem & {
   orientation?: 'horizontal' | 'vertical'
+  class?: string
   ui?: FeatureItemUi
 }>(), {
   orientation: 'horizontal',
 })
 
-const icon = computed<IconTileProps>(() => ({
+const iconTile = computed<IconTileProps>(() => ({
   size: 'lg',
-  ...(typeof props.item.icon === 'string' ? { icon: props.item.icon } : props.item.icon),
+  ...(typeof props.icon === 'string' ? { icon: props.icon } : props.icon),
 }))
 
 const theme = tv({

@@ -1,60 +1,70 @@
 <template>
   <UPageCard v-bind="cardProps">
-    <template v-if="image" #header>
-      <img
-        :src="image.src"
-        :alt="image.alt ?? item.title"
-        loading="lazy"
-        :class="imageClass"
-      >
+    <template v-if="$slots.header || image" #header>
+      <slot name="header">
+        <img
+          v-if="image"
+          :src="image.src"
+          :alt="image.alt ?? props.title"
+          loading="lazy"
+          :class="imageClass"
+        >
+      </slot>
     </template>
 
-    <template v-if="icon" #leading>
-      <UiIconTile v-bind="icon" />
+    <template v-if="$slots.leading || iconTile" #leading>
+      <slot name="leading">
+        <UiIconTile v-if="iconTile" v-bind="iconTile" />
+      </slot>
     </template>
 
-    <template v-if="item.description" #description>
-      <component :is="item.description" v-if="typeof item.description === 'function'" />
-      <template v-else>{{ item.description }}</template>
+    <template v-if="$slots.footer || showCta" #footer>
+      <slot name="footer">
+        <UButton v-if="showCta" v-bind="ctaProps" />
+      </slot>
     </template>
 
-    <template v-if="showCta" #footer>
-      <UButton v-bind="ctaProps" />
+    <template v-for="name in forwardedSlots" #[name]="slotProps">
+      <slot :name="name" v-bind="slotProps ?? {}" />
     </template>
   </UPageCard>
 </template>
 
 <script setup lang="ts">
-import type { VNodeChild } from 'vue'
 import type { ButtonProps, PageCardProps } from '@nuxt/ui'
 import { twMerge } from 'tailwind-merge'
 import type { IconTileProps } from './IconTile.vue'
 
-export interface ContentCardImage {
+export interface CardImage {
   src: string
   alt?: string
   bleed?: boolean
   class?: string
 }
 
-export interface ContentCardItem extends Omit<PageCardProps, 'description' | 'icon'> {
+export interface CardProps extends Omit<PageCardProps, 'description' | 'icon'> {
   cta?: ButtonProps | false
-  image?: string | ContentCardImage
+  image?: string | CardImage
   icon?: string | IconTileProps
-  description?: string | (() => VNodeChild)
+  description?: string
   lift?: boolean
 }
 
-const props = defineProps<{
-  item: ContentCardItem
-}>()
+const props = defineProps<CardProps>()
 
-const image = computed<ContentCardImage | undefined>(() =>
-  typeof props.item.image === 'string' ? { src: props.item.image } : props.item.image,
+// header/leading/footer render prop-driven defaults (image, icon tile, CTA); every
+// other UPageCard slot the caller provides is forwarded through untouched.
+const slots = useSlots()
+const forwardedSlots = computed(() =>
+  Object.keys(slots).filter(name => !['header', 'leading', 'footer'].includes(name)),
 )
 
-const icon = computed<IconTileProps | undefined>(() =>
-  typeof props.item.icon === 'string' ? { icon: props.item.icon } : props.item.icon,
+const image = computed<CardImage | undefined>(() =>
+  typeof props.image === 'string' ? { src: props.image } : props.image,
+)
+
+const iconTile = computed<IconTileProps | undefined>(() =>
+  typeof props.icon === 'string' ? { icon: props.icon } : props.icon,
 )
 
 // Inset images inherit their radius straight from the #header slot, whose radius is
@@ -78,11 +88,11 @@ const bleedUi: PageCardProps['ui'] = {
 }
 
 const cardProps = computed<PageCardProps>(() => {
-  const { icon: _icon, cta: _cta, image: _image, description: _description, lift, ui: itemUi, class: itemClass, ...rest } = props.item
+  const { icon: _icon, cta: _cta, image: _image, lift, ui: cardUi, class: cardClass, ...rest } = props
   return {
     ...rest,
-    ui: { ...(image.value?.bleed ? bleedUi : {}), ...itemUi },
-    class: [lift && 'lift', 'group', itemClass],
+    ui: { ...(image.value?.bleed ? bleedUi : {}), ...cardUi },
+    class: [lift && 'lift', 'group', cardClass],
   }
 })
 
@@ -100,12 +110,12 @@ const cardLinkDefaults: ButtonProps = {
 }
 
 const showCta = computed(() =>
-  props.item.to ? props.item.cta !== false : Boolean(props.item.cta && props.item.cta.to),
+  props.to ? props.cta !== false : Boolean(props.cta && props.cta.to),
 )
 
 const ctaProps = computed<ButtonProps>(() => {
-  const cta = props.item.cta || {}
-  if (props.item.to) {
+  const cta = props.cta || {}
+  if (props.to) {
     const merged = { ...ctaBase, ...cardLinkDefaults, ...cta }
     return { ...merged, ui: { ...cardLinkDefaults.ui, ...cta.ui }, as: 'div', to: undefined }
   }

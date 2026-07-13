@@ -1,42 +1,3 @@
-<script setup lang="ts">
-import * as yup from 'yup'
-import type { FormSubmitEvent } from '@nuxt/ui'
-
-// Validation schema (yup). UForm validates against this on submit and surfaces
-// each error in the UFormField with the matching `name`.
-const schema = yup.object({
-  name: yup.string().required('Please enter your name'),
-  phone: yup
-    .string()
-    .required('Please enter a phone number')
-    .matches(/^[\d\s()+-]{8,}$/, 'Enter a valid phone number'),
-  email: yup.string().required('Please enter your email').email('Enter a valid email'),
-})
-
-type Schema = yup.InferType<typeof schema>
-
-const props = withDefaults(defineProps<{
-  title?: string
-  description?: string
-}>(), {
-  title: 'Get Your Free Quote',
-  description: 'Tell us what you need and one of our specialists will get in touch.',
-})
-
-const state = reactive<Partial<Schema>>({
-  name: undefined,
-  phone: undefined,
-  email: undefined,
-})
-
-const submitted = ref(false)
-
-async function onSubmit(_event: FormSubmitEvent<Schema>) {
-  // PLACEHOLDER: wire `_event.data` (validated) up to a real endpoint / form service.
-  submitted.value = true
-}
-</script>
-
 <template>
   <div
     v-if="submitted"
@@ -67,6 +28,57 @@ async function onSubmit(_event: FormSubmitEvent<Schema>) {
       <UInput v-model="state.email" type="email" name="email" autocomplete="email" placeholder="you@email.com" icon="i-fa6-solid-envelope" size="xl" />
     </UFormField>
 
-    <UButton type="submit" label="Request My Free Quote" color="cta" size="xl" trailing-icon="i-fa6-solid-arrow-right" class="mt-1 w-full justify-center shadow-lg shadow-cta-500/40" />
+    <UButton v-bind="buttonProps" />
+
+    <slot name="bottom" />
   </UForm>
 </template>
+
+<script setup lang="ts">
+import * as yup from 'yup'
+import type { ButtonProps, FormSubmitEvent } from '@nuxt/ui'
+
+const schema = yup.object({
+  name: yup.string().required('Please enter your name'),
+  phone: yup
+    .string()
+    .required('Please enter a phone number')
+    .matches(/^[\d\s()+-]{8,}$/, 'Enter a valid phone number'),
+  email: yup.string().required('Please enter your email').email('Enter a valid email'),
+})
+
+type Schema = yup.InferType<typeof schema>
+
+export interface QuoteFormProps {
+  title?: string
+  description?: string
+  button?: ButtonProps
+}
+
+const props = withDefaults(defineProps<QuoteFormProps>(), {
+  title: 'Get Your Free Quote',
+  description: 'Tell us what you need and one of our specialists will get in touch.',
+})
+
+const buttonProps = computed<ButtonProps>(() => ({
+  type: 'submit',
+  label: 'Request My Free Quote',
+  color: 'cta',
+  size: 'xl',
+  trailingIcon: 'i-fa6-solid-arrow-right',
+  class: 'mt-1 w-full justify-center shadow-lg shadow-cta-500/40',
+  ...props.button,
+}))
+
+const state = reactive<Partial<Schema>>({
+  name: undefined,
+  phone: undefined,
+  email: undefined,
+})
+
+const submitted = ref(false)
+
+const onSubmit = async (_event: FormSubmitEvent<Schema>) => {
+  submitted.value = true
+}
+</script>

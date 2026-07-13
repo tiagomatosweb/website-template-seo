@@ -1,12 +1,12 @@
 <template>
-  <UCard class="overflow-hidden" :ui="{ body: 'p-0 sm:p-0' }">
+  <UCard :class="['overflow-hidden', props.class]" :ui="{ body: 'p-0 sm:p-0' }">
     <UPageGrid :class="[gridClass, dividerClass]">
       <div
         v-for="(item, i) in props.items"
         :key="i"
         class="relative"
       >
-        <UiFeatureItem :item="item" orientation="vertical" :ui="props.itemUi" />
+        <UiFeatureItem v-bind="item" orientation="vertical" :ui="props.itemUi" />
         <span
           v-if="i < props.items.length - 1"
           aria-hidden="true"
@@ -25,6 +25,7 @@ import type { FeatureItem, FeatureItemUi } from './FeatureItem.vue'
 
 const props = defineProps<{
   items: FeatureItem[]
+  class?: string
   itemUi?: FeatureItemUi
 }>()
 

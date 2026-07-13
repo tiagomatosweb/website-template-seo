@@ -2,6 +2,7 @@
   <UPageCard
     as="article"
     variant="subtle"
+    :class="props.class"
     :ui="{ container: 'flex h-full flex-col gap-3' }"
   >
     <header class="flex items-start justify-between gap-3">
@@ -37,5 +38,6 @@ export interface Review {
 
 const props = defineProps<{
   review: Review
+  class?: string
 }>()
 </script>

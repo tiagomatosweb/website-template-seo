@@ -1,5 +1,5 @@
 <template>
-  <div :class="ui.root({ class: props.ui?.root })">
+  <div :class="ui.root({ class: [props.ui?.root, props.class] })">
     <template v-for="(item, i) in props.items" :key="i">
       <component :is="item" v-if="isRenderFn(item)" />
 
@@ -72,6 +72,7 @@ export interface ZigZagUi extends ZigZagItemUi {
 const props = defineProps<{
   items: RenderItem<ZigZagItem>[]
   reverse?: boolean
+  class?: string
   ui?: ZigZagUi
 }>()
 

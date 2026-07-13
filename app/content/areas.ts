@@ -1,4 +1,4 @@
-import type { AreasArea } from '~/components/sections/Areas1.vue'
+import type { AreasArea } from '~/components/ui/Areas.vue'
 
 export const areas1: AreasArea[] = [
   {

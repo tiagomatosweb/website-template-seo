@@ -10,25 +10,27 @@ useSeoMeta({
 <template>
   <div>
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
-      Hero1 — background image + overlay header
+      Hero — background image + overlay header
     </div>
-    <SectionsHero1
+    <UiHero
       :bg-image="heroBg"
       overlay-header
       headline="Lead Generation · Paid Ads · SEO"
       description="From full-funnel lead generation to the quick wins in between, we build the campaigns that move your numbers — and show you exactly how."
-      form-title="Get Your Free Growth Plan"
-      form-description="Tell us your goals and a senior marketer will get back to you within one business day."
+      :quote="{
+        title: 'Get Your Free Growth Plan',
+        description: 'Tell us your goals and a senior marketer will get back to you within one business day.',
+      }"
     >
       <template #title>
         Marketing that fills your pipeline with <span class="text-primary-300">qualified leads</span>
       </template>
-    </SectionsHero1>
+    </UiHero>
 
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
-      Hero1 — clear (white)
+      Hero — clear (white)
     </div>
-    <SectionsHero1
+    <UiHero
       headline="Growth Marketing Agency"
       title="Big campaigns. Quick wins. Real results."
       description="From lead generation to full-funnel campaigns, our team handles it all with transparent reporting and results you can measure."
