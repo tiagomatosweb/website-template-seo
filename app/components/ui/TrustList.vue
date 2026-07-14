@@ -1,3 +1,12 @@
+<template>
+  <UiList
+    :items="props.items"
+    :orientation="props.orientation"
+    :icon="icon"
+    :ui="ui"
+  />
+</template>
+
 <script setup lang="ts">
 import { twMerge } from 'tailwind-merge'
 import type { IconTileProps } from './IconTile.vue'
@@ -24,12 +33,3 @@ const ui = computed<ListUi>(() => ({
   label: twMerge('font-display text-sm font-semibold tabular-nums text-default', props.ui?.label),
 }))
 </script>
-
-<template>
-  <UiList
-    :items="props.items"
-    :orientation="props.orientation"
-    :icon="icon"
-    :ui="ui"
-  />
-</template>

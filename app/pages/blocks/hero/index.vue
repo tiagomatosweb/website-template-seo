@@ -1,12 +1,3 @@
-<script setup lang="ts">
-import heroBg from '~/assets/img/placeholder-image.png'
-
-useSeoMeta({
-  title: 'Hero — variants',
-  robots: 'noindex, nofollow',
-})
-</script>
-
 <template>
   <div>
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
@@ -37,3 +28,12 @@ useSeoMeta({
     />
   </div>
 </template>
+
+<script setup lang="ts">
+import heroBg from '~/assets/img/placeholder-image.png'
+
+useSeoMeta({
+  title: 'Hero — variants',
+  robots: 'noindex, nofollow',
+})
+</script>

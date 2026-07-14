@@ -1,28 +1,3 @@
-<script setup lang="ts">
-import type { ListItem } from '~/components/ui/List.vue'
-
-const { site } = useAppConfig()
-
-useSeoMeta({
-  title: 'TrustBar — variants',
-  robots: 'noindex, nofollow',
-})
-
-const trustBar1: ListItem[] = [
-  { icon: 'i-fa6-solid-chart-line', label: 'Results you can measure' },
-  { icon: 'i-fa6-solid-lock-open', label: 'No long lock-ins' },
-  { icon: 'i-fa6-solid-user-check', label: 'Senior specialists do the work' },
-  { icon: 'i-fa6-solid-hand-holding-dollar', label: 'Transparent pricing' },
-]
-
-const trustStats = [
-  { value: '5,000+', label: 'Jobs completed', caption: 'Across your local area' },
-  { value: '10+', label: 'Years on the tools', caption: 'Est. 2014' },
-]
-
-const trustPills = ['Family owned & operated', 'Fully licensed & insured']
-</script>
-
 <template>
   <div>
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
@@ -99,3 +74,28 @@ const trustPills = ['Family owned & operated', 'Fully licensed & insured']
     </UPageSection>
   </div>
 </template>
+
+<script setup lang="ts">
+import type { ListItem } from '~/components/ui/List.vue'
+
+const { site } = useAppConfig()
+
+useSeoMeta({
+  title: 'TrustBar — variants',
+  robots: 'noindex, nofollow',
+})
+
+const trustBar1: ListItem[] = [
+  { icon: 'i-fa6-solid-chart-line', label: 'Results you can measure' },
+  { icon: 'i-fa6-solid-lock-open', label: 'No long lock-ins' },
+  { icon: 'i-fa6-solid-user-check', label: 'Senior specialists do the work' },
+  { icon: 'i-fa6-solid-hand-holding-dollar', label: 'Transparent pricing' },
+]
+
+const trustStats = [
+  { value: '5,000+', label: 'Jobs completed', caption: 'Across your local area' },
+  { value: '10+', label: 'Years on the tools', caption: 'Est. 2014' },
+]
+
+const trustPills = ['Family owned & operated', 'Fully licensed & insured']
+</script>

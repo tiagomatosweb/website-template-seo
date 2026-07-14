@@ -1,124 +1,3 @@
-<script setup lang="ts">
-import type { TabsItem } from '@nuxt/ui'
-
-useSeoMeta({
-  title: 'Design System — BusinessName',
-  robots: 'noindex, nofollow',
-})
-
-const tabs: TabsItem[] = [
-  { label: 'Foundations', icon: 'i-fa6-solid-font', slot: 'foundations' },
-  { label: 'Layout', icon: 'i-fa6-solid-ruler-combined', slot: 'layout' },
-  { label: 'Buttons', icon: 'i-fa6-solid-hand-pointer', slot: 'buttons' },
-  { label: 'Cards', icon: 'i-fa6-solid-square', slot: 'cards' },
-  { label: 'Surfaces', icon: 'i-fa6-solid-layer-group', slot: 'surfaces' },
-  { label: 'Badges', icon: 'i-fa6-solid-tag', slot: 'badges' },
-  { label: 'Forms', icon: 'i-fa6-solid-list-check', slot: 'forms' },
-]
-
-// Neutral text ladder — by prominence. The default for ALL normal text.
-const textColors = [
-  { token: 'text-highlighted', use: 'Headings, emphasized words' },
-  { token: 'text-default', use: 'Primary body text' },
-  { token: 'text-toned', use: 'Standard description / paragraph copy' },
-  { token: 'text-muted', use: 'Secondary — card descriptions, captions' },
-  { token: 'text-dimmed', use: 'Least prominent — faint labels, empty-state icons' },
-]
-
-// Brand-accent text — EXTRA, accent-only (never body copy). soft/solid.
-const brandText = [
-  { token: 'text-primary-soft', use: 'primary 500 @ 50% — faint brand accent' },
-  { token: 'text-primary', use: 'primary 500 — full brand accent (Nuxt UI token)' },
-  { token: 'text-cta-soft', use: 'cta 500 @ 50%' },
-  { token: 'text-cta', use: 'cta 500 (Nuxt UI token)' },
-]
-
-// Neutral surfaces — Nuxt UI's built-in background ladder (maps to the neutral
-// scale). Use these for plain surfaces instead of raw bg-neutral-*.
-const neutralSurfaces = [
-  { token: 'bg-default', sw: 'bg-default ring ring-default', use: 'White — the base page surface' },
-  { token: 'bg-muted', sw: 'bg-muted', use: 'Alt light section root (the white ↔ neutral-50 seam)' },
-  { token: 'bg-elevated', sw: 'bg-elevated', use: 'Image/map placeholder, faint inset panel' },
-  { token: 'bg-accented', sw: 'bg-accented', use: 'Stronger neutral fill — rarely needed' },
-  { token: 'bg-inverted', sw: 'bg-inverted', use: 'Dark fill on a light page (chips, tooltips)' },
-]
-
-// Brand tints — soft brand-colored fills, picked by role. Nuxt UI has NO soft
-// brand surfaces, so these are @utility classes in main.css (source of truth).
-// Use instead of raw bg-primary-50 / bg-primary/15. Same set exists for cta.
-const brandSurfaces = [
-  { token: 'bg-primary-soft', sw: 'bg-primary-soft', use: 'soft — pale 50 tint (icon tiles, highlight panel)' },
-  { token: 'bg-primary', sw: 'bg-primary', use: 'solid — saturated 500 fill (Nuxt UI token)', solid: true },
-  { token: 'bg-primary-soft-inverted', sw: 'bg-primary-soft-inverted', use: 'soft on DARK — brand /15 wash', dark: true },
-]
-
-// Layout spacing spec — each ROLE maps to a fixed class. Source of truth.
-const spacing = [
-  { role: 'Card gutter', name: 'gap-6', value: '24px', use: 'Between cards in a UPageGrid / peer-card grid', w: '24px' },
-  { role: 'Column gap', name: 'gap-8 lg:gap-16', value: '32→64px', use: 'Major 2-column section split (copy ↔ cards/visual)', w: '64px' },
-  { role: 'Section padding', name: 'py-16 lg:py-24', value: '64→96px', use: 'Vertical padding between page sections', w: '96px' },
-  { role: 'Stack', name: 'mt / space-y 2·4·6·8', value: '8–32px', use: 'Vertical stacking within a block (pick by relatedness)', w: '32px' },
-]
-
-// Radius spec — each ROLE maps to a fixed Tailwind class. This table IS the
-// source of truth: to change a site's radii, re-map the classes here and in the
-// matching component slots / app.config.ts. Pick by role, not by eye.
-const radii = [
-  { role: 'Control', name: 'rounded-md', value: '6px', use: 'Inputs, buttons, chips, code, icon tiles', r: '6px' },
-  { role: 'Card', name: 'rounded-xl', value: '12px', use: 'Default card — cards in a collection / grid', r: '12px' },
-  { role: 'Panel', name: 'rounded-2xl', value: '16px', use: 'Standalone or highlighted surface, CTA box, big bento card', r: '16px' },
-  { role: 'Pill', name: 'rounded-full', value: '9999px', use: 'Badges, tags, avatars, round icon buttons', r: '9999px' },
-  { role: 'Flush', name: 'rounded-none', value: '0px', use: 'Full-bleed bands (hero, solid CTA)', r: '0px' },
-]
-
-// Shadow / elevation spec — each ROLE maps to a class. Shadow = elevation =
-// importance + interactivity. Default is Flat (ring, no shadow). Pick by role.
-const shadows = [
-  { role: 'Flat', name: 'ring · no shadow', use: 'Default — resting cards/panels (edge = ring-default)', cls: 'ring ring-default' },
-  { role: 'Raised', name: 'shadow-sm', use: 'Resting card on a busy / image bg; detached sticky header', cls: 'shadow-sm' },
-  { role: 'Floating', name: 'shadow-lg', use: 'Floats over content — dropdowns, popovers, slideovers, FAB', cls: 'shadow-lg' },
-  { role: 'Lifted', name: 'shadow-xl', use: 'Interactive card hover, and standalone feature/hero panels', cls: 'shadow-xl' },
-  { role: 'Glow', name: 'shadow-lg shadow-{color}/40', use: 'The single primary CTA in a view (brand accent, used once)', cls: 'shadow-lg shadow-cta-500/40' },
-]
-
-// Card variants — the border lives on the bordered variants (see app.config.ts).
-const cardVariants = [
-  { variant: 'outline', use: 'Default — white + hairline ring (the Flat card)', dark: false },
-  { variant: 'subtle', use: 'Tinted fill + ring — nested / secondary cards', dark: false },
-  { variant: 'soft', use: 'Tinted fill, no ring — quiet grouping', dark: false },
-  { variant: 'solid', use: 'Dark filled panel, no ring — highlighted card', dark: true },
-] as const
-
-const breakpoints = [
-  { name: 'sm', value: '640px' },
-  { name: 'md', value: '768px' },
-  { name: 'lg', value: '1024px' },
-  { name: 'xl', value: '1280px' },
-  { name: '2xl', value: '1536px' },
-]
-
-// Heading scale — tag is styled automatically by the base layer (main.css).
-// Pick the TAG by document position; size/weight follow. `use` = where each fits.
-const headings = [
-  { tag: 'h1', spec: '36→60px · 900', use: 'Hero / page title — one per page' },
-  { tag: 'h2', spec: '30→48px · 900', use: 'Section heading (UPageSection title)' },
-  { tag: 'h3', spec: '24→30px · 800', use: 'Sub-section / prominent feature heading' },
-  { tag: 'h4', spec: '18px · 700', use: 'Card title in a grid' },
-  { tag: 'h5', spec: '16px · 700', use: 'Minor heading inside a block' },
-  { tag: 'h6', spec: '14px · 700 · uppercase', use: 'Headline / label / footer column heading' },
-]
-
-const cardUi = { root: 'bg-default ring ring-default', body: 'p-7' }
-const listCardUi = { root: 'bg-default ring ring-default divide-y divide-default', body: 'p-0' }
-
-const form = reactive({ name: '', service: '', message: '', terms: false, contact: 'phone' })
-const serviceItems = ['General enquiry', 'Service one', 'Service two', 'Service three']
-const contactItems = [
-  { label: 'By phone', value: 'phone' },
-  { label: 'By email', value: 'email' },
-]
-</script>
-
 <template>
   <div class="min-h-screen bg-muted">
     <UContainer class="max-w-4xl py-16">
@@ -579,3 +458,124 @@ const contactItems = [
     </UContainer>
   </div>
 </template>
+
+<script setup lang="ts">
+import type { TabsItem } from '@nuxt/ui'
+
+useSeoMeta({
+  title: 'Design System — BusinessName',
+  robots: 'noindex, nofollow',
+})
+
+const tabs: TabsItem[] = [
+  { label: 'Foundations', icon: 'i-fa6-solid-font', slot: 'foundations' },
+  { label: 'Layout', icon: 'i-fa6-solid-ruler-combined', slot: 'layout' },
+  { label: 'Buttons', icon: 'i-fa6-solid-hand-pointer', slot: 'buttons' },
+  { label: 'Cards', icon: 'i-fa6-solid-square', slot: 'cards' },
+  { label: 'Surfaces', icon: 'i-fa6-solid-layer-group', slot: 'surfaces' },
+  { label: 'Badges', icon: 'i-fa6-solid-tag', slot: 'badges' },
+  { label: 'Forms', icon: 'i-fa6-solid-list-check', slot: 'forms' },
+]
+
+// Neutral text ladder — by prominence. The default for ALL normal text.
+const textColors = [
+  { token: 'text-highlighted', use: 'Headings, emphasized words' },
+  { token: 'text-default', use: 'Primary body text' },
+  { token: 'text-toned', use: 'Standard description / paragraph copy' },
+  { token: 'text-muted', use: 'Secondary — card descriptions, captions' },
+  { token: 'text-dimmed', use: 'Least prominent — faint labels, empty-state icons' },
+]
+
+// Brand-accent text — EXTRA, accent-only (never body copy). soft/solid.
+const brandText = [
+  { token: 'text-primary-soft', use: 'primary 500 @ 50% — faint brand accent' },
+  { token: 'text-primary', use: 'primary 500 — full brand accent (Nuxt UI token)' },
+  { token: 'text-cta-soft', use: 'cta 500 @ 50%' },
+  { token: 'text-cta', use: 'cta 500 (Nuxt UI token)' },
+]
+
+// Neutral surfaces — Nuxt UI's built-in background ladder (maps to the neutral
+// scale). Use these for plain surfaces instead of raw bg-neutral-*.
+const neutralSurfaces = [
+  { token: 'bg-default', sw: 'bg-default ring ring-default', use: 'White — the base page surface' },
+  { token: 'bg-muted', sw: 'bg-muted', use: 'Alt light section root (the white ↔ neutral-50 seam)' },
+  { token: 'bg-elevated', sw: 'bg-elevated', use: 'Image/map placeholder, faint inset panel' },
+  { token: 'bg-accented', sw: 'bg-accented', use: 'Stronger neutral fill — rarely needed' },
+  { token: 'bg-inverted', sw: 'bg-inverted', use: 'Dark fill on a light page (chips, tooltips)' },
+]
+
+// Brand tints — soft brand-colored fills, picked by role. Nuxt UI has NO soft
+// brand surfaces, so these are @utility classes in main.css (source of truth).
+// Use instead of raw bg-primary-50 / bg-primary/15. Same set exists for cta.
+const brandSurfaces = [
+  { token: 'bg-primary-soft', sw: 'bg-primary-soft', use: 'soft — pale 50 tint (icon tiles, highlight panel)' },
+  { token: 'bg-primary', sw: 'bg-primary', use: 'solid — saturated 500 fill (Nuxt UI token)', solid: true },
+  { token: 'bg-primary-soft-inverted', sw: 'bg-primary-soft-inverted', use: 'soft on DARK — brand /15 wash', dark: true },
+]
+
+// Layout spacing spec — each ROLE maps to a fixed class. Source of truth.
+const spacing = [
+  { role: 'Card gutter', name: 'gap-6', value: '24px', use: 'Between cards in a UPageGrid / peer-card grid', w: '24px' },
+  { role: 'Column gap', name: 'gap-8 lg:gap-16', value: '32→64px', use: 'Major 2-column section split (copy ↔ cards/visual)', w: '64px' },
+  { role: 'Section padding', name: 'py-16 lg:py-24', value: '64→96px', use: 'Vertical padding between page sections', w: '96px' },
+  { role: 'Stack', name: 'mt / space-y 2·4·6·8', value: '8–32px', use: 'Vertical stacking within a block (pick by relatedness)', w: '32px' },
+]
+
+// Radius spec — each ROLE maps to a fixed Tailwind class. This table IS the
+// source of truth: to change a site's radii, re-map the classes here and in the
+// matching component slots / app.config.ts. Pick by role, not by eye.
+const radii = [
+  { role: 'Control', name: 'rounded-md', value: '6px', use: 'Inputs, buttons, chips, code, icon tiles', r: '6px' },
+  { role: 'Card', name: 'rounded-xl', value: '12px', use: 'Default card — cards in a collection / grid', r: '12px' },
+  { role: 'Panel', name: 'rounded-2xl', value: '16px', use: 'Standalone or highlighted surface, CTA box, big bento card', r: '16px' },
+  { role: 'Pill', name: 'rounded-full', value: '9999px', use: 'Badges, tags, avatars, round icon buttons', r: '9999px' },
+  { role: 'Flush', name: 'rounded-none', value: '0px', use: 'Full-bleed bands (hero, solid CTA)', r: '0px' },
+]
+
+// Shadow / elevation spec — each ROLE maps to a class. Shadow = elevation =
+// importance + interactivity. Default is Flat (ring, no shadow). Pick by role.
+const shadows = [
+  { role: 'Flat', name: 'ring · no shadow', use: 'Default — resting cards/panels (edge = ring-default)', cls: 'ring ring-default' },
+  { role: 'Raised', name: 'shadow-sm', use: 'Resting card on a busy / image bg; detached sticky header', cls: 'shadow-sm' },
+  { role: 'Floating', name: 'shadow-lg', use: 'Floats over content — dropdowns, popovers, slideovers, FAB', cls: 'shadow-lg' },
+  { role: 'Lifted', name: 'shadow-xl', use: 'Interactive card hover, and standalone feature/hero panels', cls: 'shadow-xl' },
+  { role: 'Glow', name: 'shadow-lg shadow-{color}/40', use: 'The single primary CTA in a view (brand accent, used once)', cls: 'shadow-lg shadow-cta-500/40' },
+]
+
+// Card variants — the border lives on the bordered variants (see app.config.ts).
+const cardVariants = [
+  { variant: 'outline', use: 'Default — white + hairline ring (the Flat card)', dark: false },
+  { variant: 'subtle', use: 'Tinted fill + ring — nested / secondary cards', dark: false },
+  { variant: 'soft', use: 'Tinted fill, no ring — quiet grouping', dark: false },
+  { variant: 'solid', use: 'Dark filled panel, no ring — highlighted card', dark: true },
+] as const
+
+const breakpoints = [
+  { name: 'sm', value: '640px' },
+  { name: 'md', value: '768px' },
+  { name: 'lg', value: '1024px' },
+  { name: 'xl', value: '1280px' },
+  { name: '2xl', value: '1536px' },
+]
+
+// Heading scale — tag is styled automatically by the base layer (main.css).
+// Pick the TAG by document position; size/weight follow. `use` = where each fits.
+const headings = [
+  { tag: 'h1', spec: '36→60px · 900', use: 'Hero / page title — one per page' },
+  { tag: 'h2', spec: '30→48px · 900', use: 'Section heading (UPageSection title)' },
+  { tag: 'h3', spec: '24→30px · 800', use: 'Sub-section / prominent feature heading' },
+  { tag: 'h4', spec: '18px · 700', use: 'Card title in a grid' },
+  { tag: 'h5', spec: '16px · 700', use: 'Minor heading inside a block' },
+  { tag: 'h6', spec: '14px · 700 · uppercase', use: 'Headline / label / footer column heading' },
+]
+
+const cardUi = { root: 'bg-default ring ring-default', body: 'p-7' }
+const listCardUi = { root: 'bg-default ring ring-default divide-y divide-default', body: 'p-0' }
+
+const form = reactive({ name: '', service: '', message: '', terms: false, contact: 'phone' })
+const serviceItems = ['General enquiry', 'Service one', 'Service two', 'Service three']
+const contactItems = [
+  { label: 'By phone', value: 'phone' },
+  { label: 'By email', value: 'email' },
+]
+</script>

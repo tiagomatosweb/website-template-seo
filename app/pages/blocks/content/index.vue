@@ -1,25 +1,3 @@
-<script setup lang="ts">
-import { h } from 'vue'
-import type { ListItem } from '~/components/ui/List.vue'
-import placeholderImage from '~/assets/img/placeholder-image.png'
-import samplePhoto from '~/assets/img/pexels-reneterp-13821194.jpg'
-
-useSeoMeta({
-  title: 'Content — variants',
-  robots: 'noindex, nofollow',
-})
-
-const cell = {
-  root: 'rounded-none ring-0 bg-default transition-colors hover:bg-elevated/50',
-  container: 'flex h-full flex-col',
-  body: 'flex-1',
-}
-
-const capability = (term: string, description: string): ListItem => ({
-  label: () => h('span', [h('span', { class: 'font-bold text-highlighted' }, term), ` — ${description}`]),
-})
-</script>
-
 <template>
   <div>
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
@@ -526,3 +504,25 @@ const capability = (term: string, description: string): ListItem => ({
     </UPageSection>
   </div>
 </template>
+
+<script setup lang="ts">
+import { h } from 'vue'
+import type { ListItem } from '~/components/ui/List.vue'
+import placeholderImage from '~/assets/img/placeholder-image.png'
+import samplePhoto from '~/assets/img/pexels-reneterp-13821194.jpg'
+
+useSeoMeta({
+  title: 'Content — variants',
+  robots: 'noindex, nofollow',
+})
+
+const cell = {
+  root: 'rounded-none ring-0 bg-default transition-colors hover:bg-elevated/50',
+  container: 'flex h-full flex-col',
+  body: 'flex-1',
+}
+
+const capability = (term: string, description: string): ListItem => ({
+  label: () => h('span', [h('span', { class: 'font-bold text-highlighted' }, term), ` — ${description}`]),
+})
+</script>

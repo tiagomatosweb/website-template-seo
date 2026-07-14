@@ -1,3 +1,19 @@
+<template>
+  <UDropdownMenu
+    :items="items"
+    :content="{ side: 'top', align: 'end' }"
+    :ui="{ content: 'w-56' }"
+  >
+    <UButton
+      icon="i-fa6-solid-shapes"
+      color="neutral"
+      size="xl"
+      class="fixed bottom-6 right-6 z-100 rounded-full shadow-lg ring-1 ring-white/10"
+      aria-label="Component showcase menu"
+    />
+  </UDropdownMenu>
+</template>
+
 <script setup lang="ts">
 import type { DropdownMenuItem } from '@nuxt/ui'
 
@@ -19,19 +35,3 @@ const items: DropdownMenuItem[][] = [
   ],
 ]
 </script>
-
-<template>
-  <UDropdownMenu
-    :items="items"
-    :content="{ side: 'top', align: 'end' }"
-    :ui="{ content: 'w-56' }"
-  >
-    <UButton
-      icon="i-fa6-solid-shapes"
-      color="neutral"
-      size="xl"
-      class="fixed bottom-6 right-6 z-100 rounded-full shadow-lg ring-1 ring-white/10"
-      aria-label="Component showcase menu"
-    />
-  </UDropdownMenu>
-</template>
