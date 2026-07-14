@@ -17,7 +17,8 @@
         />
       </div>
 
-      <p>{{ activeArea.description }}</p>
+      <component :is="activeArea.description" v-if="isRenderFn(activeArea.description)" />
+      <p v-else>{{ activeArea.description }}</p>
 
       <div class="flex flex-wrap gap-2 pt-2">
         <UBadge
@@ -45,9 +46,11 @@
 </template>
 
 <script setup lang="ts">
+import type { TextOrRender } from '~/utils/render'
+
 export interface AreasArea {
   name: string
-  description: string
+  description: TextOrRender
   suburbs: string[]
 }
 

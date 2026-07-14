@@ -2,7 +2,7 @@
 @import "@nuxt/ui";
 
 /* ════════════════════════════════════════════════════════════════════════
-   BRAND TOKENS — edit per site (see REBRAND.md).
+   BRAND TOKENS — edit per site (see README.md).
    `primary` = main brand color, `cta` = high-emphasis action color.
    Generate 50–950 scales with a tool like uicolors.app, then swap the fonts
    below (also update the family list in nuxt.config.ts).

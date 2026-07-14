@@ -17,7 +17,7 @@
       <UContainer>
         <div class="flex items-center justify-between gap-4 min-h-16">
           <div class="flex items-center gap-5 min-w-0">
-            <SiteLogo :light="light" />
+            <Logo :light="light" />
             <UNavigationMenu
               :items="navItems"
               content-orientation="vertical"
@@ -49,7 +49,7 @@
     >
       <UContainer>
         <div class="flex items-center justify-between h-16">
-          <SiteLogo :light="light" size="sm" />
+          <Logo :light="light" size="sm" />
 
           <div class="flex items-center gap-3">
             <a :href="site.phone.href" class="inline-flex items-center gap-1.5 font-display font-extrabold text-base tabular-nums transition-colors duration-150" :class="light ? 'text-inverted' : 'text-highlighted hover:text-primary'">

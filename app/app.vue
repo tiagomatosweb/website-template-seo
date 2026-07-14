@@ -1,8 +1,8 @@
 <template>
   <UApp>
-    <NuxtLayout>
+    <UMain>
       <NuxtPage />
-    </NuxtLayout>
+    </UMain>
     <UiDevMenu />
   </UApp>
 </template>

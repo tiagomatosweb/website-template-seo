@@ -6,12 +6,16 @@
 
     <div :class="ui.body({ class: props.ui?.body })">
       <h4 :class="ui.title({ class: props.ui?.title })">
-        <slot name="title">{{ props.title }}</slot>
+        <slot name="title">
+          <component :is="props.title" v-if="isRenderFn(props.title)" />
+          <template v-else>{{ props.title }}</template>
+        </slot>
       </h4>
 
       <div :class="ui.description({ class: props.ui?.description })">
         <slot name="description">
-          <p v-if="props.description">{{ props.description }}</p>
+          <component :is="props.description" v-if="isRenderFn(props.description)" />
+          <p v-else-if="props.description">{{ props.description }}</p>
         </slot>
       </div>
     </div>
@@ -20,12 +24,13 @@
 
 <script setup lang="ts">
 import { tv } from 'tailwind-variants'
+import type { TextOrRender } from '~/utils/render'
 import type { IconTileProps } from './IconTile.vue'
 
 export interface FeatureItem {
   icon: string | IconTileProps
-  title: string
-  description?: string
+  title: TextOrRender
+  description?: TextOrRender
 }
 
 export interface FeatureItemUi {

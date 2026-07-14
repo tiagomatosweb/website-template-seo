@@ -41,8 +41,7 @@
 import type { VNodeChild } from 'vue'
 import { tv } from '@nuxt/ui/utils/tv'
 import type { ButtonProps } from '@nuxt/ui'
-import type { SectionText } from '~/composables/usePageSection'
-import type { RenderItem } from '~/utils/render'
+import type { RenderItem, TextOrRender } from '~/utils/render'
 import type { FigureImage } from './Figure.vue'
 
 export interface ZigZagItemUi {
@@ -58,9 +57,9 @@ export interface ZigZagItemUi {
 
 export interface ZigZagItem {
   image?: FigureImage | (() => VNodeChild)
-  headline?: SectionText
-  title?: SectionText
-  description?: SectionText
+  headline?: TextOrRender
+  title?: TextOrRender
+  description?: TextOrRender
   links?: ButtonProps[]
   ui?: ZigZagItemUi
 }

@@ -13,7 +13,7 @@ export interface SiteConfig {
   name: string
   description: string
   phone: { display: string, href: string }
-  rating: string
+  google_rating: string
   social: {
     facebook: string
     instagram: string

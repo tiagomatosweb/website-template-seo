@@ -33,8 +33,8 @@ const trustPills = ['Family owned & operated', 'Fully licensed & insured']
         <div class="inline-flex items-center gap-2">
           <UIcon name="i-logos-google-icon" class="size-4 shrink-0" />
           <span class="inline-flex items-center gap-1.5 leading-none">
-            <UiGoogleStars :rating="Number(site.rating)" size="md" />
-            <span class="translate-y-px text-sm font-semibold tabular-nums text-default">{{ site.rating }}</span>
+            <UiGoogleStars :rating="Number(site.google_rating)" size="md" />
+            <span class="translate-y-px text-sm font-semibold tabular-nums text-default">{{ site.google_rating }}</span>
           </span>
         </div>
 
@@ -60,7 +60,7 @@ const trustPills = ['Family owned & operated', 'Fully licensed & insured']
         <div class="relative grid sm:grid-cols-3">
           <div class="relative flex flex-col items-center px-6 py-12 text-center">
             <div class="font-display font-black text-6xl leading-none tabular-nums bg-linear-to-b from-white to-white/55 bg-clip-text text-transparent">
-              {{ site.rating }}
+              {{ site.google_rating }}
             </div>
             <div class="mt-2 inline-flex items-center gap-2 rounded-full bg-surface-faint-inverted px-3 py-1 ring-1 ring-soft-inverted backdrop-blur">
               <UIcon name="i-logos-google-icon" class="size-3.5" />

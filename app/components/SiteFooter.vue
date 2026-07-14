@@ -3,7 +3,7 @@
     <UContainer>
       <div class="grid gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
         <div class="lg:col-span-1">
-          <SiteLogo light />
+          <Logo light />
           <p class="mt-4 max-w-xs text-sm text-muted-inverted">
             {{ site.description }}
           </p>

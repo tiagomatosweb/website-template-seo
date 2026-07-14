@@ -13,20 +13,20 @@
 </template>
 
 <script setup lang="ts">
-import type { VNodeChild } from 'vue'
 import { tv } from 'tailwind-variants'
+import type { RenderItem, TextOrRender } from '~/utils/render'
 import type { IconTileProps } from './IconTile.vue'
 
 export type ListUi = Partial<Record<'root' | 'item' | 'icon' | 'label', string>>
 
 export interface ListItem {
-  label: string | (() => VNodeChild)
+  label: TextOrRender
   icon?: string | IconTileProps
   ui?: ListUi
 }
 
 const props = withDefaults(defineProps<{
-  items: (string | ListItem | (() => VNodeChild))[]
+  items: RenderItem<string | ListItem>[]
   orientation?: 'horizontal' | 'vertical'
   icon?: string | Partial<IconTileProps>
   class?: string

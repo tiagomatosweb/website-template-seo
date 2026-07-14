@@ -10,23 +10,23 @@ import { tv } from 'tailwind-variants'
 
 type Size = 'sm' | 'md'
 
-export interface SiteLogoUi {
+export interface LogoUi {
   root?: string
   title?: string
 }
 
-export interface SiteLogoProps {
+export interface LogoProps {
   to?: string
   title?: string
   size?: Size
   light?: boolean
   class?: string
-  ui?: SiteLogoUi
+  ui?: LogoUi
 }
 
 const { site } = useAppConfig()
 
-const props = withDefaults(defineProps<SiteLogoProps>(), {
+const props = withDefaults(defineProps<LogoProps>(), {
   to: '/',
   size: 'md',
   light: false,

@@ -4,6 +4,9 @@
 
     <UPageHero
       orientation="horizontal"
+      :headline="props.headline"
+      :title="props.title"
+      :description="props.description"
       :links="links"
       :ui="{
         container: [
@@ -18,46 +21,33 @@
         } : {}),
       }"
     >
-      <template v-if="props.bgImage" #top>
-        <UiBackdrop :src="props.bgImage" :color="props.bgColor" />
+      <template v-if="$slots.top || props.bgImage" #top>
+        <slot name="top">
+          <UiBackdrop v-if="props.bgImage" :src="props.bgImage" :color="props.bgColor" />
+        </slot>
       </template>
 
-    <template #headline>
-      <slot name="headline">{{ props.headline }}</slot>
-    </template>
+      <template v-for="name in forwardedSlots" #[name]="slotProps">
+        <slot :name="name" v-bind="slotProps ?? {}" />
+      </template>
 
-    <template #title>
-      <slot name="title">{{ props.title }}</slot>
-    </template>
-
-    <template #description>
-      <slot name="description">{{ props.description }}</slot>
-    </template>
-
-    <template #body>
-      <UiTrustList1
-        :items="props.trust ?? trustList1"
-        :icon="{ inverted: !!props.bgImage }"
-        :ui="props.bgImage ? { label: 'text-inverted' } : undefined"
-      />
-    </template>
-
-    <UCard
-      id="contact"
-      as="aside"
-      :ui="{
-        root: 'w-full max-w-none sm:max-w-[400px] lg:max-w-none mx-auto bg-default shadow-sm',
-      }"
-    >
-      <UiQuoteForm v-bind="props.quote" />
-    </UCard>
+      <slot>
+        <UCard
+          id="contact"
+          as="aside"
+          :ui="{
+            root: 'w-full max-w-none sm:max-w-[400px] lg:max-w-none mx-auto bg-default shadow-sm',
+          }"
+        >
+          <UiQuoteForm v-bind="props.quote" />
+        </UCard>
+      </slot>
     </UPageHero>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { ButtonProps } from '@nuxt/ui'
-import type { ListItem } from './List.vue'
 import type { QuoteFormProps } from './QuoteForm.vue'
 
 const props = defineProps<{
@@ -69,8 +59,12 @@ const props = defineProps<{
   overlayHeader?: boolean
   cta?: ButtonProps
   quote?: QuoteFormProps
-  trust?: ListItem[]
 }>()
+
+const slots = useSlots()
+const forwardedSlots = computed(() =>
+  Object.keys(slots).filter(name => !['top', 'default'].includes(name)),
+)
 
 const defaultCta = computed<ButtonProps>(() => callCta({
   size: 'lg',

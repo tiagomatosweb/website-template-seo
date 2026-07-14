@@ -54,8 +54,7 @@
 <script setup lang="ts">
 import { tv } from 'tailwind-variants'
 import { twMerge } from 'tailwind-merge'
-import type { SectionText } from '~/composables/usePageSection'
-import type { RenderItem } from '~/utils/render'
+import type { RenderItem, TextOrRender } from '~/utils/render'
 import type { IconTileProps } from './IconTile.vue'
 
 export type ComparisonUi = Partial<Record<
@@ -66,14 +65,14 @@ export type ComparisonUi = Partial<Record<
 // Icons render through UiIconTile, defaulting to the naked variant (bare glyph);
 // pass IconTileProps with a variant (e.g. 'soft') to get the tile box.
 export interface ComparisonItem {
-  label: SectionText
+  label: TextOrRender
   icon?: string | IconTileProps
   ui?: Pick<ComparisonUi, 'item' | 'itemLeadingIcon' | 'itemLabel'>
 }
 
 export interface ComparisonColumn {
-  title: SectionText
-  description?: SectionText
+  title: TextOrRender
+  description?: TextOrRender
   icon?: string | IconTileProps
   itemIcon?: string | IconTileProps
   items: RenderItem<string | ComparisonItem>[]
