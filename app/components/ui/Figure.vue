@@ -1,11 +1,23 @@
 <template>
   <UCard as="figure" :ui="cardUi">
-    <img
-      :src="resolvedSrc"
-      :alt="props.alt"
-      loading="lazy"
-      :class="ui.image"
-    >
+    <div :class="ui.frame">
+      <img
+        :src="resolvedSrc"
+        :alt="props.alt"
+        loading="lazy"
+        :class="ui.image"
+      >
+
+      <div v-if="props.overlay" :class="ui.overlay" />
+
+      <div v-if="$slots.top" :class="ui.top">
+        <slot name="top" />
+      </div>
+
+      <div v-if="$slots.bottom" :class="ui.bottom">
+        <slot name="bottom" />
+      </div>
+    </div>
 
     <UCard v-if="props.badge" as="figcaption" :ui="badgeUi">
       <UiIconTile v-if="icon" v-bind="icon" :class="ui.badge.icon" />
@@ -44,13 +56,18 @@ export interface FigureBadgeUi extends FigureCardUi {
 
 export interface FigureUi {
   card?: FigureCardUi
+  frame?: string
   image?: string
+  overlay?: string
+  top?: string
+  bottom?: string
   badge?: FigureBadgeUi
 }
 
 export interface FigureImage {
   src?: string
   alt?: string
+  overlay?: boolean
   badge?: FigureBadge
   ui?: FigureUi
 }
@@ -68,7 +85,11 @@ const defaults = {
     root: 'relative overflow-visible ring-0 divide-y-0',
     body: 'p-0 sm:p-0 rounded-[inherit]',
   },
-  image: 'aspect-4/3 w-full rounded-[inherit] object-cover shadow-xl',
+  frame: 'relative isolate overflow-hidden rounded-[inherit] shadow-xl',
+  image: 'aspect-4/3 w-full rounded-[inherit] object-cover',
+  overlay: 'pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--color-neutral-950)_15%,transparent)_0%,transparent_35%,color-mix(in_srgb,var(--color-neutral-950)_85%,transparent)_100%)]',
+  top: 'absolute inset-x-5 top-5',
+  bottom: 'absolute inset-x-5 bottom-5',
   badge: {
     root: 'absolute -bottom-4 right-4 shadow-xl ring-0 divide-y-0',
     body: 'flex items-center gap-3 p-3 sm:p-3',
@@ -90,7 +111,11 @@ const badgeUi = computed<CardProps['ui']>(() => ({
 }))
 
 const ui = computed(() => ({
+  frame: twMerge(defaults.frame, props.ui?.frame),
   image: twMerge(defaults.image, props.ui?.image),
+  overlay: twMerge(defaults.overlay, props.ui?.overlay),
+  top: twMerge(defaults.top, props.ui?.top),
+  bottom: twMerge(defaults.bottom, props.ui?.bottom),
   badge: {
     icon: twMerge(defaults.badge.icon, props.ui?.badge?.icon),
     content: twMerge(defaults.badge.content, props.ui?.badge?.content),

@@ -24,6 +24,7 @@ const items: DropdownMenuItem[][] = [
   [
     { label: 'Hero', icon: 'i-fa6-solid-star', to: '/blocks/hero' },
     { label: 'Content', icon: 'i-fa6-solid-shapes', to: '/blocks/content' },
+    { label: 'Images', icon: 'i-fa6-solid-image', to: '/blocks/images' },
     { label: 'TrustBar', icon: 'i-fa6-solid-shield-halved', to: '/blocks/trustbar' },
     { label: 'Areas', icon: 'i-fa6-solid-map-location-dot', to: '/blocks/areas' },
     { label: 'Reviews', icon: 'i-fa6-solid-star', to: '/blocks/reviews' },

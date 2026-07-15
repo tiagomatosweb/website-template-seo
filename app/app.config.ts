@@ -203,7 +203,7 @@ export default defineAppConfig({
         },
       },
       defaultVariants: {
-        variant: 'solid',
+        variant: 'naked',
       },
     },
     pageHero: {
