@@ -3,6 +3,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Hero — background image + overlay header
     </div>
+
     <UiHero
       :bg-image="heroBg"
       overlay-header
@@ -21,6 +22,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Hero — clear (white)
     </div>
+
     <UiHero
       headline="Growth Marketing Agency"
       title="Big campaigns. Quick wins. Real results."

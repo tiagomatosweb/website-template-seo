@@ -3,6 +3,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       TrustBar — inline row
     </div>
+
     <UPageSection :ui="{ container: 'py-8 lg:py-6' }">
       <div class="flex flex-col items-center gap-6 lg:flex-row lg:justify-between lg:gap-8">
         <div class="inline-flex items-center gap-2">
@@ -27,6 +28,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       TrustBar — dark stats panel
     </div>
+
     <UPageSection>
       <div class="relative overflow-hidden rounded-2xl bg-neutral-950 shadow-[0_30px_80px_-20px] shadow-neutral-950/50 ring-1 ring-soft-inverted">
         <div aria-hidden="true" class="pointer-events-none absolute inset-0 opacity-6 bg-[radial-gradient(var(--color-white)_1px,transparent_1px)] bg-size-[1.25rem_1.25rem]" />

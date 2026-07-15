@@ -3,6 +3,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Faq — centered
     </div>
+
     <UPageSection
       id="faq"
       headline="FAQ"
@@ -19,6 +20,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Faq — split with CTA
     </div>
+
     <UPageSection
       id="faq"
       orientation="horizontal"
@@ -39,7 +41,6 @@
           </template>
         </UPageCard>
       </template>
-
       <UAccordion :items="faqs" type="multiple" :default-value="['0']" />
     </UPageSection>
   </div>

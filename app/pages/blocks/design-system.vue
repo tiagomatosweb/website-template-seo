@@ -141,7 +141,6 @@
             </section>
           </div>
         </template>
-
         <template #layout>
           <div class="space-y-10">
             <section>
@@ -200,7 +199,6 @@
             </section>
           </div>
         </template>
-
         <template #buttons>
           <UCard :ui="cardUi">
             <div class="space-y-6">
@@ -234,7 +232,6 @@
             </div>
           </UCard>
         </template>
-
         <template #cards>
           <section>
             <h2 class="text-xl font-extrabold mb-4">Which component — UPageCard vs UCard</h2>
@@ -299,7 +296,6 @@
             </div>
           </section>
         </template>
-
         <template #surfaces>
           <section>
             <h2 class="text-xl font-extrabold mb-4">Light vs dark — the brand ladder in context</h2>
@@ -396,7 +392,6 @@
             </div>
           </section>
         </template>
-
         <template #badges>
           <UCard :ui="cardUi">
             <div class="space-y-6">
@@ -426,7 +421,6 @@
             </div>
           </UCard>
         </template>
-
         <template #forms>
           <UCard :ui="cardUi">
             <UForm :state="form" class="grid gap-12 sm:grid-cols-2">
@@ -452,7 +446,6 @@
             </UForm>
           </UCard>
         </template>
-
       </UTabs>
 
     </UContainer>

@@ -10,7 +10,6 @@
         <p>Last updated {{ lastUpdated }}.</p>
         <p>{{ site.name }} respects your privacy. This policy explains what personal information we collect, how we use it, and the choices you have.</p>
       </template>
-
       <template #body>
         <div class="mx-auto w-full max-w-3xl space-y-10 [&_h2]:mb-3 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:leading-snug [&_h2]:text-highlighted sm:[&_h2]:text-2xl">
           <section>

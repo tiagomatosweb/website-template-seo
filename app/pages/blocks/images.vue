@@ -3,6 +3,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Images1 — Badge
     </div>
+
     <UPageSection
       headline="Figure"
       title="Image with badge"
@@ -22,6 +23,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Images2 — Overlay
     </div>
+
     <UPageSection
       headline="Figure"
       title="Image with overlay"
@@ -37,6 +39,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Images3 — Top slot
     </div>
+
     <UPageSection
       headline="Figure"
       title="Image with top slot"
@@ -62,6 +65,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Images4 — Bottom slot
     </div>
+
     <UPageSection
       headline="Figure"
       title="Image with bottom slot"
@@ -82,6 +86,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Images5 — Combined
     </div>
+
     <UPageSection
       headline="Figure"
       title="Overlay, top and bottom together"
@@ -104,7 +109,6 @@
                 <span class="font-display text-xs font-semibold tracking-widest text-inverted uppercase">7 common faults</span>
               </div>
             </template>
-
             <template #bottom>
               <p class="font-display text-lg leading-tight font-bold text-inverted mb-0">We diagnose before we quote</p>
               <p class="mt-1 text-sm text-toned-inverted">Every fault traced to its actual cause — no guesswork.</p>

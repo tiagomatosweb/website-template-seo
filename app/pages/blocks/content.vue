@@ -3,6 +3,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Content1
     </div>
+
     <UPageSection
       headline="What we do"
       title="Growth services built around your goals"
@@ -29,6 +30,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Content2
     </div>
+
     <UPageSection
       headline="What we do"
       title="Big campaigns. Quick wins. Real results."
@@ -75,6 +77,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Content3
     </div>
+
     <UPageSection
       headline="Scope of work"
       title="What do you need help with?"
@@ -128,6 +131,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Content4
     </div>
+
     <UPageSection>
       <template #body>
         <UPageGrid class="lg:grid-cols-3">
@@ -161,6 +165,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Content5
     </div>
+
     <UPageSection
       headline="Core services"
       title="Everything we do, under one roof"
@@ -189,6 +194,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Content6
     </div>
+
     <UPageSection
       orientation="horizontal"
       headline="Why choose us"
@@ -201,7 +207,6 @@
           :badge="{ icon: 'i-fa6-solid-chart-line', title: '500+', description: 'Campaigns delivered' }"
         />
       </template>
-
       <UPageGrid class="sm:grid-cols-2 lg:grid-cols-2">
         <UiCard
           v-for="(item, i) in [
@@ -221,6 +226,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Content7
     </div>
+
     <UPageSection
       headline="Trusted by clients"
       title="Why brands choose us"
@@ -245,6 +251,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Content8
     </div>
+
     <UPageSection
       headline="How we work with your team"
       title="A growth partner that fits how you operate"
@@ -273,6 +280,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Content9
     </div>
+
     <UPageSection headline="Simple process" title="How it works">
       <template #body>
         <UiSteps
@@ -289,6 +297,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Content10
     </div>
+
     <UPageSection
       orientation="horizontal"
       headline="How it works"
@@ -330,12 +339,12 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Content11
     </div>
+
     <UPageSection orientation="horizontal" headline="Why choose us" title="The growth partner that does it properly">
       <template #description>
         <p>We built our reputation one result at a time — showing up when we say we will, charging what we quote, and treating your budget like our own.</p>
         <p>No vanity metrics, no surprise invoices, no long lock-ins. Just measurable growth from a team that owns the outcome as much as you do.</p>
       </template>
-
       <UPageGrid class="sm:grid-cols-2 lg:grid-cols-2">
         <UiCard
           v-for="(item, i) in [
@@ -353,12 +362,12 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Content12
     </div>
+
     <UPageSection orientation="horizontal" headline="Why choose us" title="Not your average agency." :ui="{ container: 'lg:items-center' }">
       <template #description>
         <p>We earned our reputation the hard way — one result at a time, for clients who stayed because the numbers kept moving.</p>
         <p>No hand-offs to junior staff, no jargon, no games. You work with the people doing the work, and you see exactly where every dollar goes.</p>
       </template>
-
       <UiFeatureItems
         :items="[
           { icon: 'i-fa6-solid-chart-line', title: 'Measurable results', description: 'Every dollar tracked and accounted for.' },
@@ -372,6 +381,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Content13
     </div>
+
     <UPageSection orientation="horizontal" headline="Our capability" title="Managing complexity with care" description="Many of our engagements involve established brands, regulated industries, or technical constraints. Our role is to coordinate these elements clearly, working closely with your marketing, sales, and product teams.">
       <template #body>
         <UiList
@@ -384,13 +394,13 @@
           :ui="{ root: 'space-y-6', icon: 'text-primary' }"
         />
       </template>
-
       <UiFigure alt="Recent campaign" />
     </UPageSection>
 
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Content14
     </div>
+
     <UPageSection
       headline="How we work"
       title="Built around the way you operate"
@@ -431,6 +441,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Content15
     </div>
+
     <UPageSection
       headline="Compare"
       title="What makes us different"
@@ -474,6 +485,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       Content16
     </div>
+
     <UPageSection
       headline="Real results"
       title="Before and after, side by side"

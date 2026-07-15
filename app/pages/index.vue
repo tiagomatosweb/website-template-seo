@@ -40,7 +40,6 @@
         <p>We earned our reputation the hard way — one honest job at a time, for customers who called us back and told their neighbours.</p>
         <p>Fully licensed, fully insured, and upfront about the price before we start. No surprises on the invoice, no mess left behind.</p>
       </template>
-
       <UiFeatureItems :items="whyChooseUs" />
     </UPageSection>
 
@@ -68,7 +67,6 @@
           :ui="{ root: 'space-y-6', icon: 'text-primary' }"
         />
       </template>
-
       <UiFigure alt="Recent project" />
     </UPageSection>
 
@@ -125,6 +123,7 @@
         <UiBackdrop :src="ctaBg" />
       </template>
     </UPageCTA>
+
     <SiteFooter />
   </div>
 </template>

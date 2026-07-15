@@ -3,6 +3,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       variant="naked" — plain / transparent (dark text)
     </div>
+
     <UPageCTA
       variant="naked"
       :title="title"
@@ -14,6 +15,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       variant="soft" — grey surface (dark text)
     </div>
+
     <UPageCTA
       variant="soft"
       :title="title"
@@ -25,6 +27,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       variant="solid" — dark surface (inverted text)
     </div>
+
     <UPageCTA
       variant="solid"
       :title="title"
@@ -36,6 +39,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       backdrop — default vignette, neutral
     </div>
+
     <UPageCTA
       variant="naked"
       :title="title"
@@ -51,6 +55,7 @@
     <div class="sticky top-0 z-50 bg-inverted px-4 py-1.5 text-center font-mono text-xs font-bold tracking-widest text-toned-inverted">
       backdrop — default vignette, color="primary" (brand-tinted)
     </div>
+
     <UPageCTA
       variant="naked"
       :title="title"
