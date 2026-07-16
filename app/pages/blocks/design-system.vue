@@ -456,7 +456,7 @@
 import type { TabsItem } from '@nuxt/ui'
 
 useSeoMeta({
-  title: 'Design System — BusinessName',
+  title: 'Design System',
   robots: 'noindex, nofollow',
 })
 

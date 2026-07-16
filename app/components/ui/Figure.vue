@@ -66,6 +66,7 @@ export interface FigureUi {
 
 export interface FigureImage {
   src?: string
+  // Content images need a descriptive alt; pass alt="" only for purely decorative ones.
   alt?: string
   overlay?: boolean
   badge?: FigureBadge

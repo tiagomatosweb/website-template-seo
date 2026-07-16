@@ -61,18 +61,17 @@ const year = new Date().getFullYear()
 
 const footerCols = [
   {
-    title: 'Services',
+    title: 'Explore',
     links: [
-      { label: 'Service One', href: '/services' },
-      { label: 'Service Two', href: '/services' },
-      { label: 'Service Three', href: '/services' },
+      { label: 'Reviews', href: '#reviews' },
+      { label: 'Service Areas', href: '#areas' },
+      { label: 'FAQ', href: '#faq' },
     ],
   },
   {
     title: 'Company',
     links: [
-      { label: 'About', href: '#about' },
-      { label: 'Our Work', href: '#work' },
+      { label: 'Get a Quote', href: '#contact' },
       { label: 'Contact', href: '#contact' },
     ],
   },

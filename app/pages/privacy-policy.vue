@@ -74,12 +74,17 @@
 
 <script setup lang="ts">
 const { site } = useAppConfig()
+const { pageUrl } = useCanonical()
 
 const lastUpdated = 'PLACEHOLDER: Month Year'
 
 useSeoMeta({
-  title: `Privacy Policy — ${site.name}`,
+  title: 'Privacy Policy',
   description: `How ${site.name} collects, uses and protects the personal information you share with us.`,
   robots: 'noindex, follow',
+})
+
+useHead({
+  link: [{ rel: 'canonical', href: pageUrl }],
 })
 </script>

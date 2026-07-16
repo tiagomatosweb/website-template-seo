@@ -67,7 +67,7 @@
           :ui="{ root: 'space-y-6', icon: 'text-primary' }"
         />
       </template>
-      <UiFigure alt="Recent project" />
+      <UiFigure alt="PLACEHOLDER: describe the pictured project — e.g. 'Completed bathroom renovation in [suburb]'" />
     </UPageSection>
 
     <UPageSection
@@ -196,8 +196,72 @@ const faqs = [
   { label: 'What happens if a channel underperforms?', content: 'We set clear targets together and review them monthly. If something is not performing we tell you, fix it, or move the budget to what is working.' },
 ]
 
+const { siteUrl, pageUrl } = useCanonical()
+
+const title = 'Your trusted local specialists'
+const description = 'Placeholder meta description. Replace with the business pitch and primary service area for local SEO.'
+
 useSeoMeta({
-  title: `${site.name} — Your trusted local specialists`,
-  description: 'Placeholder meta description. Replace with the business pitch and primary service area for local SEO.',
+  title,
+  description,
+  ogType: 'website',
+})
+
+const aggregateRating = {
+  '@type': 'AggregateRating',
+  ratingValue: site.google_rating,
+  reviewCount: String(reviews.length),
+}
+
+const localBusiness = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: site.name,
+  description: site.description,
+  url: siteUrl,
+  telephone: site.phone.display,
+  priceRange: '$$',
+  aggregateRating,
+  review: reviews.map(r => ({
+    '@type': 'Review',
+    author: { '@type': 'Person', name: r.name },
+    reviewRating: { '@type': 'Rating', ratingValue: String(r.rating), bestRating: '5' },
+    reviewBody: r.quote,
+  })),
+  sameAs: [site.social.facebook, site.social.instagram].filter(url => url && url !== '#'),
+}
+
+const schemas = [
+  localBusiness,
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: site.name,
+    url: siteUrl,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(faq => ({
+      '@type': 'Question',
+      name: faq.label,
+      acceptedAnswer: { '@type': 'Answer', text: faq.content },
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: pageUrl },
+    ],
+  },
+]
+
+useHead({
+  link: [{ rel: 'canonical', href: pageUrl }],
+  script: schemas.map(schema => ({
+    type: 'application/ld+json',
+    innerHTML: JSON.stringify(schema),
+  })),
 })
 </script>

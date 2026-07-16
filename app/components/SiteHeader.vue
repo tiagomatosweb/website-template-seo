@@ -121,47 +121,47 @@ const { site } = useAppConfig()
 
 // Single source of truth for the header nav. Nested `children` render as a
 // dropdown on desktop (horizontal) and an accordion in the mobile slideover.
+// PLACEHOLDER nav: the child `to` values are '#' scaffolding. Replace each with
+// the real route once the corresponding page exists. Top-level items with
+// children are dropdown-only (their own `to` is dropped below), so only the
+// child links navigate.
 const baseNavItems: NavigationMenuItem[] = [
   {
     label: 'Services',
-    to: '/services',
     children: [
-      { label: 'Lead Generation', to: '/services/lead-generation' },
-      { label: 'Paid Advertising', to: '/services/paid-advertising' },
-      { label: 'SEO & Content', to: '/services/seo-content' },
-      { label: 'Email & Automation', to: '/services/email-automation' },
-      { label: 'Analytics & CRO', to: '/services/analytics-cro' },
+      { label: 'Lead Generation', to: '#' },
+      { label: 'Paid Advertising', to: '#' },
+      { label: 'SEO & Content', to: '#' },
+      { label: 'Email & Automation', to: '#' },
+      { label: 'Analytics & CRO', to: '#' },
     ],
   },
   {
     label: 'Industries',
-    to: '/industries',
     children: [
-      { label: 'SaaS & Technology', to: '/industries/saas-technology' },
-      { label: 'Professional Services', to: '/industries/professional-services' },
-      { label: 'E-commerce & Retail', to: '/industries/ecommerce-retail' },
-      { label: 'Home & Trade Services', to: '/industries/home-trade-services' },
-      { label: 'Healthcare & Wellness', to: '/industries/healthcare-wellness' },
+      { label: 'SaaS & Technology', to: '#' },
+      { label: 'Professional Services', to: '#' },
+      { label: 'E-commerce & Retail', to: '#' },
+      { label: 'Home & Trade Services', to: '#' },
+      { label: 'Healthcare & Wellness', to: '#' },
     ],
   },
   {
     label: 'Resources',
-    to: '/resources',
     children: [
-      { label: 'Case Studies', to: '/resources/case-studies' },
-      { label: 'Growth Playbooks', to: '/resources/growth-playbooks' },
-      { label: 'Blog', to: '/resources/blog' },
-      { label: 'Free Marketing Audit', to: '/resources/free-marketing-audit' },
+      { label: 'Case Studies', to: '#' },
+      { label: 'Growth Playbooks', to: '#' },
+      { label: 'Blog', to: '#' },
+      { label: 'Free Marketing Audit', to: '#' },
     ],
   },
   {
     label: 'Company',
-    to: '/company',
     children: [
-      { label: 'About Us', to: '/company/about' },
-      { label: 'Our Team', to: '/company/team' },
-      { label: 'Careers', to: '/company/careers' },
-      { label: 'Contact', to: '/company/contact' },
+      { label: 'About Us', to: '#' },
+      { label: 'Our Team', to: '#' },
+      { label: 'Careers', to: '#' },
+      { label: 'Contact', to: '#contact' },
     ],
   },
 ]
