@@ -38,13 +38,13 @@ const props = withDefaults(defineProps<{
 const theme = tv({
   slots: {
     root: '',
-    item: 'flex items-start gap-2.5 text-toned',
+    item: 'flex items-start gap-2.5 text-muted text-base',
     icon: 'mt-0.5 shrink-0',
     label: '',
   },
   variants: {
     orientation: {
-      vertical: { root: 'space-y-2.5' },
+      vertical: { root: 'space-y-3' },
       horizontal: { root: 'flex flex-wrap items-center gap-x-6 gap-y-2.5', item: 'items-center', icon: 'mt-0' },
     },
   },
