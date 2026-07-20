@@ -36,7 +36,7 @@
           id="contact"
           as="aside"
           :ui="{
-            root: 'w-full max-w-none sm:max-w-[400px] lg:max-w-none mx-auto bg-default shadow-sm',
+            root: 'w-full max-w-none sm:max-w-[400px] lg:max-w-none mx-auto bg-default shadow-xl',
           }"
         >
           <UiQuoteForm v-bind="props.quote" />

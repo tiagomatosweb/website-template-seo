@@ -20,7 +20,8 @@ There is **no lint, no test suite, and no typecheck script** wired into `package
 ## Stack
 
 - **Nuxt 4** — all app code lives under `app/`.
-- **@nuxt/ui v4** — the only Nuxt module (`nuxt.config.ts` → `modules: ['@nuxt/ui']`). Its `UPage*` primitives (`UPageHero`, `UPageSection`, `UPageCTA`, `UPageGrid`, `UPageCard`) are the section scaffolding.
+- **@nuxt/ui v4** — the primary Nuxt module (`nuxt.config.ts` → `modules: ['@nuxt/ui', '@nuxtjs/seo']`). Its `UPage*` primitives (`UPageHero`, `UPageSection`, `UPageCTA`, `UPageGrid`, `UPageCard`) are the section scaffolding.
+- **@nuxtjs/seo** — the second module: sitemap, robots, schema-org, og-image, link-checker, driven by the `site`/`sitemap`/`robots` config in `nuxt.config.ts`.
 - **Tailwind v4** — tokens defined in CSS (`app/assets/css/main.css`), not a JS config.
 - **yup** — form validation in `QuoteForm.vue`.
 - **@nuxt/fonts** — font families declared in `nuxt.config.ts` `fonts.families`.
@@ -33,12 +34,12 @@ Nuxt 4 layout: everything is under `app/` (`app/pages`, `app/components`, `app/c
 
 - `app/pages/index.vue` — the home page. Real, flat `.vue` file.
 - `app/pages/privacy-policy.vue` — legal page (`noindex`).
-- `app/pages/blocks/<role>/index.vue` — **dev-only** component showcase / variant gallery (hero, content, trustbar, areas, reviews, faq, cta, design-system). These are reachable via the floating `UiDevMenu`. **They are development aids — do not link to them from the public site, and strip them before a real launch** (see README).
+- `app/pages/blocks/<role>.vue` — **dev-only** component showcase / variant gallery (flat files: hero, trustbar, content, areas, design-system, cta, images, faq, reviews). These are reachable via the floating `UiDevMenu`. **They are development aids — do not link to them from the public site, and strip them before a real launch** (see README).
 
 **Components (`app/components/`) are auto-imported** with a path-based prefix:
 
 - **Site chrome (flat root):** `SiteHeader`, `SiteFooter`, `Logo`.
-- **`ui/` building blocks** (auto-imported as `Ui*`): `Hero`, `Card`, `IconTile`, `FeatureItem`, `FeatureItems`, `Steps`, `List`, `TrustList`, `TrustGoogle`, `GoogleStars`, `Areas`, `Review`, `Figure`, `Backdrop`, `Comparison`, `BeforeAfter`, `ZigZag`, `QuoteForm`, `DevMenu`.
+- **`ui/` building blocks** (auto-imported as `Ui*`): `Hero`, `Card`, `IconTile`, `FeatureItem`, `FeatureItems`, `Steps`, `List`, `TrustList`, `TrustGoogle`, `GoogleStars`, `Areas`, `Review`, `Figure`, `Backdrop`, `Comparison`, `BeforeAfter`, `ZigZag`, `SectionDescription`, `SectionHeadline`, `SectionTitle`, `QuoteForm`, `DevMenu`.
 
 There is **no `sections/` folder and no numbered-variant component family.** "Sections" on the home page are composed inline as `<UPageSection>` / `<UPageHero>` / `<UPageCTA>` blocks in `index.vue`, filled with `ui/` building blocks and page-local copy arrays. Only `Hero` and `Areas` are extracted as reusable section components.
 
@@ -91,7 +92,7 @@ The full checklist is in **`README.md`**. In short:
 
 ### Global base styles — applied automatically, DON'T re-declare
 
-`main.css` `@layer base` styles bare `h1`–`h6` (by tag) and `<p>`. A bare `<h2>` already has the right size/weight/font; a bare `<p>` already has `leading-relaxed text-pretty text-base` + `mb-4`. Don't re-declare these on bare tags — see the specs below.
+`main.css` `@layer base` styles bare `h1`–`h6` (by tag) and `<p>`. A bare `<h2>` already has the right size/weight/font; a bare `<p>` already has `leading-relaxed text-pretty text-lg` + `mb-4`. Don't re-declare these on bare tags — see the specs below.
 
 ### Border-radius — role-based spec (plain Tailwind classes)
 
@@ -168,11 +169,48 @@ Rules:
 
 ### Paragraphs — `<p>` is for prose only
 
-`<p>` carries `leading-relaxed text-pretty text-base` + `mb-4` from `@layer base`. **Use `<p>` only for running text.** For data/labels (stat numbers, captions, badges, headlines) use `<div>`/`<span>` — making them `<p>` wrongly inherits body sizing and margin.
+`<p>` carries `leading-relaxed text-pretty text-lg` + `mb-4` from `@layer base` — **prose reads at 18px by default** (the `<p>` tag opts into the lead tier; the `text-base` token itself stays 16px). **Use `<p>` only for running text.** For data/labels (stat numbers, captions, badges, headlines) use `<div>`/`<span>` — making them `<p>` wrongly inherits body sizing and margin.
 
-**Three prose size tiers.** Body default is **`text-base` (16px)**. **`text-lg` (18px)** is the **lead-in / emphasis tier** — hero subtitles and section lead-in descriptions — wired into config (`pageHero.description`, `pageSection.description`, `pageCTA.description` are all `text-lg`, and carry `[&_p]:text-lg` for your own `<p>`s in a `#description` slot). **`text-sm` (14px)** is the compact tier (card descriptions, captions; `pageCard.description` = `text-[15px]`). Long-form content stays `text-base` — don't promote it.
+**Prose size tiers.** The scale is a real 3-step ladder; 18px lives on *prose*, 16px is the *UI baseline* — don't conflate them:
+
+| Class | px | Role |
+|---|---|---|
+| `text-lg` | **18** | **body prose + lead copy** — the bare `<p>` default, hero subtitles, and section lead-in descriptions (`pageHero`/`pageSection`/`pageCTA` `description` slots are all `text-lg`, and carry `[&_p]:text-lg` for your own `<p>`s in a `#description` slot). |
+| `text-base` | **16** | **UI baseline** — buttons, inputs, nav, labels, `h5`, card descriptions (`pageCard.description`), and dense/compact paragraphs where 18px is too loose. The neutral default for furniture, not reading copy. |
+| `text-sm` | **14** | compact tier — captions, fine print, meta. |
+
+Rule of thumb: reading copy is `text-lg` (and a bare `<p>` already is); anything that's UI chrome or intentionally dense is `text-base`. Don't bump the `--text-base` token to enlarge body — set prose via `<p>`/the description slots so controls stay 16px.
+
+**Description / secondary-text size — by *unit size*, never eyeballed.** A component's description or supporting copy picks its size from the size of the unit it sits in. Three rungs, no fourth — **never an arbitrary `text-[Npx]`** (that's how drift starts):
+
+| Unit | Size | Where |
+|---|---|---|
+| **Section-level prose** the reader reads | `text-lg` (18) | `pageHero`/`pageSection`/`pageCTA` descriptions, `ZigZag`, `Areas` |
+| **A standalone card's own body / caption** | `text-base` (16) | `pageCard` (`Card`), `Review` quote, `BeforeAfter` caption, FAQ answer (`accordion.body`) |
+| **Dense, repeated, or micro support** | `text-sm` (14) | `FeatureItem` (→ `FeatureItems`, `Steps`), `Comparison` description + `itemLabel`, `Figure` badge, `QuoteForm` subtitle, `SiteFooter` blurb |
+
+The rule reads as: the bigger / more standalone the unit, the bigger its secondary text. A packed grid of feature tiles is `text-sm`; a single marketing card is `text-base`; a section intro is `text-lg`. When a description slot renders a bare `<p>`, pin it with `[&_p]:text-<size>` to match the rung (see FeatureItem/ZigZag) — otherwise the base `p { text-lg }` rule wins and it silently jumps to 18px.
+
+**Density can override the component — a *stacked* card drops a rung.** `pageCard` (`Card`) descriptions default to `text-base` (16), but that's the size for a card that stands relatively alone — a loose grid of 2–3 marketing cards, each with a CTA. When the same `UiCard` is **packed into a dense collection that reads as a feature grid** — 4+ cells, a seamless / bordered grid, no standout per-card CTA — the *group's* density sets the size, not the `UiCard` identity: treat each cell like a `FeatureItem` and drop the description to `text-sm` via `:ui="{ description: 'text-sm' }"` (or on a shared cell-`ui` object). Canonical example: the bordered "everything under one roof" service grid (`Content5` on `/blocks/content`).
 
 **Paragraph color is always the neutral ladder** — never a brand variant (`text-primary-*`/`text-cta-*`); those are accent-only.
+
+### Line-height (`leading-*`) — embedded by tag, you rarely write it
+
+Line-height is baked into every tag in `@layer base`, so **you almost never write a `leading-*` class**:
+
+| Role | `leading` | Set by |
+|---|---|---|
+| Display heading (`h1`/`h2`) | `leading-[1.05]` | base layer (by tag) |
+| Sub-heading (`h3`) | `leading-tight` | base layer |
+| Small heading / card title (`h4`/`h5`) | `leading-snug` | base layer |
+| Body prose & descriptions (`<p>`) | `leading-relaxed` | base layer (bare `<p>`) |
+
+1. **Never restate the tag's leading.** A bare `<p>` is already `leading-relaxed`; a bare `<h2>` already has its display leading. Adding `leading-relaxed` to a `<p>` is redundant — drop it.
+2. **The description slots keep `leading-relaxed` on purpose — load-bearing, not redundant.** Nuxt UI renders the `description` *prop* as a raw text node (not a `<p>`), so the slot wrapper (`pageHero`/`pageSection`/`pageCTA` descriptions, `accordion.body`, `ZigZag`) has no base rule to inherit and must carry its own `leading-relaxed`. It's set once in the theme; page copy never touches it.
+3. **Write `leading-*` only to (a) override the role or (b) style non-`<p>` text:** the compact `leading-snug` for dense supporting copy (a feature-tile description, the form subtitle) or a tight statement; `leading-none`/`leading-tight` on a `<span>`/`<div>` label or plain-string slot that has no tag leading to inherit.
+
+Same through-line as the size and color specs: **the tag carries the default; you write a utility only to deviate by role, or when there's no tag to inherit from.**
 
 ### Text color — semantic tokens, by prominence
 
@@ -186,15 +224,37 @@ Rules:
 | Token | Shade | Use for |
 |---|---|---|
 | `text-highlighted` | 900 | headings, emphasized words (base `<h*>` already applies this) |
-| `text-default` | 700 | primary body text (document default) |
-| `text-toned` | 600 | **standard description / paragraph copy** |
-| `text-muted` | 500 | secondary text — card descriptions, captions |
-| `text-dimmed` | 400 | least prominent — empty-state icons, faint labels |
+| `text-default` | 700 | **primary body prose** — running reading paragraphs (the document default; a bare `<p>` already is this) |
+| `text-toned` | 600 | **prominent supporting content** — testimonial quotes, checklist/list labels, standout body copy that's more than a caption |
+| `text-muted` | 500 | **descriptions & captions — the workhorse** (see rule below) |
+| `text-dimmed` | 400 | least prominent — empty-state icons, faint labels, placeholders |
 | `text-inverted` | white | full-strength text on dark/brand backgrounds |
 
-**Dark sections:** full-strength text = `text-inverted`; de-emphasis via `text-toned-inverted` (/80), `text-muted-inverted` (/65), `text-dimmed-inverted` (/45). Don't hand-write `text-white/N`.
+**The description rule: every description & caption is `text-muted` (500).** Section lead-ins (`pageHero`/`pageSection`/`pageCTA` descriptions), card descriptions (`pageCard`), and every component caption (`FeatureItem`, `Comparison`, `Figure` badge, `BeforeAfter`, `QuoteForm`) all resolve to `text-muted` — and this is *also* Nuxt UI's default for those description slots, so a section/card slot needs **no** color class; it's already muted. The three other rungs are the *exceptions* you reach for by role: running body prose → `text-default`; a quote or list label → `text-toned`; something faint → `text-dimmed`.
 
-On a real `<p>`, don't re-declare `text-base`/`leading-relaxed`/`text-pretty` — the base supplies them (but sets no color, so a `text-toned` override IS intentional).
+**The gotcha this rule exists to prevent:** the muted comes from the framework *default*, so it's invisible in our code — which means **hand-rolled description markup that bypasses the slot silently falls through to `text-default` (700)** and reads too dark (this is exactly what happened to `Content4` on `/blocks/content`). So: when you build a description *outside* a `#description` slot (a custom header `<div>`, a bare `<p>` you place yourself), you **must** add `text-muted` explicitly. Inside the slot, inherit it.
+
+**The rule, enforced: use `<UiSectionDescription>` for any description outside a `#description` slot.** A custom 2-column section (image + `h3` + prose + CTAs) can't use `UPageSection`'s `description` prop, so its intro copy is hand-rolled — the exact case that drifts. **Don't hand-roll the wrapper classes.** Wrap the paragraphs in `<UiSectionDescription>` instead:
+```vue
+<UiSectionDescription>
+  <p>First paragraph…</p>
+  <p>Second paragraph…</p>
+</UiSectionDescription>
+```
+It resolves the **real** `UPageSection` `description`-slot styling through Nuxt UI's own `tv()` (`#build/ui/page-section` + `@nuxt/ui/utils/tv`), so it's the *single source of truth* — framework `text-muted` and our app.config overrides included, always in lockstep with actual section descriptions. Never re-derive `text-lg …text-muted [&_p]:text-lg` by hand again; extra layout classes go through its `class` prop.
+
+**The same obligation covers the headline and title.** Whenever a custom section header (2-column split, an image beside the copy, any hand-rolled header) can't pass `UPageSection`'s `headline`/`title` props, you **must** use the two sibling components — never hand-write a `<div>` eyebrow or a `<h2>` title with the classes inline:
+```vue
+<UiSectionHeadline>Featured services</UiSectionHeadline>
+<UiSectionTitle class="mt-3">Demand generation for modern brands</UiSectionTitle>
+```
+`UiSectionTitle` renders an `<h2>` by default (pass `as` for another tag) and carries the real `title`-slot classes; `UiSectionHeadline` is a `<div>` label carrying the `headline`-slot look. Don't hand-roll `font-display …uppercase tracking-widest text-primary` or the title's size/weight — deviate only via the `class` prop (e.g. a smaller `text-2xl sm:text-3xl lg:text-4xl` title in a tight grid column).
+
+**The one exception — dark sections and bespoke eyebrows.** All three resolve the *light*-section look (`text-primary` headline, `text-highlighted` title, `text-muted` description). A dark section (`text-inverted` title, `text-toned-inverted` description) or a deliberately different eyebrow (a `UBadge`, a `font-mono` label with a decorative rule) is **not** a drift case — leave it hand-rolled. The obligation is: *a light section header that would otherwise re-derive the standard slot classes uses the component.*
+
+**Dark sections:** full-strength text = `text-inverted`; descriptions step down to `text-toned-inverted` (/80) — one brighter than light-mode muted, because dark surfaces need the extra contrast (this is why the dark CTA/hero descriptions are `text-toned-inverted`, not a muted equivalent). Further de-emphasis via `text-muted-inverted` (/65), `text-dimmed-inverted` (/45). Don't hand-write `text-white/N`.
+
+On a real `<p>`, don't re-declare `text-lg`/`leading-relaxed`/`text-pretty` — the base supplies them (but sets no color, so a `text-muted` override IS intentional — a `<p>` you place as a description needs it). Drop to `text-base` only for a deliberately denser paragraph.
 
 ### Background surfaces — semantic tokens, never raw `bg-neutral-*` / `bg-primary-50`
 

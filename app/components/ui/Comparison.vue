@@ -98,7 +98,7 @@ const theme = tv({
     description: 'mt-1 text-sm',
     item: 'flex items-start gap-3 border-t border-default px-5 py-4 sm:px-6',
     itemLeadingIcon: 'shrink-0 self-center',
-    itemLabel: 'text-[15px] font-medium',
+    itemLabel: 'text-sm font-medium',
   },
   variants: {
     featured: {

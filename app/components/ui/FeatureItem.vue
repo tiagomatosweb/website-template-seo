@@ -60,7 +60,7 @@ const theme = tv({
     tile: 'shrink-0',
     body: '',
     title: '',
-    description: 'mt-1 text-sm leading-snug text-muted',
+    description: 'mt-1 text-sm leading-snug text-muted [&_p]:text-sm',
   },
   variants: {
     orientation: {

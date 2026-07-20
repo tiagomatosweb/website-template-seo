@@ -126,7 +126,7 @@ export default defineAppConfig({
         container: 'p-4 sm:p-5',
         leadingIcon: 'size-7 text-primary',
         title: 'font-display text-lg font-bold tracking-tight leading-snug text-highlighted',
-        description: 'text-[15px]',
+        description: 'text-base',
       },
       variants: {
         variant: {
@@ -166,7 +166,7 @@ export default defineAppConfig({
           },
           vertical: {
             link: 'px-3 py-2.5 font-semibold text-lg',
-            childLink: 'px-3 py-2.5 text-[15px]',
+            childLink: 'px-3 py-2.5 text-base',
           },
         },
         active: {
@@ -294,9 +294,16 @@ export default defineAppConfig({
     },
     button: {
       slots: {
-        base: 'font-display font-semibold text-[0.88rem] tracking-[0.02em] cursor-pointer',
+        base: 'font-display font-semibold tracking-[0.02em] cursor-pointer',
       },
       compoundVariants: [
+        {
+          color: 'cta',
+          class: {
+            base: 'group',
+            trailingIcon: 'transition-transform duration-200 group-hover:translate-x-1',
+          },
+        },
         {
           color: 'primary',
           variant: 'solid',
@@ -330,12 +337,12 @@ export default defineAppConfig({
       ],
       variants: {
         size: {
-          xs: { base: 'px-3 py-1.5', leadingIcon: 'size-3', trailingIcon: 'size-3' },
-          sm: { base: 'px-3.5 py-2', leadingIcon: 'size-3', trailingIcon: 'size-3' },
-          md: { base: 'px-4 py-2.5', leadingIcon: 'size-3.5', trailingIcon: 'size-3.5' },
-          lg: { base: 'px-5 py-3', leadingIcon: 'size-3.5', trailingIcon: 'size-3.5' },
+          xs: { base: 'text-sm px-3 py-1.5', leadingIcon: 'size-3', trailingIcon: 'size-3' },
+          sm: { base: 'text-sm px-3.5 py-2', leadingIcon: 'size-3', trailingIcon: 'size-3' },
+          md: { base: 'text-sm px-4 py-2.5', leadingIcon: 'size-3.5', trailingIcon: 'size-3.5' },
+          lg: { base: 'text-base px-5 py-3', leadingIcon: 'size-3.5', trailingIcon: 'size-3.5' },
           xl: {
-            base: 'px-6 py-3.5',
+            base: 'text-base px-6 py-3.5',
             leadingIcon: 'size-4',
             trailingIcon: 'size-4',
           },

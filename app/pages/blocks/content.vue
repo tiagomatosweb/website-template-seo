@@ -136,15 +136,13 @@
       <template #body>
         <UPageGrid class="lg:grid-cols-3">
           <div class="flex flex-col justify-center p-2 sm:col-span-2 sm:p-0 lg:col-span-1 lg:pr-6">
-            <div class="font-display text-sm font-semibold uppercase tracking-widest text-primary justify-start mb-2">
-              Featured services
-            </div>
-            <h2 class="text-2xl sm:text-3xl lg:text-4xl">
+            <UiSectionHeadline>Featured services</UiSectionHeadline>
+            <UiSectionTitle class="text-2xl sm:text-3xl lg:text-4xl">
               Demand generation for modern brands
-            </h2>
-            <div class="text-lg leading-relaxed text-pretty [&_p]:text-lg text-left text-balance mt-3">
+            </UiSectionTitle>
+            <UiSectionDescription class="mt-3">
               Considered, well-built campaigns across launches, growth, and high-performance funnels — tailored to how you sell.
-            </div>
+            </UiSectionDescription>
           </div>
 
           <UiCard
@@ -532,6 +530,7 @@ const cell = {
   root: 'rounded-none ring-0 bg-default transition-colors hover:bg-elevated/50',
   container: 'flex h-full flex-col',
   body: 'flex-1',
+  description: 'text-sm',
 }
 
 const capability = (term: string, description: string): ListItem => ({

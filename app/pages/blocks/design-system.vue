@@ -30,7 +30,7 @@
                 <UCard :ui="cardUi">
                   <p class="text-xs font-bold uppercase tracking-widest text-primary mb-4">Display · Poppins</p>
                   <p class="font-display text-5xl font-black leading-none">Aa Bb Cc</p>
-                  <p class="font-display text-base text-dimmed mt-3 leading-relaxed">
+                  <p class="font-display text-base text-dimmed mt-3">
                     ABCDEFGHIJKLM<br>abcdefghijklm 0123456789
                   </p>
                   <p class="text-sm text-muted mt-4">Headings, buttons, labels, navigation.</p>
@@ -38,7 +38,7 @@
                 <UCard :ui="cardUi">
                   <p class="text-xs font-bold uppercase tracking-widest text-primary mb-4">Body · System UI <span class="text-dimmed normal-case tracking-normal">(font-sans · default)</span></p>
                   <p class="font-sans text-5xl font-bold leading-none">Aa Bb Cc</p>
-                  <p class="font-sans text-base text-dimmed mt-3 leading-relaxed">
+                  <p class="font-sans text-base text-dimmed mt-3">
                     ABCDEFGHIJKLM<br>abcdefghijklm 0123456789
                   </p>
                   <p class="text-sm text-muted mt-4">Body copy, descriptions, form text.</p>
@@ -248,7 +248,7 @@
               <em>bare container</em> with no title/description of its own — e.g.
               <code class="text-primary">&lt;UCard&gt;&lt;QuoteForm/&gt;&lt;/UCard&gt;</code> in the hero.
               Card titles are all the <code class="text-primary">h4</code> shape and descriptions are all
-              <code class="text-primary">text-[15px] text-muted</code> (set once via
+              <code class="text-primary">text-base text-muted</code> (set once via
               <code class="text-primary">pageCard.title</code> / <code class="text-primary">.description</code> —
               don't restyle them per component; dark <code class="text-primary">solid</code> cards only
               override the description <em>color</em> to <code class="text-primary">text-muted-inverted</code>).

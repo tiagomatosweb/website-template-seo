@@ -148,7 +148,7 @@
   h6 { @apply text-sm font-bold uppercase tracking-widest; }
 
   p {
-    @apply leading-relaxed text-pretty text-base;
+    @apply leading-relaxed text-pretty text-lg;
   }
 
   p:not(:last-child) {
