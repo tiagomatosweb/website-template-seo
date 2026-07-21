@@ -68,7 +68,7 @@
                 variant="ghost"
                 size="xl"
                 aria-label="Open navigation menu"
-                :ui="{ leadingIcon: 'size-6', base: light ? 'text-inverted hover:bg-surface-soft-inverted' : '' }"
+                :ui="{ leadingIcon: 'size-7', base: light ? 'text-inverted hover:bg-surface-soft-inverted' : '' }"
               />
 
               <template #body>
