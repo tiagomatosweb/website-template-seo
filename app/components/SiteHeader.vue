@@ -22,7 +22,7 @@
               :items="navItems"
               content-orientation="vertical"
               disable-hover-trigger
-              :ui="light ? lightMenuUi : { root: 'gap-0' }"
+              :ui="light ? lightMenuUi : undefined"
             />
           </div>
           <div class="flex items-center gap-5 shrink-0">
@@ -61,12 +61,6 @@
               v-model:open="menuOpen"
               title="Menu"
               side="right"
-              :ui="{
-                content: 'w-full max-w-sm',
-                header: 'border-b border-default',
-                title: 'font-extrabold text-xl text-highlighted',
-                body: 'p-4 sm:p-4',
-              }"
             >
               <UButton
                 icon="i-fa6-solid-bars"
@@ -83,7 +77,6 @@
                   :items="navItems"
                   orientation="vertical"
                   type="single"
-                  :ui="{ root: '-mx-2' }"
                   @select="onMobileSelect"
                 />
               </template>
@@ -95,7 +88,7 @@
                     @click="closeMenu"
                   />
                   <UButton
-                    v-bind="callCta({ label: `Call ${site.phone.display}`, size: 'xl', block: true, class: 'justify-center' })"
+                    v-bind="callCta({ label: 'Call now', size: 'xl', block: true, class: 'justify-center' })"
                     @click="closeMenu"
                   />
                 </div>
@@ -195,21 +188,16 @@ const navItems = computed<NavigationMenuItem[]>(() =>
       ...(item.children?.length ? {} : { to }),
       value: item.label,
       active,
-      // In light mode the app.config active color (`text-primary!`) is
-      // overridden by `lightMenuUi`'s `text-inverted!`, so the active item
-      // would look identical to its siblings. Give it a persistent wash to
-      // keep it distinguishable over the hero.
+      // In light mode `lightMenuUi`'s `text-inverted!` overrides the active
+      // colour, so the active item would look identical to its siblings.
+      // Give it a persistent wash to keep it distinguishable over the hero.
       ...(active && light.value ? { class: 'before:bg-white/12!' } : {}),
     }
   }),
 )
 
-// Over the dark hero (overlay + not scrolled) the app.config hover styling —
-// faint primary-tinted text and a barely-there `before:bg-primary/8` wash — is
-// invisible. In light mode we override the link text, the hover/open wash, and
-// the trailing chevron to white-alpha so the menu reads against the hero.
+// Over the dark hero the link text goes white; the underline already reads on dark.
 const lightMenuUi = {
-  root: 'gap-0',
   link: 'text-inverted! hover:text-inverted! data-[state=open]:text-inverted! before:bg-white/0 hover:before:bg-white/12! data-[state=open]:before:bg-white/12!',
   linkTrailingIcon: 'text-inverted!',
   linkLeadingIcon: 'text-inverted!',

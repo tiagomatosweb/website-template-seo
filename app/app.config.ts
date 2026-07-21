@@ -149,6 +149,14 @@ export default defineAppConfig({
         body: 'text-base leading-relaxed text-toned pb-4 sm:pb-5',
       },
     },
+    slideover: {
+      slots: {
+        content: 'w-full max-w-sm',
+        header: 'border-b border-default',
+        title: 'font-extrabold text-xl text-highlighted',
+        body: 'p-4 sm:p-4',
+      },
+    },
     navigationMenu: {
       slots: {
         linkTrailingIcon: 'size-4 text-highlighted',
@@ -159,37 +167,29 @@ export default defineAppConfig({
       variants: {
         orientation: {
           horizontal: {
+            root: 'gap-0',
             link: 'font-bold text-sm',
             childList: 'p-1.5',
             childLink: 'px-3 py-1.5 pr-6 font-medium text-sm',
             content: 'w-auto!',
           },
           vertical: {
+            root: '-mx-2',
             link: 'px-3 py-2.5 font-semibold text-lg',
             childLink: 'px-3 py-2.5 text-base',
           },
         },
-        active: {
-          true: {
-            link: 'text-primary! before:bg-primary/8!',
-            childLink: 'text-primary! before:bg-primary/8!',
-            childLinkIcon: 'text-primary',
-          },
-          false: {
-            link: 'text-toned! hover:text-primary! hover:before:bg-primary/8! data-[state=open]:text-primary! data-[state=open]:before:bg-primary/8! transition-colors before:transition-colors',
-            childLink: 'text-muted! hover:text-primary! hover:before:bg-primary/8! transition-colors before:transition-colors',
-            childLinkIcon: 'text-dimmed group-hover:text-primary transition-colors',
-          },
-        },
       },
       compoundVariants: [
+        { active: false, class: { link: 'text-toned hover:text-primary hover:before:bg-primary/8 data-[state=open]:text-primary data-[state=open]:before:bg-primary/8', childLink: 'text-muted hover:text-primary hover:before:bg-primary/8', childLinkIcon: 'text-dimmed group-hover:text-primary' } },
+        { active: true, class: { link: 'text-primary before:bg-primary/8', childLink: 'text-primary before:bg-primary/8', childLinkIcon: 'text-primary' } },
         { orientation: 'vertical', collapsed: false, class: { childList: 'ms-3 border-s-2 border-primary/15' } },
       ],
-    } as any,
+    },
     pageCTA: {
       slots: {
         root: 'rounded-none z-10',
-        container: 'relative',
+        container: 'px-4 sm:px-6 lg:px-8',
         title: 'text-3xl sm:text-4xl lg:text-5xl font-black',
         description: 'text-lg leading-relaxed max-w-3xl mx-auto [&_p]:text-lg',
       },

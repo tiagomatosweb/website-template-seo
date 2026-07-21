@@ -4,7 +4,7 @@
       <div class="grid gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
         <div class="lg:col-span-1">
           <Logo light />
-          <p class="mt-4 max-w-xs text-sm text-muted-inverted">
+          <p class="mt-4 max-w-xs text-sm leading-loose text-muted-inverted">
             {{ site.description }}
           </p>
           <div class="mt-5 flex items-center gap-3">
@@ -45,7 +45,7 @@
         </div>
       </div>
 
-      <div class="flex flex-col gap-3 border-t border-soft-inverted py-6 text-xs text-dimmed-inverted sm:flex-row sm:items-center sm:justify-between">
+      <div class="flex flex-col items-center gap-3 border-t border-soft-inverted py-6 text-center text-xs text-dimmed-inverted sm:flex-row sm:items-center sm:justify-between sm:text-left">
         <p class="text-sm">&copy; {{ year }} {{ site.name }}. All rights reserved.</p>
         <div class="flex items-center gap-5">
           <NuxtLink to="/privacy-policy" class="transition-colors hover:text-inverted">Privacy Policy</NuxtLink>
