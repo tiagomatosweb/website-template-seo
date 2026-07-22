@@ -69,7 +69,7 @@ const forwardedSlots = computed(() =>
 const defaultCta = computed<ButtonProps>(() => callCta({
   size: 'lg',
   ...(props.bgImage
-    ? { color: 'white', variant: 'solid' }
+    ? { color: 'neutral', variant: 'solid', class: onDarkSolid }
     : { color: 'primary', variant: 'outline' }),
 }))
 

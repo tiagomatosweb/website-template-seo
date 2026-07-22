@@ -116,7 +116,7 @@
       :ui="{ root: 'rounded-none isolate', title: 'text-inverted', description: 'max-w-2xl mx-auto text-toned-inverted' }"
       :links="[
         quoteCta({ label: 'Get Your Free Growth Plan', size: 'xl', class: 'w-full sm:w-auto justify-center' }),
-        callCta({ color: 'white', variant: 'solid', size: 'xl', class: 'w-full sm:w-auto justify-center' }),
+        callCta({ color: 'neutral', variant: 'solid', size: 'xl', class: [onDarkSolid, 'w-full sm:w-auto justify-center'] }),
       ]"
     >
       <template #top>

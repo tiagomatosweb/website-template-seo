@@ -3,6 +3,8 @@ import type { ButtonProps } from '@nuxt/ui'
 
 const site = appConfig.site!
 
+export const onDarkSolid = 'bg-white text-highlighted hover:bg-neutral-200 active:bg-neutral-200'
+
 export const quoteCta = (overrides: Partial<ButtonProps> = {}): ButtonProps => ({
   label: 'Get a Free Quote',
   color: 'cta',

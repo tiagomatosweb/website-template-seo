@@ -14,7 +14,6 @@ export default defineAppConfig({
     colors: {
       primary: 'primary',
       cta: 'cta',
-      white: 'white',
       neutral: 'gray',
     },
     formField: {
@@ -328,11 +327,6 @@ export default defineAppConfig({
           color: 'neutral',
           variant: 'outline',
           class: 'bg-white/10 hover:bg-white/20 active:bg-white/20 disabled:bg-white/10 aria-disabled:bg-white/10',
-        },
-        {
-          color: 'white',
-          variant: 'solid',
-          class: 'bg-white text-highlighted hover:bg-neutral-200 active:bg-neutral-200',
         },
       ],
       variants: {

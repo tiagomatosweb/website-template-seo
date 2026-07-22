@@ -34,9 +34,6 @@
   --color-cta-900: #7c2d12;
   --color-cta-950: #431407;
 
-  --color-white-500: #FFFFFF;
-  --color-white-600: var(--color-gray-200);
-
   /* Body font: no override — inherit Tailwind v4's default system stack
      (ui-sans-serif, system-ui, sans-serif, …). */
   --font-display: "Roboto", sans-serif;
@@ -45,6 +42,9 @@
 }
 
 :root {
+  /* Nuxt UI remaps bg-white/text-white to var(--ui-white); white isn't a registered color, so pin it. */
+  --ui-white: #fff;
+
   /* Drives the radius of Nuxt UI controls (buttons, inputs). Keep aligned with
      the `control` role in the radius spec (CLAUDE.md / design-system page). */
   --ui-radius: 0.375rem; /* 6px = rounded-md */
