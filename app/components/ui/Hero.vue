@@ -10,7 +10,7 @@
       :links="links"
       :ui="{
         container: [
-          'lg:grid-cols-[1.6fr_1fr]',
+          'lg:grid-cols-[minmax(0,1fr)_26rem]',
           props.overlayHeader && props.bgImage ? 'pt-32 lg:pt-40' : '',
         ],
         ...(props.bgImage ? {

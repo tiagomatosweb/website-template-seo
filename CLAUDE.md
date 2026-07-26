@@ -347,6 +347,20 @@ Components reading `useAppConfig().site`: `SiteHeader`, `SiteFooter`, `Logo`, `G
 
 `app/router.options.ts` defines smooth scrolling with an offset for in-page `#hash` anchors. Deep-link target sections set their own id (`id="contact"`, `id="faq"`, `id="reviews"`, `id="areas"`) so nav/CTAs can anchor to them. Use `NuxtLink` / `UButton to` for in-page anchors, not plain `href`.
 
+### Component authoring — the `ui` slot convention
+
+Every `ui/` component exposes its internals as overridable **slots**, so a caller can retune any part without forking the component:
+
+- Export a `<Name>Props` interface **and** a `<Name>Ui` interface (the slot keys).
+- Keep a `defaults` object mapping each slot → its class string.
+- Accept `ui?: <Name>Ui`; merge per slot with **`twMerge(defaults.slot, props.ui?.slot)`** and bind `:class="ui.slot"`. **Never** assemble a slot's classes as a plain array (`:class="[base, props.x]"`) when a caller needs to override — arrays don't dedupe, so the override can lose to the default. Use `twMerge` (or `tv()`) so the last value wins.
+- Variant-driven components (color/size/variant matrices) use **`tv()`** from `tailwind-variants` / `@nuxt/ui/utils/tv` instead of a hand-rolled `defaults` object.
+- Buttons/links take `ButtonProps` (or the `content/ctas.ts` factories), merged over sensible defaults with a spread (`{ ...defaults, ...props.cta }`).
+- **Gotcha:** Nuxt UI's `UPageSection`/`UPageCTA` and `UiZigZag` hardcode `size="lg"` on their `:links` buttons, so a link needs an explicit `size` to override it — the button/global default never applies there.
+
+Canonical examples: `twMerge` slots → `Figure.vue`; `tv()` variants → `IconTile.vue`, `Logo.vue`, `ZigZag.vue`; prop pass-through → `Card.vue`.
+
+
 ## No useless comments
 
 Do **not** add explanatory or decorative comments — no JSDoc prop descriptions, no `<!-- section label -->` dividers, no "what this does" narration. Self-documenting code is the standard. Keep a comment only when it explains something genuinely non-obvious (a workaround, a gotcha). Applies to `.vue` files too.

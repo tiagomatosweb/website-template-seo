@@ -10,7 +10,7 @@
     </div>
   </div>
 
-  <UForm v-else :schema="schema" :state="state" class="grid gap-4" @submit="onSubmit">
+  <UForm v-else :schema="schema" :state="state" class="grid grid-cols-1 gap-4" @submit="onSubmit">
     <div class="mb-2 text-center">
       <h4 class="text-xl">{{ props.title }}</h4>
       <p class="mt-2.5 text-sm leading-snug text-muted">{{ props.description }}</p>
