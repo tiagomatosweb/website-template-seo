@@ -1,7 +1,5 @@
 <template>
   <div :class="overlay ? '' : 'contents'">
-    <span v-if="overlay" id="top" class="absolute top-0" />
-
     <header
       class="z-50 lg:z-60 transition-colors duration-300"
       :class="[
