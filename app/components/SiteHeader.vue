@@ -43,6 +43,7 @@
                 v-model:open="menuOpen"
                 title="Menu"
                 side="right"
+                :close="{ ui: { leadingIcon: 'size-5' } }"
               >
                 <UButton
                   icon="i-fa6-solid-bars"
@@ -56,7 +57,7 @@
                 <template #body>
                   <UNavigationMenu
                     v-model="openGroup"
-                    :items="navItems"
+                    :items="mobileNavItems"
                     orientation="vertical"
                     type="single"
                     @select="onMobileSelect"
@@ -162,6 +163,12 @@ const navItems = computed<NavigationMenuItem[]>(() =>
       ...(active && light.value ? { class: 'before:bg-white/12!' } : {}),
     }
   }),
+)
+
+const mobileNavItems = computed<NavigationMenuItem[]>(() =>
+  navItems.value.map(item =>
+    item.children?.length ? { ...item, active: false } : item,
+  ),
 )
 
 const lightMenuUi = {
