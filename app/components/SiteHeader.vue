@@ -71,7 +71,7 @@
                       @click="closeMenu"
                     />
                     <UButton
-                      v-bind="callCta({ label: 'Call now', size: 'xl', block: true, class: 'justify-center' })"
+                      v-bind="callCta({ size: 'xl', block: true, class: 'justify-center' })"
                       @click="closeMenu"
                     />
                   </div>
