@@ -4,6 +4,7 @@ export default defineAppConfig({
     description: 'A short sentence about the business, the area it serves and what makes it the trusted local choice.',
     phone: { display: '00 0000 0000', href: 'tel:0000000000' },
     google_rating: '4.9',
+    form_webhook: 'https://example.com/form-webhook',
     social: {
       facebook: '#',
       instagram: '#',

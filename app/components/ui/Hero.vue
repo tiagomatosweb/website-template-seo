@@ -8,18 +8,7 @@
       :title="props.title"
       :description="props.description"
       :links="links"
-      :ui="{
-        container: [
-          'lg:grid-cols-[minmax(0,1fr)_26rem]',
-          props.overlayHeader && props.bgImage ? 'pt-32 lg:pt-40' : '',
-        ],
-        ...(props.bgImage ? {
-          root: 'relative isolate',
-          headline: 'text-primary-300',
-          title: 'text-inverted',
-          description: 'text-toned-inverted',
-        } : {}),
-      }"
+      :ui="heroUi"
     >
       <template v-if="$slots.top || props.bgImage" #top>
         <slot name="top">
@@ -31,35 +20,63 @@
         <slot :name="name" v-bind="slotProps ?? {}" />
       </template>
 
-      <slot>
-        <UCard
-          id="contact"
-          as="aside"
-          :ui="{
-            root: 'w-full max-w-none sm:max-w-[400px] lg:max-w-none mx-auto bg-default shadow-xl',
-          }"
-        >
-          <UiQuoteForm v-bind="props.quote" />
-        </UCard>
-      </slot>
+      <UiQuoteForm
+        v-if="props.showQuote"
+        id="contact"
+        :card="{
+          as: 'aside',
+          ui: { root: 'w-full max-w-none sm:max-w-[400px] lg:max-w-none mx-auto bg-default shadow-xl' },
+        }"
+        v-bind="props.quote"
+      />
     </UPageHero>
   </div>
 </template>
 
 <script setup lang="ts">
+import { twMerge } from 'tailwind-merge'
 import type { ButtonProps } from '@nuxt/ui'
 import type { QuoteFormProps } from './QuoteForm.vue'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   headline?: string
   title?: string
   description?: string
   bgImage?: string
   bgColor?: 'neutral' | 'primary'
   overlayHeader?: boolean
+  showQuote?: boolean
+  showLinks?: boolean
   cta?: ButtonProps
   quote?: QuoteFormProps
-}>()
+  ui?: Record<string, string>
+}>(), {
+  showQuote: true,
+  showLinks: true,
+})
+
+const heroUi = computed(() => ({
+  ...props.ui,
+  container: twMerge(
+    props.showQuote ? 'lg:grid-cols-[minmax(0,1fr)_26rem]' : 'lg:grid-cols-1',
+    props.overlayHeader && props.bgImage ? 'pt-32 lg:pt-40' : '',
+    props.ui?.container,
+  ),
+  title: twMerge(
+    props.showQuote ? '' : 'max-w-3xl',
+    props.bgImage ? 'text-inverted' : '',
+    props.ui?.title,
+  ),
+  description: twMerge(
+    props.showQuote ? '' : 'max-w-2xl',
+    props.bgImage ? 'text-toned-inverted' : '',
+    props.ui?.description,
+  ),
+  ...(props.bgImage ? {
+    root: twMerge('relative isolate', props.ui?.root),
+    headline: twMerge('text-primary-300', props.ui?.headline),
+  } : {}),
+}))
 
 const slots = useSlots()
 const forwardedSlots = computed(() =>
@@ -73,7 +90,7 @@ const defaultCta = computed<ButtonProps>(() => callCta({
     : { color: 'primary', variant: 'outline' }),
 }))
 
-const links = computed<ButtonProps[]>(() => [
-  { ...defaultCta.value, ...props.cta },
-])
+const links = computed<ButtonProps[]>(() =>
+  props.showLinks ? [{ ...defaultCta.value, ...props.cta }] : [],
+)
 </script>

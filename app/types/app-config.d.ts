@@ -14,6 +14,7 @@ export interface SiteConfig {
   description: string
   phone: { display: string, href: string }
   google_rating: string
+  form_webhook: string
   social: {
     facebook: string
     instagram: string

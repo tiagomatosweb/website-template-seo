@@ -28,6 +28,7 @@ The single source of truth for business data. Edit the values; chrome components
 | `phone.display` | Phone as shown to users, e.g. `"02 1234 5678"` |
 | `phone.href` | `tel:` link, digits only, e.g. `"tel:0212345678"` |
 | `google_rating` | Star rating shown in trust elements, e.g. `"4.9"` |
+| `form_webhook` | POST endpoint `QuoteForm` submits to (ships as a placeholder — **must be replaced**) |
 | `social.facebook` / `social.instagram` | Profile URLs (set to `'#'` or remove to hide) |
 
 > Phone is split into `display` + `href` on purpose — one for humans, one for the link. Keep them in sync. If you add a field here, also add it to `app/types/app-config.d.ts` so it stays typed.
@@ -60,7 +61,7 @@ grep -rn "PLACEHOLDER" app/
 ```
 
 Known items to resolve:
-- All `site` block values in `app/app.config.ts` (`BusinessName`, `00 0000 0000`, `#` socials).
+- All `site` block values in `app/app.config.ts` (`BusinessName`, `00 0000 0000`, `#` socials, the `example.com` `form_webhook`).
 - The `useSeoMeta` description in `app/pages/index.vue`.
 - `lastUpdated` in `app/pages/privacy-policy.vue`.
 - Placeholder images (`app/assets/img/placeholder-image.png`) used by the hero, CTA, `Figure`, and `BeforeAfter`.
