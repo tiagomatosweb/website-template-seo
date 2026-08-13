@@ -5,6 +5,8 @@
       :src="props.src"
       :alt="props.alt"
       :loading="props.loading"
+      :fetchpriority="fetchpriority"
+      decoding="async"
       :class="ui.image({ class: props.ui?.image })"
     >
     <div :class="ui.overlay({ class: props.ui?.overlay })" :style="overlayVars">
@@ -28,6 +30,7 @@ const props = withDefaults(defineProps<{
   src?: string
   alt?: string
   loading?: 'eager' | 'lazy'
+  fetchpriority?: 'high' | 'low' | 'auto'
   color?: Color
   ui?: BackdropUi
 }>(), {
@@ -40,6 +43,10 @@ const COLOR: Record<Color, string> = {
   neutral: 'var(--color-neutral-950)',
   primary: 'var(--color-primary-950)',
 }
+
+const fetchpriority = computed(() =>
+  props.fetchpriority ?? (props.loading === 'eager' ? 'high' : undefined),
+)
 
 const hasOverlaySlot = computed(() => !!useSlots().overlay)
 

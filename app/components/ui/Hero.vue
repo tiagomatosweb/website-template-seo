@@ -12,7 +12,7 @@
     >
       <template v-if="$slots.top || props.bgImage" #top>
         <slot name="top">
-          <UiBackdrop v-if="props.bgImage" :src="props.bgImage" :color="props.bgColor" />
+          <UiBackdrop v-if="props.bgImage" :src="props.bgImage" :color="props.bgColor" loading="eager" />
         </slot>
       </template>
 

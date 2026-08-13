@@ -43,6 +43,8 @@
           v-if="activeArea.map"
           :src="activeArea.map"
           :alt="`Map of the ${activeArea.name} service area`"
+          loading="lazy"
+          decoding="async"
           class="size-full object-cover"
         >
         <UIcon v-else name="i-fa6-solid-image" class="size-16 text-dimmed" />
