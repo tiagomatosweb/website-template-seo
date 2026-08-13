@@ -12,11 +12,21 @@ export default defineNuxtConfig({
     // },
   },
   nitro: {
+    compressPublicAssets: { gzip: true, brotli: true },
     prerender: {
       crawlLinks: true,
       routes: ['/'],
       autoSubfolderIndex: false,
       failOnError: true,
+    },
+  },
+
+  hooks: {
+    // Nuxt prefetches every image in a route's manifest entry as
+    // <link rel="prefetch" as="image">, which pulls below-fold photos down
+    // during the LCP window. Clearing `assets` keeps only script preloads.
+    'build:manifest': (manifest) => {
+      for (const entry of Object.values(manifest)) entry.assets = []
     },
   },
   css: ['~/assets/css/main.css', 'img-comparison-slider/dist/styles.css'],
