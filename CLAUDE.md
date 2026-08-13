@@ -341,7 +341,11 @@ Components reading `useAppConfig().site`: `SiteHeader`, `SiteFooter`, `Logo`, `G
 
 ### Co-located page partials
 
-`nuxt.config.ts` has a `pages:extend` hook that **strips any route whose file path contains `/_partials/`**, so a page can keep a `_partials/` subfolder of helpers imported explicitly by that page without them leaking into the router. No page uses this yet — it's a convention for when a page's copy outgrows its `<script setup>`. **Keep the hook** when editing config.
+`nuxt.config.ts` sets `ignore: ['**/pages/**/_partials/**']`, so a page can keep a `_partials/` subfolder of helpers imported explicitly by that page without them leaking into the router. **Keep that entry** when editing config.
+
+**Never import from `#components`, and don't path-import a project component either.** Nuxt's component auto-import covers `<script setup>` as well as `<template>`, so a component under `app/components/` needs **no import at all** — write `h(UiTrustGoogle)` or `<UiTrustGoogle>` directly. This holds even inside an `ignore`d `_partials/` file. Two exceptions:
+- **Nuxt core components** (`NuxtLink`, `NuxtImg`, …) are not in that auto-import scope. For a `<script>` reference — e.g. a dynamic `:is` — use `resolveComponent('NuxtLink')`.
+- **Plain `.ts` modules** (`app/content/*.ts`) get no component auto-import. There, path-import the SFC: `import UiTrustGoogle from '~/components/ui/TrustGoogle.vue'`.
 
 ### Routing notes
 

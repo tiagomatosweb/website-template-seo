@@ -130,7 +130,6 @@
 
 <script setup lang="ts">
 import { h } from 'vue'
-import { UiTrustGoogle } from '#components'
 import type { CardProps } from '~/components/ui/Card.vue'
 import type { FeatureItem } from '~/components/ui/FeatureItem.vue'
 import type { ListItem } from '~/components/ui/List.vue'

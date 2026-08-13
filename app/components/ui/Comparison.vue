@@ -14,12 +14,12 @@
       <div :class="ui.header({ featured: column.featured, class: [props.ui?.header, column.ui?.header] })">
         <UiIconTile v-bind="column.icon" :class="ui.headerLeadingIcon({ class: [props.ui?.headerLeadingIcon, column.ui?.headerLeadingIcon] })" />
         <div :class="ui.headerBody({ class: [props.ui?.headerBody, column.ui?.headerBody] })">
-          <h4 :class="ui.title({ featured: column.featured, class: [props.ui?.title, column.ui?.title] })">
+          <h3 :class="ui.title({ featured: column.featured, class: [props.ui?.title, column.ui?.title] })">
             <slot name="title" :column="column" :column-index="c" :featured="column.featured">
               <component :is="column.title" v-if="isRenderFn(column.title)" />
               <template v-else>{{ column.title }}</template>
             </slot>
-          </h4>
+          </h3>
           <div
             v-if="column.description || $slots.description"
             :class="ui.description({ featured: column.featured, class: [props.ui?.description, column.ui?.description] })"
@@ -94,7 +94,7 @@ const theme = tv({
     header: 'flex items-center gap-3 px-5 py-4 sm:px-6 sm:py-5',
     headerLeadingIcon: 'shrink-0',
     headerBody: 'min-w-0',
-    title: '',
+    title: 'heading-card',
     description: 'mt-1 text-sm',
     item: 'flex items-start gap-3 border-t border-default px-5 py-4 sm:px-6',
     itemLeadingIcon: 'shrink-0 self-center',

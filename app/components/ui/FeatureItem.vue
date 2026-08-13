@@ -5,12 +5,12 @@
     </slot>
 
     <div :class="ui.body({ class: props.ui?.body })">
-      <h4 :class="ui.title({ class: props.ui?.title })">
+      <h3 :class="ui.title({ class: props.ui?.title })">
         <slot name="title">
           <component :is="props.title" v-if="isRenderFn(props.title)" />
           <template v-else>{{ props.title }}</template>
         </slot>
-      </h4>
+      </h3>
 
       <div :class="ui.description({ class: props.ui?.description })">
         <slot name="description">
@@ -59,7 +59,7 @@ const theme = tv({
     root: 'flex gap-4',
     tile: 'shrink-0',
     body: '',
-    title: '',
+    title: 'heading-card',
     description: 'mt-1 text-sm leading-snug text-muted [&_p]:text-sm',
   },
   variants: {

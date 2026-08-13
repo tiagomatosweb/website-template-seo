@@ -117,6 +117,14 @@
    (reviews always read as the familiar gold star). */
 @utility text-star { @apply text-amber-400; }
 
+/* Heading VISUAL roles, decoupled from the tag. The base layer sizes a heading
+   by its tag, but the tag must follow document position so heading order stays
+   sequential (a card inside an h2 section is an h3, never an h4). Where the two
+   disagree, keep the semantic tag and name the visual role here. Each mirrors
+   the base-layer look of the tag it replaces. */
+@utility heading-card  { @apply text-lg font-bold leading-snug; }
+@utility heading-label { @apply text-sm font-bold uppercase tracking-widest; }
+
 @layer components {
   /* Lift — the interactive-card hover (Lifted role, shadow spec). Opt-in: add to
      cards that link / have an action; static cards stay flat. Single source. */

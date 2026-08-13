@@ -45,7 +45,7 @@
     </div>
 
     <template v-if="props.title || props.description" #footer>
-      <h4 v-if="props.title" :class="ui.title({ class: props.ui?.title })">{{ props.title }}</h4>
+      <h3 v-if="props.title" :class="ui.title({ class: props.ui?.title })">{{ props.title }}</h3>
       <p v-if="props.description" :class="ui.description({ class: props.ui?.description })">{{ props.description }}</p>
     </template>
   </UCard>
@@ -109,7 +109,7 @@ const theme = tv({
     beforeBadge: `${badge} left-3 top-3`,
     afterBadge: `${badge} right-3 top-3`,
     footer: 'p-4 sm:p-5',
-    title: '',
+    title: 'heading-card',
     description: 'mt-1 text-base text-muted',
   },
 })

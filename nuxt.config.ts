@@ -2,18 +2,25 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
+  $production: {
+    nitro: {
+      preset: 'cloudflare_module',
+      cloudflare: {
+        deployConfig: true,
+        wrangler: { name: 'website-template' },
+      },
+    },
+  },
   nitro: {
     prerender: {
+      crawlLinks: true,
+      routes: ['/'],
       autoSubfolderIndex: false,
-      failOnError: false,
+      failOnError: true,
     },
   },
   css: ['~/assets/css/main.css', 'img-comparison-slider/dist/styles.css'],
-  vue: {
-    compilerOptions: {
-      isCustomElement: tag => tag === 'img-comparison-slider',
-    },
-  },
+  ignore: ['**/pages/**/_partials/**'],
   imports: {
     dirs: ['content'],
   },

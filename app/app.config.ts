@@ -191,7 +191,7 @@ export default defineAppConfig({
         root: 'rounded-none z-10',
         container: 'px-4 sm:px-6 lg:px-8',
         title: 'text-3xl sm:text-4xl lg:text-5xl font-black',
-        description: 'text-lg leading-relaxed max-w-3xl mx-auto [&_p]:text-lg',
+        description: 'text-lg leading-relaxed text-toned max-w-3xl mx-auto [&_p]:text-lg',
       },
       variants: {
         variant: {
@@ -211,7 +211,7 @@ export default defineAppConfig({
         container: 'py-16 lg:py-24 gap-12 lg:gap-16',
         headline: 'mb-4 font-display text-sm font-semibold uppercase tracking-widest text-primary',
         title: 'font-display font-black text-4xl sm:text-5xl lg:text-6xl leading-[1.05] text-highlighted text-balance',
-        description: 'text-lg leading-relaxed text-pretty [&_p]:text-lg',
+        description: 'text-lg leading-relaxed text-toned text-pretty [&_p]:text-lg',
         body: 'mt-8',
         footer: 'mt-8',
       },
@@ -227,7 +227,7 @@ export default defineAppConfig({
       slots: {
         container: 'py-16 lg:py-24',
         title: 'text-3xl sm:text-4xl lg:text-5xl font-black',
-        description: 'text-lg leading-relaxed text-pretty [&_p]:text-lg',
+        description: 'text-lg leading-relaxed text-toned text-pretty [&_p]:text-lg',
         headline: 'font-display text-sm font-semibold uppercase tracking-widest text-primary',
         footer: 'mt-8',
         links: 'flex flex-wrap gap-x-6 gap-y-3',

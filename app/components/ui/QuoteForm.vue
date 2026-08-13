@@ -6,14 +6,14 @@
     >
       <UiIconTile icon="i-fa6-solid-check" variant="solid" />
       <div>
-        <h4>Thanks — we'll be in touch.</h4>
+        <h2 class="heading-card">Thanks — we'll be in touch.</h2>
         <p class="mt-1 text-sm text-muted">One of our specialists will call you shortly.</p>
       </div>
     </div>
 
     <UForm v-else :schema="schema" :state="state" class="grid grid-cols-1 gap-4" @submit="onSubmit">
       <div class="mb-2 text-center">
-        <h4 class="text-xl">{{ props.title }}</h4>
+        <h2 class="text-xl font-bold leading-snug">{{ props.title }}</h2>
         <p class="mt-2.5 text-sm leading-snug text-muted">{{ props.description }}</p>
       </div>
 

@@ -2,16 +2,21 @@
   <div>
     <SiteHeader />
 
-    <UPageSection
+    <UPageHero
       headline="Legal"
       title="Privacy Policy"
+      :ui="{
+        wrapper: 'text-left',
+        headline: 'justify-start',
+        description: 'text-pretty',
+      }"
     >
       <template #description>
         <p>Last updated {{ lastUpdated }}.</p>
         <p>{{ site.name }} respects your privacy. This policy explains what personal information we collect, how we use it, and the choices you have.</p>
       </template>
       <template #body>
-        <div class="mx-auto w-full max-w-3xl space-y-10 [&_h2]:mb-3 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:leading-snug [&_h2]:text-highlighted sm:[&_h2]:text-2xl">
+        <div class="w-full max-w-3xl space-y-10 [&_h2]:mb-3 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:leading-snug [&_h2]:text-highlighted sm:[&_h2]:text-2xl">
           <section>
             <h2>Who we are</h2>
             <p>{{ site.name }} provides its services across your local area. If you have any questions about this policy, you can reach us on {{ site.phone.display }}.</p>
@@ -66,7 +71,7 @@
           </section>
         </div>
       </template>
-    </UPageSection>
+    </UPageHero>
 
     <SiteFooter />
   </div>

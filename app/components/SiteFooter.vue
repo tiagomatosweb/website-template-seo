@@ -18,7 +18,7 @@
         </div>
 
         <div v-for="col in footerCols" :key="col.title">
-          <h6 class="mb-4 text-inverted">{{ col.title }}</h6>
+          <h2 class="heading-label mb-4 text-inverted">{{ col.title }}</h2>
           <ul class="space-y-2.5">
             <li v-for="link in col.links" :key="link.label">
               <NuxtLink :to="link.href" class="text-sm text-muted-inverted transition-colors hover:text-inverted">{{ link.label }}</NuxtLink>
@@ -27,7 +27,7 @@
         </div>
 
         <div>
-          <h6 class="mb-4 text-inverted">Get in touch</h6>
+          <h2 class="heading-label mb-4 text-inverted">Get in touch</h2>
           <ul class="space-y-3 text-sm text-muted-inverted">
             <li class="flex items-start gap-3">
               <UIcon name="i-fa6-solid-phone" class="mt-0.5 size-4 shrink-0 text-primary-400" />
