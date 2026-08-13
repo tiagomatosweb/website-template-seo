@@ -70,8 +70,6 @@ Known items to resolve:
 
 **Wire the form.** `app/components/ui/QuoteForm.vue`'s `onSubmit` currently just shows the success state without sending anywhere — point it at a real endpoint (a Nitro server route, form service, or CRM webhook) before launch.
 
-**Strip the dev tooling.** The `app/pages/blocks/` showcase pages and the `<UiDevMenu>` (in `app/app.vue`) are development aids. Remove them, or gate them behind `import.meta.dev`, so they don't ship to production.
-
 ## Documentation
 
 - **`README.md`** (this file) — rebrand checklist.

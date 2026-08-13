@@ -23,7 +23,7 @@ There is **no lint, no test suite, and no typecheck script** wired into `package
 - **@nuxt/ui v4** — the primary Nuxt module (`nuxt.config.ts` → `modules: ['@nuxt/ui', '@nuxtjs/seo']`). Its `UPage*` primitives (`UPageHero`, `UPageSection`, `UPageCTA`, `UPageGrid`, `UPageCard`) are the section scaffolding.
 - **@nuxtjs/seo** — the second module: sitemap, robots, schema-org, og-image, link-checker, driven by the `site`/`sitemap`/`robots` config in `nuxt.config.ts`.
 - **Tailwind v4** — tokens defined in CSS (`app/assets/css/main.css`), not a JS config.
-- **yup** — form validation in `QuoteForm.vue`.
+- **valibot** — form validation in `QuoteForm.vue` (modular, tree-shakeable; ~4 KiB in the bundle where yup was ~37 KiB).
 - **@nuxt/fonts** — font families declared in `nuxt.config.ts` `fonts.families`.
 
 ## Architecture
@@ -34,12 +34,13 @@ Nuxt 4 layout: everything is under `app/` (`app/pages`, `app/components`, `app/c
 
 - `app/pages/index.vue` — the home page. Real, flat `.vue` file.
 - `app/pages/privacy-policy.vue` — legal page (`noindex`).
-- `app/pages/blocks/<role>.vue` — **dev-only** component showcase / variant gallery (flat files: hero, trustbar, content, areas, design-system, cta, images, faq, reviews). These are reachable via the floating `UiDevMenu`. **They are development aids — do not link to them from the public site, and strip them before a real launch** (see README).
+
+There are **no dev-only showcase pages** in this repo — the `blocks/` gallery and the floating `UiDevMenu` that navigated it were removed so nothing dev-facing reaches the client bundle. The `ui/` components below are the vocabulary; `index.vue` is the reference for how they compose.
 
 **Components (`app/components/`) are auto-imported** with a path-based prefix:
 
 - **Site chrome (flat root):** `SiteHeader`, `SiteFooter`, `Logo`.
-- **`ui/` building blocks** (auto-imported as `Ui*`): `Hero`, `Card`, `IconTile`, `FeatureItem`, `FeatureItems`, `Steps`, `List`, `TrustList`, `TrustGoogle`, `GoogleStars`, `Areas`, `Review`, `Figure`, `Backdrop`, `Comparison`, `BeforeAfter`, `ZigZag`, `SectionDescription`, `SectionHeadline`, `SectionTitle`, `QuoteForm`, `DevMenu`.
+- **`ui/` building blocks** (auto-imported as `Ui*`): `Hero`, `Card`, `IconTile`, `FeatureItem`, `FeatureItems`, `Steps`, `List`, `TrustList`, `TrustGoogle`, `GoogleStars`, `Areas`, `Review`, `Figure`, `Backdrop`, `Comparison`, `BeforeAfter`, `ZigZag`, `SectionDescription`, `SectionHeadline`, `SectionTitle`, `QuoteForm`.
 
 There is **no `sections/` folder and no numbered-variant component family.** "Sections" on the home page are composed inline as `<UPageSection>` / `<UPageHero>` / `<UPageCTA>` blocks in `index.vue`, filled with `ui/` building blocks and page-local copy arrays. Only `Hero` and `Areas` are extracted as reusable section components.
 
@@ -111,7 +112,7 @@ The deciding rule: **a collection of cards uses `rounded-xl` (Card); a card that
 - `UCard` / `UPageCard` default to `rounded-xl` via `card.root` / `pageCard.root` in `app.config.ts`. For a standalone instance, pass `:ui="{ root: 'rounded-2xl' }"`.
 - **Nesting:** an inner element's radius must be ≤ its parent's.
 - `--ui-radius` in `main.css` is 6px (the Control role) so Nuxt UI buttons/inputs match.
-- **Per-site retune:** the `radii` table on `/blocks/design-system` is the reference.
+- **Per-site retune:** change `--ui-radius` and the role→class mapping above together.
 
 ### Shadow — role-based elevation spec (plain Tailwind classes)
 
@@ -121,7 +122,7 @@ Shadow encodes **elevation = importance + interactivity**. **Ring defines an edg
 |---|---|---|
 | Flat | *(no shadow)* + `ring ring-default` | **the default** — resting cards & panels; edge is a hairline ring (`--ui-border`) |
 | Raised | `shadow-sm` | a resting card on a busy/image background; a sticky header once detached |
-| Floating | `shadow-lg` | floats *over* content — dropdowns, popovers, slideovers, the `UiDevMenu` FAB |
+| Floating | `shadow-lg` | floats *over* content — dropdowns, popovers, slideovers |
 | Lifted | `shadow-xl` | **interactive card hover** AND standalone feature/hero panels — the most prominent elevation |
 | Glow | `shadow-lg shadow-{color}/40` | **the single primary CTA** in a view — a brand accent, used once; NOT an elevation tier |
 
@@ -191,7 +192,7 @@ Rule of thumb: reading copy is `text-lg` (and a bare `<p>` already is); anything
 
 The rule reads as: the bigger / more standalone the unit, the bigger its secondary text. A packed grid of feature tiles is `text-sm`; a single marketing card is `text-base`; a section intro is `text-lg`. When a description slot renders a bare `<p>`, pin it with `[&_p]:text-<size>` to match the rung (see FeatureItem/ZigZag) — otherwise the base `p { text-lg }` rule wins and it silently jumps to 18px.
 
-**Density can override the component — a *stacked* card drops a rung.** `pageCard` (`Card`) descriptions default to `text-base` (16), but that's the size for a card that stands relatively alone — a loose grid of 2–3 marketing cards, each with a CTA. When the same `UiCard` is **packed into a dense collection that reads as a feature grid** — 4+ cells, a seamless / bordered grid, no standout per-card CTA — the *group's* density sets the size, not the `UiCard` identity: treat each cell like a `FeatureItem` and drop the description to `text-sm` via `:ui="{ description: 'text-sm' }"` (or on a shared cell-`ui` object). Canonical example: the bordered "everything under one roof" service grid (`Content5` on `/blocks/content`).
+**Density can override the component — a *stacked* card drops a rung.** `pageCard` (`Card`) descriptions default to `text-base` (16), but that's the size for a card that stands relatively alone — a loose grid of 2–3 marketing cards, each with a CTA. When the same `UiCard` is **packed into a dense collection that reads as a feature grid** — 4+ cells, a seamless / bordered grid, no standout per-card CTA — the *group's* density sets the size, not the `UiCard` identity: treat each cell like a `FeatureItem` and drop the description to `text-sm` via `:ui="{ description: 'text-sm' }"` (or on a shared cell-`ui` object).
 
 **Paragraph color is always the neutral ladder** — never a brand variant (`text-primary-*`/`text-cta-*`); those are accent-only.
 
@@ -232,7 +233,7 @@ Same through-line as the size and color specs: **the tag carries the default; yo
 
 **The description rule: every description & caption is `text-muted` (500).** Section lead-ins (`pageHero`/`pageSection`/`pageCTA` descriptions), card descriptions (`pageCard`), and every component caption (`FeatureItem`, `Comparison`, `Figure` badge, `BeforeAfter`, `QuoteForm`) all resolve to `text-muted` — and this is *also* Nuxt UI's default for those description slots, so a section/card slot needs **no** color class; it's already muted. The three other rungs are the *exceptions* you reach for by role: running body prose → `text-default`; a quote or list label → `text-toned`; something faint → `text-dimmed`.
 
-**The gotcha this rule exists to prevent:** the muted comes from the framework *default*, so it's invisible in our code — which means **hand-rolled description markup that bypasses the slot silently falls through to `text-default` (700)** and reads too dark (this is exactly what happened to `Content4` on `/blocks/content`). So: when you build a description *outside* a `#description` slot (a custom header `<div>`, a bare `<p>` you place yourself), you **must** add `text-muted` explicitly. Inside the slot, inherit it.
+**The gotcha this rule exists to prevent:** the muted comes from the framework *default*, so it's invisible in our code — which means **hand-rolled description markup that bypasses the slot silently falls through to `text-default` (700)** and reads too dark (an easy one to miss, since nothing visibly breaks). So: when you build a description *outside* a `#description` slot (a custom header `<div>`, a bare `<p>` you place yourself), you **must** add `text-muted` explicitly. Inside the slot, inherit it.
 
 **The rule, enforced: use `<UiSectionDescription>` for any description outside a `#description` slot.** A custom 2-column section (image + `h3` + prose + CTAs) can't use `UPageSection`'s `description` prop, so its intro copy is hand-rolled — the exact case that drifts. **Don't hand-roll the wrapper classes.** Wrap the paragraphs in `<UiSectionDescription>` instead:
 ```vue

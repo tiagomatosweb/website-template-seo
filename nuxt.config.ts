@@ -31,11 +31,7 @@ export default defineNuxtConfig({
     trailingSlash: false,
     indexable: true,
   },
-  sitemap: {
-    exclude: ['/blocks/**', '/design-system'],
-  },
   robots: {
-    disallow: ['/blocks', '/design-system'],
     blockNonSeoBots: true,
   },
   ogImage: { enabled: false },

@@ -39,19 +39,26 @@
 </template>
 
 <script setup lang="ts">
-import * as yup from 'yup'
+import * as v from 'valibot'
 import type { ButtonProps, CardProps, FormSubmitEvent } from '@nuxt/ui'
 
-const schema = yup.object({
-  name: yup.string().required('Please enter your name'),
-  phone: yup
-    .string()
-    .required('Please enter a phone number')
-    .matches(/^[\d\s()+-]{8,}$/, 'Enter a valid phone number'),
-  email: yup.string().required('Please enter your email').email('Enter a valid email'),
+const schema = v.object({
+  name: v.pipe(v.string('Please enter your name'), v.trim(), v.nonEmpty('Please enter your name')),
+  phone: v.pipe(
+    v.string('Please enter a phone number'),
+    v.trim(),
+    v.nonEmpty('Please enter a phone number'),
+    v.regex(/^[\d\s()+-]{8,}$/, 'Enter a valid phone number'),
+  ),
+  email: v.pipe(
+    v.string('Please enter your email'),
+    v.trim(),
+    v.nonEmpty('Please enter your email'),
+    v.email('Enter a valid email'),
+  ),
 })
 
-type Schema = yup.InferType<typeof schema>
+type Schema = v.InferOutput<typeof schema>
 
 export interface QuoteFormProps {
   title?: string

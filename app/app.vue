@@ -3,7 +3,6 @@
     <UMain>
       <NuxtPage />
     </UMain>
-    <UiDevMenu />
   </UApp>
 </template>
 
