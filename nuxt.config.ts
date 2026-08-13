@@ -3,13 +3,13 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   $production: {
-    nitro: {
-      preset: 'cloudflare_module',
-      cloudflare: {
-        deployConfig: true,
-        wrangler: { name: 'website-template' },
-      },
-    },
+    // nitro: {
+    //   preset: 'cloudflare_module',
+    //   cloudflare: {
+    //     deployConfig: true,
+    //     wrangler: { name: 'website-template' },
+    //   },
+    // },
   },
   nitro: {
     prerender: {
