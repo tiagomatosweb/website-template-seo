@@ -17,6 +17,8 @@ npm run preview   # serve the built output locally
 
 There is **no lint, no test suite, and no typecheck script** wired into `package.json`. `npm run build` is the only gate. `nuxi typecheck` runs against Nuxt's generated tsconfig if you want type checking.
 
+`build` and `generate` both end with `node scripts/critical-css.mjs`, which inlines above-the-fold CSS into each prerendered page and turns the 251 KB stylesheet into a deferred `preload`+`onload` swap. **Any post-build step that rewrites HTML must also rewrite its `.gz`/`.br` siblings** — `nitro.compressPublicAssets` precompresses at build time, so Nitro would otherwise keep serving the stale compressed bytes. `scripts/critical-css.mjs` handles this; copy the pattern if you add another such step.
+
 ## Stack
 
 - **Nuxt 4** — all app code lives under `app/`.
