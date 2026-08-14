@@ -22,11 +22,18 @@ export default defineNuxtConfig({
   },
 
   hooks: {
-    // Nuxt prefetches every image in a route's manifest entry as
-    // <link rel="prefetch" as="image">, which pulls below-fold photos down
-    // during the LCP window. Clearing `assets` keeps only script preloads.
+    // `assets`: Nuxt prefetches every image in a route's manifest entry as
+    // <link rel="prefetch" as="image">, pulling below-fold photos down during
+    // the LCP window. `preload`: the modulepreload hints fetch ~200 KB of JS at
+    // High priority while the HTML is still arriving, delaying first paint on a
+    // throttled connection. Chunks are still discovered from the entry script's
+    // own imports — only the hint is dropped, which costs a little hydration
+    // latency and bought FCP 2.3s → 1.8s on a simulated mobile run.
     'build:manifest': (manifest) => {
-      for (const entry of Object.values(manifest)) entry.assets = []
+      for (const entry of Object.values(manifest)) {
+        entry.assets = []
+        entry.preload = false
+      }
     },
   },
   css: ['~/assets/css/main.css', 'img-comparison-slider/dist/styles.css'],
